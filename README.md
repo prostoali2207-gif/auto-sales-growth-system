@@ -11,16 +11,20 @@ Do not invent content ideas in isolation. Collect market evidence, identify repe
 - `agents/` — specialist agent instructions
 - `playbooks/` — repeatable operating procedures
 - `research/` — competitor and market research
-- `data-schemas/` — structured data definitions
+- `data-schemas/` — structured data definitions and agent handoff contracts
 - `reports/` — dated analysis outputs
 
-## Initial agent team
+## Agent team
 
-1. Market Intelligence Agent
-2. Strategist
+1. Market Intelligence Agent — active
+2. Strategist Agent — active
 3. Content Analyst
 4. Content Creator
 5. Sales / Lead Agent
 6. Analytics Agent
 
-The first active specialist is the Market Intelligence Agent.
+## Core operating loop
+
+`Market Intelligence → Strategist → Content Analyst / Creator → Publishing / Sales path → Analytics → Strategist → scale / iterate / kill → shared playbook`
+
+The Strategist does not create scripts or posts. It converts evidence into prioritized experiments with explicit audiences, funnel roles, KPIs, thresholds, sample requirements, decision rules, and downstream ownership.
