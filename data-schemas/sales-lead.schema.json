@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sales-lead.schema.json",
+  "title": "Auto Sales Lead Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lead_id",
+    "created_at",
+    "updated_at",
+    "state",
+    "temperature",
+    "identities",
+    "qualification",
+    "consent",
+    "attribution_id",
+    "version"
+  ],
+  "properties": {
+    "lead_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "state": {"$ref": "#/$defs/state"},
+    "state_reason": {"type": ["string", "null"]},
+    "temperature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "reason_codes", "evidence_event_ids", "assessed_at"],
+      "properties": {
+        "level": {"type": "string", "enum": ["HOT", "WARM", "COOL", "COLD", "UNKNOWN"]},
+        "reason_codes": {"type": "array", "items": {"type": "string"}},
+        "evidence_event_ids": {"type": "array", "items": {"type": "string"}},
+        "assessed_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "identities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["channel", "external_id", "verification_status"],
+        "properties": {
+          "channel": {"type": "string"},
+          "external_id": {"type": "string"},
+          "display_name": {"type": ["string", "null"]},
+          "verification_status": {"type": "string", "enum": ["VERIFIED", "UNVERIFIED", "AMBIGUOUS"]}
+        }
+      }
+    },
+    "preferred_language": {"type": ["string", "null"]},
+    "preferred_channel": {"type": ["string", "null"]},
+    "preferred_contact_time": {"type": ["string", "null"]},
+    "owner_id": {"type": ["string", "null"]},
+    "attribution_id": {"type": "string", "minLength": 1},
+    "requested_vehicle_ids": {"type": "array", "items": {"type": "string"}},
+    "alternative_vehicle_ids_presented": {"type": "array", "items": {"type": "string"}},
+    "qualification": {"$ref": "#/$defs/qualification"},
+    "objections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["objection_id", "class", "customer_words", "status", "recorded_at"],
+        "properties": {
+          "objection_id": {"type": "string"},
+          "class": {"type": "string", "enum": ["PRICE_VALUE", "FINANCE", "CONDITION_HISTORY", "TRUST", "AVAILABILITY", "TRADE_IN", "TIMING", "COMPARISON", "LOCATION_LOGISTICS", "NOT_READY", "OTHER"]},
+          "customer_words": {"type": "string"},
+          "status": {"type": "string", "enum": ["OPEN", "ANSWERED", "RESOLVED", "HANDED_OFF"]},
+          "recorded_at": {"type": "string", "format": "date-time"},
+          "resolved_at": {"type": ["string", "null"], "format": "date-time"},
+          "fact_ids_used": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "appointment": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["appointment_id", "status", "type", "start_at", "timezone", "location_id", "vehicle_ids"],
+          "properties": {
+            "appointment_id": {"type": "string"},
+            "status": {"type": "string", "enum": ["PROPOSED", "SET", "CONFIRMED", "CANCELLED", "RESCHEDULED", "SHOWED", "NO_SHOW", "COMPLETED"]},
+            "type": {"type": "string", "enum": ["SHOWROOM", "TEST_DRIVE", "VIDEO_CALL", "PHONE_CALL", "TRADE_IN_APPRAISAL", "FINANCE_REVIEW", "OTHER"]},
+            "start_at": {"type": "string", "format": "date-time"},
+            "timezone": {"type": "string"},
+            "location_id": {"type": "string"},
+            "vehicle_ids": {"type": "array", "items": {"type": "string"}},
+            "owner_id": {"type": ["string", "null"]},
+            "booking_confirmation_id": {"type": ["string", "null"]}
+          }
+        }
+      ]
+    },
+    "follow_up": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempt_count", "max_attempts", "automation_paused"],
+      "properties": {
+        "attempt_count": {"type": "integer", "minimum": 0},
+        "max_attempts": {"type": "integer", "minimum": 0},
+        "next_action_at": {"type": ["string", "null"], "format": "date-time"},
+        "next_action_reason": {"type": ["string", "null"]},
+        "automation_paused": {"type": "boolean"}
+      }
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contact_allowed", "marketing_opt_in", "opt_out", "policy_basis"],
+      "properties": {
+        "contact_allowed": {"type": "boolean"},
+        "marketing_opt_in": {"type": "boolean"},
+        "opt_out": {"type": "boolean"},
+        "policy_basis": {"type": "string"},
+        "captured_at": {"type": ["string", "null"], "format": "date-time"},
+        "expires_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "loss_reason": {"type": ["string", "null"]},
+    "deduplication_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_lead_id", "reason", "confidence"],
+        "properties": {
+          "candidate_lead_id": {"type": "string"},
+          "reason": {"type": "string"},
+          "confidence": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH"]}
+        }
+      }
+    },
+    "version": {"type": "integer", "minimum": 1}
+  },
+  "$defs": {
+    "state": {
+      "type": "string",
+      "enum": ["NEW", "CONTACTED", "ENGAGED", "QUALIFYING", "QUALIFIED", "APPOINTMENT_PROPOSED", "APPOINTMENT_SET", "APPOINTMENT_CONFIRMED", "SHOWED", "HUMAN_HANDOFF", "NEGOTIATION", "NURTURE", "WON", "LOST", "DISQUALIFIED", "CLOSED_NO_RESPONSE", "DO_NOT_CONTACT"]
+    },
+    "fieldValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "value", "updated_at", "source_event_id"],
+      "properties": {
+        "status": {"type": "string", "enum": ["KNOWN", "UNKNOWN", "DECLINED", "NOT_APPLICABLE"]},
+        "value": {},
+        "updated_at": {"type": "string", "format": "date-time"},
+        "source_event_id": {"type": ["string", "null"]}
+      }
+    },
+    "qualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vehicle_need", "budget", "payment_method", "intended_use", "timeframe", "geography", "trade_in", "appointment_readiness"],
+      "properties": {
+        "vehicle_need": {"$ref": "#/$defs/fieldValue"},
+        "budget": {"$ref": "#/$defs/fieldValue"},
+        "payment_method": {"$ref": "#/$defs/fieldValue"},
+        "intended_use": {"$ref": "#/$defs/fieldValue"},
+        "preferences": {"$ref": "#/$defs/fieldValue"},
+        "timeframe": {"$ref": "#/$defs/fieldValue"},
+        "geography": {"$ref": "#/$defs/fieldValue"},
+        "trade_in": {"$ref": "#/$defs/fieldValue"},
+        "decision_criteria": {"$ref": "#/$defs/fieldValue"},
+        "appointment_readiness": {"$ref": "#/$defs/fieldValue"},
+        "qualification_completed_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    }
+  }
+}
