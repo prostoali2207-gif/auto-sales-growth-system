@@ -317,7 +317,7 @@ Output must validate against `data-schemas/content-package.schema.json`.
 
 Required top-level sections:
 
-1. `identity_and_status` — package/spec/experiment IDs, status, version and blockers.
+1. Identity/status fields — `content_package_id`, `content_spec_id`, `experiment_id`, `status`, `version` and `blockers` at the schema's top level.
 2. `experiment_integrity` — tested variable, locks, bounds, free choices, forbidden deviations and compliance map.
 3. `claim_ledger` — exact claims, sources, proof and freshness/recheck state.
 4. `variants` — baseline/variant definitions and isolated differences.
