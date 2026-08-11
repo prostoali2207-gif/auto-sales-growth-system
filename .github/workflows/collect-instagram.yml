@@ -18,16 +18,24 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Collect competitor reels
         env:
           APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
         run: npm run collect:instagram -- config/competitors.json data/raw/instagram
+
+      - name: Extract 0s 1s 3s hook frames
+        run: node scripts/extract-hook-frames.mjs data/raw/instagram data/analysis/hook-frames
 
       - name: Upload collected data
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: instagram-competitor-data
-          path: data/raw/instagram
+          path: |
+            data/raw/instagram
+            data/analysis/hook-frames
           if-no-files-found: warn
           retention-days: 14
