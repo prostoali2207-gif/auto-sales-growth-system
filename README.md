@@ -19,7 +19,7 @@ Do not invent content ideas in isolation. Collect market evidence, identify repe
 1. Market Intelligence Agent — active
 2. Strategist Agent — active
 3. Content Analyst Agent — active
-4. Content Creator
+4. Content Creator Agent — active
 5. Sales / Lead Agent
 6. Analytics Agent
 
@@ -27,6 +27,6 @@ Do not invent content ideas in isolation. Collect market evidence, identify repe
 
 `Market Intelligence → Strategist → Content Analyst → Content Creator → Publishing / Sales path → Analytics → Strategist → scale / iterate / kill → shared playbook`
 
-The Strategist owns what/why/who/where/KPI/decision rule and does not create scripts or posts.
+The Strategist does not create scripts or posts. It converts evidence into prioritized experiments with explicit audiences, funnel roles, KPIs, thresholds, sample requirements, decision rules, and downstream ownership.
 
-The Content Analyst converts an approved experiment into a measurable content-mechanics specification: hook job and first seconds, semantic block order, pacing, proof, offer/CTA placement, visual requirements, experiment locks, Creator constraints, and Analytics checkpoints. It does not rewrite strategy or write the final script.
+The Content Analyst converts an approved experiment into a controlled content mechanics specification. The Content Creator turns that specification into a factual, shoot-ready production package without changing strategy or contaminating the experiment.
