@@ -1,34 +1,69 @@
 # Auto Sales Growth System
 
-System for researching the UAE automotive market and turning evidence into social-media content, leads, and vehicle sales.
+System for researching the UAE automotive market and turning evidence into social-media content, qualified leads, appointments and vehicle sales.
 
 ## Core principle
 
-Do not invent content ideas in isolation. Collect market evidence, identify repeatable patterns, test them, and measure business outcomes.
+Do not invent content ideas in isolation. Collect evidence, register a measurable experiment, preserve controlled variables, publish with attribution, connect inquiries to sales outcomes, and keep only learning supported by data.
 
 ## Structure
 
-- `agents/` — specialist agent instructions
+- `agents/` — specialist and orchestration instructions
 - `playbooks/` — repeatable operating procedures
-- `research/` — competitor and market research
-- `data-schemas/` — structured data definitions and agent handoff contracts
-- `reports/` — dated analysis outputs
+- `research/` — market and architecture research
+- `data-schemas/` — structured artifacts, state and handoff contracts
+- `reports/` — dated analysis and architecture audits
 
 ## Agent team
 
-1. Market Intelligence Agent — active
-2. Strategist Agent — active
-3. Content Analyst Agent — active
-4. Content Creator
-5. Sales / Lead Conversion Agent — active
-6. Analytics Agent
+1. Orchestrator / Growth Lead Agent — active
+2. Market Intelligence Agent — active
+3. Strategist Agent — active
+4. Content Analyst Agent — active
+5. Content Creator Agent — missing implementation; required P0 blocker
+6. Sales / Lead Conversion Agent — active
+7. Analytics Agent — active
+8. Publisher — human/manual for now
+
+The Orchestrator owns workflow state, routing, contract validation, retries, approvals and auditability. It never performs a specialist's work.
 
 ## Core operating loop
 
-`Market Intelligence → Strategist → Content Analyst → Content Creator → Publishing → attributed inquiry → Sales / Lead Conversion → appointment / sale → Analytics → Strategist → scale / iterate / kill → shared playbook`
+`Market Intelligence → Strategist → Content Analyst → Content Creator → human approval/publish → Sales path + measurement → Analytics → Strategist → SCALE / ITERATE / KILL → shared knowledge`
 
-The Strategist owns what/why/who/where/KPI/decision rule and does not create scripts or posts.
+## Operational contracts
 
-The Content Analyst converts an approved experiment into a measurable content-mechanics specification: hook job and first seconds, semantic block order, pacing, proof, offer/CTA placement, visual requirements, experiment locks, Creator constraints, and Analytics checkpoints. It does not rewrite strategy or write the final script.
+- `data-schemas/orchestrator-workflow.schema.json`
+- `data-schemas/agent-handoff.schema.json`
+- `data-schemas/market-intelligence-report.schema.json`
+- `data-schemas/strategy-experiment.schema.json`
+- `data-schemas/content-spec.schema.json`
+- `data-schemas/creator-deliverable.schema.json`
+- `data-schemas/publish-record.schema.json`
+- `data-schemas/analytics-observation.schema.json`
+- `data-schemas/analytics-decision.schema.json`
+- `data-schemas/lead-attribution.schema.json`
+- `data-schemas/sales-lead.schema.json`
+- `data-schemas/sales-lead-turn.schema.json`
+- `data-schemas/sales-funnel-event.schema.json`
+- `data-schemas/growth-knowledge-entry.schema.json`
 
-The Sales / Lead Conversion Agent answers and qualifies inbound interest using verified business facts only, preserves content-to-sale attribution, routes sensitive/high-intent cases to humans, and emits append-only funnel events.
+## Start here
+
+- Orchestrator: `agents/orchestrator-growth-lead.md`
+- Operating procedure: `playbooks/orchestration-runbook.md`
+- Architecture research: `research/orchestrator-architecture-sources-2026-08.md`
+- Full system audit: `reports/architecture-audit-2026-08-11.md`
+
+## Current readiness
+
+The repository is contract-ready, not yet production-ready.
+
+Before a live automated loop:
+
+1. install Content Creator Agent;
+2. add schema validation and fixtures in CI;
+3. implement persistent workflow/event/artifact/approval storage;
+4. connect verified inventory and commercial facts;
+5. connect publication/attribution/inquiry/outcome data;
+6. complete one end-to-end experiment whose entire history can be reconstructed without chat logs.
