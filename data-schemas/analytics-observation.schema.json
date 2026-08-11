@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "analytics-observation.schema.json",
+  "title": "Experiment Analytics Observation Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["experiment_id", "experiment_version", "observed_at", "timezone", "source_records", "metrics", "funnel_events"],
+  "properties": {
+    "experiment_id": {"type": "string", "minLength": 1},
+    "experiment_version": {"type": "string", "minLength": 1},
+    "content_spec_id": {"type": ["string", "null"]},
+    "creative_id": {"type": ["string", "null"]},
+    "platform": {"type": "string", "enum": ["INSTAGRAM", "YOUTUBE_SHORTS", "YOUTUBE_LONG", "TELEGRAM", "CRM", "WEBSITE", "WHATSAPP", "OTHER"]},
+    "platform_content_id": {"type": ["string", "null"]},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "timezone": {"type": "string"},
+    "source_records": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["source", "extracted_at", "provenance", "definition_version"],
+        "properties": {
+          "source": {"type": "string"},
+          "extracted_at": {"type": "string", "format": "date-time"},
+          "provenance": {"type": "string"},
+          "definition_version": {"type": "string"}
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["metric_name", "value", "unit", "availability", "window_start", "window_end"],
+        "properties": {
+          "metric_name": {"type": "string"},
+          "value": {"type": ["number", "null"]},
+          "unit": {"type": "string"},
+          "numerator": {"type": ["number", "null"]},
+          "denominator": {"type": ["number", "null"]},
+          "availability": {"type": "string", "enum": ["OBSERVED", "NOT_AVAILABLE", "NOT_COLLECTED", "DELAYED", "INVALID"]},
+          "window_start": {"type": "string", "format": "date-time"},
+          "window_end": {"type": "string", "format": "date-time"},
+          "segment": {"type": ["string", "null"]},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "funnel_events": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["event_id", "event_type", "occurred_at", "attribution_class"],
+        "properties": {
+          "event_id": {"type": "string"},
+          "event_type": {"type": "string", "enum": ["CLICK", "PROFILE_ACTION", "DM", "WHATSAPP", "CALL", "FORM", "INQUIRY", "QUALIFIED_LEAD", "APPOINTMENT", "TEST_DRIVE", "RESERVATION", "SALE", "FOLLOW_UP"]},
+          "occurred_at": {"type": "string", "format": "date-time"},
+          "touchpoint_id": {"type": ["string", "null"]},
+          "person_id": {"type": ["string", "null"]},
+          "lead_id": {"type": ["string", "null"]},
+          "vehicle_id": {"type": ["string", "null"]},
+          "offer_id": {"type": ["string", "null"]},
+          "appointment_id": {"type": ["string", "null"]},
+          "sale_id": {"type": ["string", "null"]},
+          "attribution_token": {"type": ["string", "null"]},
+          "attribution_class": {"type": "string", "enum": ["DIRECT_DETERMINISTIC", "SELF_REPORTED_CORROBORATED", "ASSISTED_DETERMINISTIC", "ASSISTED_PROBABILISTIC", "UNKNOWN"]},
+          "qualification": {"type": ["string", "null"], "enum": ["QUALIFIED", "PARTIALLY_QUALIFIED", "UNQUALIFIED", "SPAM_OR_DUPLICATE", "UNKNOWN", null]},
+          "qualification_version": {"type": ["string", "null"]},
+          "gross_profit": {"type": ["number", "null"]},
+          "currency": {"type": ["string", "null"]},
+          "metadata": {"type": "object"}
+        }
+      }
+    },
+    "execution_deviations": {"type": "array", "items": {"type": "string"}},
+    "data_quality_notes": {"type": "array", "items": {"type": "string"}}
+  }
+}
