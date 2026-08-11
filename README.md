@@ -20,7 +20,7 @@ Do not invent content ideas in isolation. Collect evidence, register a measurabl
 2. Market Intelligence Agent — active
 3. Strategist Agent — active
 4. Content Analyst Agent — active
-5. Content Creator Agent — missing implementation; required P0 blocker
+5. Content Creator Agent — active
 6. Sales / Lead Conversion Agent — active
 7. Analytics Agent — active
 8. Publisher — human/manual for now
@@ -51,6 +51,7 @@ The Orchestrator owns workflow state, routing, contract validation, retries, app
 ## Start here
 
 - Orchestrator: `agents/orchestrator-growth-lead.md`
+- Content Creator: `agents/content-creator.md`
 - Operating procedure: `playbooks/orchestration-runbook.md`
 - Architecture research: `research/orchestrator-architecture-sources-2026-08.md`
 - Full system audit: `reports/architecture-audit-2026-08-11.md`
@@ -61,9 +62,8 @@ The repository is contract-ready, not yet production-ready.
 
 Before a live automated loop:
 
-1. install Content Creator Agent;
-2. add schema validation and fixtures in CI;
-3. implement persistent workflow/event/artifact/approval storage;
-4. connect verified inventory and commercial facts;
-5. connect publication/attribution/inquiry/outcome data;
-6. complete one end-to-end experiment whose entire history can be reconstructed without chat logs.
+1. add schema validation and fixtures in CI;
+2. implement persistent workflow/event/artifact/approval storage;
+3. connect verified inventory and commercial facts;
+4. connect publication/attribution/inquiry/outcome data;
+5. complete one end-to-end experiment whose entire history can be reconstructed without chat logs.
