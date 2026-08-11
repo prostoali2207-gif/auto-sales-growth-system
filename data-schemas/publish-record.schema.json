@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "publish-record.schema.json",
+  "title": "Content Publication Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "publish_id",
+    "experiment_id",
+    "experiment_version",
+    "content_spec_id",
+    "creative_id",
+    "platform",
+    "platform_content_id",
+    "url",
+    "published_at",
+    "timezone",
+    "distribution_mode",
+    "actual_execution",
+    "tracking",
+    "approval",
+    "status"
+  ],
+  "properties": {
+    "publish_id": {
+      "type": "string"
+    },
+    "experiment_id": {
+      "type": "string"
+    },
+    "experiment_version": {
+      "type": "string"
+    },
+    "content_spec_id": {
+      "type": "string"
+    },
+    "creative_id": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "INSTAGRAM",
+        "YOUTUBE_SHORTS",
+        "YOUTUBE_LONG",
+        "TELEGRAM"
+      ]
+    },
+    "platform_content_id": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "distribution_mode": {
+      "type": "string",
+      "enum": [
+        "ORGANIC",
+        "PAID",
+        "BOOSTED",
+        "TRIAL",
+        "OWNED"
+      ]
+    },
+    "actual_execution": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "duration_seconds",
+        "block_timestamps",
+        "deviations"
+      ],
+      "properties": {
+        "duration_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "block_timestamps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "block_id",
+              "start_seconds",
+              "end_seconds"
+            ],
+            "properties": {
+              "block_id": {
+                "type": "string"
+              },
+              "start_seconds": {
+                "type": "number",
+                "minimum": 0
+              },
+              "end_seconds": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "deviations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tracking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attribution_token",
+        "destination",
+        "vehicle_ids"
+      ],
+      "properties": {
+        "attribution_token": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "destination": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vehicle_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approved_by",
+        "approved_at",
+        "approval_id"
+      ],
+      "properties": {
+        "approved_by": {
+          "type": "string"
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "approval_id": {
+          "type": "string"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PUBLISHED",
+        "FAILED",
+        "REMOVED",
+        "CORRECTED"
+      ]
+    },
+    "failure_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
