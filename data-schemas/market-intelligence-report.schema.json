@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "market-intelligence-report.schema.json",
+  "title": "Market Intelligence Report Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_id",
+    "created_at",
+    "scope",
+    "patterns",
+    "weak_patterns",
+    "buyer_signals",
+    "test_candidates",
+    "unknowns",
+    "sources"
+  ],
+  "properties": {
+    "report_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "market",
+        "platforms",
+        "date_range",
+        "accounts_count",
+        "items_count"
+      ],
+      "properties": {
+        "market": {
+          "type": "string"
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "INSTAGRAM",
+              "YOUTUBE_SHORTS",
+              "YOUTUBE_LONG",
+              "TELEGRAM",
+              "WEB",
+              "OTHER"
+            ]
+          }
+        },
+        "date_range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "from",
+            "to"
+          ],
+          "properties": {
+            "from": {
+              "type": "string",
+              "format": "date"
+            },
+            "to": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "accounts_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "items_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pattern"
+      }
+    },
+    "weak_patterns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pattern"
+      }
+    },
+    "buyer_signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "signal",
+          "evidence_refs",
+          "frequency"
+        ],
+        "properties": {
+          "signal": {
+            "type": "string"
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "frequency": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "test_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "hypothesis",
+          "mechanism",
+          "change",
+          "controls",
+          "suggested_kpi",
+          "minimum_attempts",
+          "evidence_refs"
+        ],
+        "properties": {
+          "hypothesis": {
+            "type": "string"
+          },
+          "mechanism": {
+            "type": "string"
+          },
+          "change": {
+            "type": "string"
+          },
+          "controls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "suggested_kpi": {
+            "type": "string"
+          },
+          "minimum_attempts": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "url",
+          "observed_at",
+          "source_type"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "source_type": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "pattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pattern_id",
+        "mechanic",
+        "evidence_count",
+        "examples",
+        "commercial_purpose",
+        "confidence",
+        "limitations"
+      ],
+      "properties": {
+        "pattern_id": {
+          "type": "string"
+        },
+        "mechanic": {
+          "type": "string"
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "commercial_purpose": {
+          "type": "string",
+          "enum": [
+            "REACH",
+            "TRUST",
+            "LEAD",
+            "DIRECT_SALE"
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
