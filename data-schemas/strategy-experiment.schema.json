@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strategy-experiment.schema.json",
+  "title": "Auto Sales Growth Strategy Experiment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "status",
+    "priority",
+    "decision_question",
+    "hypothesis",
+    "evidence_basis",
+    "audience",
+    "primary_funnel_role",
+    "platform",
+    "mechanism_to_test",
+    "commercial_path",
+    "primary_kpi",
+    "baseline",
+    "success_threshold",
+    "failure_threshold",
+    "minimum_sample",
+    "test_window",
+    "variable_being_tested",
+    "controlled_variables",
+    "decision_rule",
+    "downstream_owner"
+  ],
+  "properties": {
+    "experiment_id": {"type": "string", "minLength": 1},
+    "status": {
+      "type": "string",
+      "enum": ["BACKLOG", "APPROVED", "RUNNING", "CONTINUE", "ITERATE", "SCALE", "KILL", "PARKED", "INCONCLUSIVE"]
+    },
+    "priority": {"type": "string", "enum": ["P0", "P1", "P2", "PARKED"]},
+    "decision_question": {"type": "string", "minLength": 1},
+    "hypothesis": {"type": "string", "minLength": 1},
+    "evidence_basis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_class", "reference", "finding"],
+        "properties": {
+          "evidence_class": {"type": "string", "enum": ["A", "B", "C", "D", "E"]},
+          "reference": {"type": "string", "minLength": 1},
+          "finding": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "confidence_before_test": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH"]},
+    "audience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buying_stage", "need_or_job"],
+      "properties": {
+        "buying_stage": {"type": "string"},
+        "need_or_job": {"type": "string"},
+        "budget_or_payment_context": {"type": ["string", "null"]},
+        "trust_or_risk_concern": {"type": ["string", "null"]},
+        "geography_or_language": {"type": ["string", "null"]},
+        "inventory_fit": {"type": ["string", "null"]}
+      }
+    },
+    "primary_funnel_role": {"type": "string", "enum": ["REACH", "TRUST", "LEAD", "DIRECT_SALE"]},
+    "secondary_funnel_role": {"type": ["string", "null"], "enum": ["REACH", "TRUST", "LEAD", "DIRECT_SALE", null]},
+    "platform": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "enum": ["INSTAGRAM", "YOUTUBE_SHORTS", "YOUTUBE_LONG", "TELEGRAM"]}
+    },
+    "mechanism_to_test": {"type": "string", "minLength": 1},
+    "commercial_path": {"type": "string", "minLength": 1},
+    "primary_kpi": {"type": "string", "minLength": 1},
+    "secondary_kpis": {"type": "array", "items": {"type": "string"}},
+    "guardrail_metrics": {"type": "array", "items": {"type": "string"}},
+    "baseline": {"type": "string", "minLength": 1},
+    "success_threshold": {"type": "string", "minLength": 1},
+    "failure_threshold": {"type": "string", "minLength": 1},
+    "minimum_sample": {"type": "string", "minLength": 1},
+    "test_window": {"type": "string", "minLength": 1},
+    "variable_being_tested": {"type": "string", "minLength": 1},
+    "controlled_variables": {"type": "array", "items": {"type": "string"}},
+    "execution_constraints": {"type": "array", "items": {"type": "string"}},
+    "attribution_method": {"type": ["string", "null"]},
+    "decision_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["continue", "iterate", "scale", "kill"],
+      "properties": {
+        "continue": {"type": "string"},
+        "iterate": {"type": "string"},
+        "scale": {"type": "string"},
+        "kill": {"type": "string"}
+      }
+    },
+    "downstream_owner": {"type": "string", "enum": ["CONTENT_ANALYST", "SALES_LEAD_AGENT", "ANALYTICS_AGENT", "HUMAN"]},
+    "learning_note": {"type": ["string", "null"]}
+  }
+}
