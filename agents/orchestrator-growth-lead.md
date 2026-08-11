@@ -329,9 +329,9 @@ Before acting, verify:
 - Analytics recommendation is not confused with Strategist decision;
 - every active experiment has a next action.
 
-## Known bootstrap blocker
+## Content Creator capability
 
-At the time of this agent's creation, the repository does not contain agents/content-creator.md. The creator-deliverable contract exists, but CREATIVE_REQUIRED must become BLOCKED with AGENT_UNAVAILABLE until the Content Creator Agent is installed and registered. Do not route creative work to Content Analyst, Strategist or Orchestrator as a workaround.
+The Content Creator is installed at agents/content-creator.md and its sole canonical output contract is data-schemas/creator-deliverable.schema.json. Route CREATIVE_REQUIRED only when the current content spec is READY_FOR_CREATOR and all Creator input gates pass. Validate the deliverable before moving to human creative approval; do not accept undeclared wrapper schemas or legacy content-package artifacts.
 
 ## Final principle
 
