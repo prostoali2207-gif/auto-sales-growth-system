@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-handoff.schema.json",
+  "title": "Agent Handoff Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_id",
+    "workflow_id",
+    "experiment_id",
+    "source_agent",
+    "target_owner",
+    "task_type",
+    "contract",
+    "idempotency_key",
+    "attempt",
+    "created_at",
+    "input_artifacts",
+    "requested_action",
+    "validation"
+  ],
+  "properties": {
+    "handoff_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workflow_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "experiment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_agent": {
+      "type": "string",
+      "enum": [
+        "ORCHESTRATOR",
+        "MARKET_INTELLIGENCE",
+        "STRATEGIST",
+        "CONTENT_ANALYST",
+        "CONTENT_CREATOR",
+        "PUBLISHER",
+        "SALES_LEAD_AGENT",
+        "ANALYTICS",
+        "HUMAN",
+        "SYSTEM"
+      ]
+    },
+    "target_owner": {
+      "type": "string",
+      "enum": [
+        "ORCHESTRATOR",
+        "MARKET_INTELLIGENCE",
+        "STRATEGIST",
+        "CONTENT_ANALYST",
+        "CONTENT_CREATOR",
+        "PUBLISHER",
+        "SALES_LEAD_AGENT",
+        "ANALYTICS",
+        "HUMAN"
+      ]
+    },
+    "task_type": {
+      "type": "string",
+      "enum": [
+        "RESEARCH",
+        "DESIGN_EXPERIMENT",
+        "APPROVE_EXPERIMENT",
+        "ANALYZE_CONTENT",
+        "CREATE_CONTENT",
+        "APPROVE_CREATIVE",
+        "PUBLISH",
+        "HANDLE_LEAD",
+        "COLLECT_MEASUREMENT",
+        "ANALYZE_EXPERIMENT",
+        "DECIDE_PORTFOLIO",
+        "APPROVE_SCALE",
+        "REPAIR_DATA",
+        "RESOLVE_CONTRACT_VIOLATION"
+      ]
+    },
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_id",
+        "schema_version"
+      ],
+      "properties": {
+        "schema_id": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "string"
+        }
+      }
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "parent_handoff_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "due_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "input_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifactRef"
+      }
+    },
+    "requested_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "immutable_constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "errors"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "field",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "field": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/result"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_type",
+        "artifact_id",
+        "uri",
+        "version",
+        "sha256_or_revision"
+      ],
+      "properties": {
+        "artifact_type": {
+          "type": "string"
+        },
+        "artifact_id": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "sha256_or_revision": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "completed_at",
+        "output_artifacts",
+        "contract_errors"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "COMPLETED",
+            "BLOCKED",
+            "NEEDS_REVISION",
+            "FAILED",
+            "CANCELLED"
+          ]
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "output_artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifactRef"
+          }
+        },
+        "contract_errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
