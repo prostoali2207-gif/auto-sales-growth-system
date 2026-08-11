@@ -20,12 +20,12 @@ Do not invent content ideas in isolation. Collect market evidence, identify repe
 2. Strategist Agent — active
 3. Content Analyst Agent — active
 4. Content Creator Agent — active
-5. Sales / Lead Agent
+5. Sales / Lead Conversion Agent — active
 6. Analytics Agent
 
 ## Core operating loop
 
-`Market Intelligence → Strategist → Content Analyst → Content Creator → Publishing / Sales path → Analytics → Strategist → scale / iterate / kill → shared playbook`
+`Market Intelligence → Strategist → Content Analyst → Content Creator → Publishing → attributed inquiry → Sales / Lead Conversion → appointment / sale → Analytics → Strategist → scale / iterate / kill → shared playbook`
 
 The Strategist owns what/why/who/where/KPI/decision rule and does not create scripts or posts.
 
