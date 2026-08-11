@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "content-package.schema.json",
+  "title": "Auto Sales Growth Shoot-Ready Content Package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "content_package_id",
+    "content_spec_id",
+    "experiment_id",
+    "status",
+    "version",
+    "experiment_integrity",
+    "claim_ledger",
+    "variants",
+    "platform_deliverables",
+    "production_plan",
+    "pre_publish_checks",
+    "analytics_execution_record"
+  ],
+  "properties": {
+    "content_package_id": {"type": "string", "minLength": 1},
+    "content_spec_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": "string", "minLength": 1},
+    "status": {
+      "type": "string",
+      "enum": ["READY_TO_SHOOT", "BLOCKED_MISSING_FACT", "NEEDS_CONTENT_ANALYST_REVISION", "NEEDS_STRATEGIST_REVISION"]
+    },
+    "version": {"type": "string", "minLength": 1},
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["blocked_item", "reason", "required_from", "affected_deliverables"],
+        "properties": {
+          "blocked_item": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "required_from": {"type": "string", "minLength": 1},
+          "affected_deliverables": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "experiment_integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tested_variable", "locked_variables", "bounded_variables", "free_variables", "forbidden_deviations", "compliance_map"],
+      "properties": {
+        "tested_variable": {"type": "string", "minLength": 1},
+        "locked_variables": {"type": "array", "items": {"type": "string"}},
+        "bounded_variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["variable", "allowed_range", "chosen_value"],
+            "properties": {
+              "variable": {"type": "string"},
+              "allowed_range": {"type": "string"},
+              "chosen_value": {"type": "string"}
+            }
+          }
+        },
+        "free_variables": {"type": "array", "items": {"type": "string"}},
+        "forbidden_deviations": {"type": "array", "items": {"type": "string"}},
+        "compliance_map": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["requirement", "execution_reference", "compliant"],
+            "properties": {
+              "requirement": {"type": "string"},
+              "execution_reference": {"type": "array", "items": {"type": "string"}},
+              "compliant": {"type": "boolean"},
+              "note": {"type": ["string", "null"]}
+            }
+          }
+        }
+      }
+    },
+    "claim_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "exact_claim", "claim_class", "source_reference", "verification_status", "proof_reference", "pre_publish_recheck_required"],
+        "properties": {
+          "claim_id": {"type": "string", "minLength": 1},
+          "exact_claim": {"type": "string", "minLength": 1},
+          "claim_class": {
+            "type": "string",
+            "enum": ["VEHICLE_IDENTITY_SPEC", "PRICE_OFFER", "FINANCE", "AVAILABILITY_SCARCITY", "MILEAGE", "CONDITION_HISTORY", "WARRANTY", "COMPARISON", "LEGAL_PROCESS", "TESTIMONIAL", "PERFORMANCE", "OTHER"]
+          },
+          "source_reference": {"type": "string", "minLength": 1},
+          "verification_status": {"type": "string", "enum": ["VERIFIED", "MISSING", "STALE", "CONFLICTING"]},
+          "valid_as_of": {"type": ["string", "null"]},
+          "proof_reference": {"type": "array", "items": {"type": "string"}},
+          "pre_publish_recheck_required": {"type": "boolean"},
+          "recheck_owner": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["variant_id", "role", "tested_variable_value", "changed_elements", "invariant_elements", "equivalence_notes"],
+        "properties": {
+          "variant_id": {"type": "string", "minLength": 1},
+          "role": {"type": "string", "enum": ["BASELINE", "TEST_VARIANT", "SINGLE_EXECUTION"]},
+          "tested_variable_value": {"type": ["string", "null"]},
+          "changed_elements": {"type": "array", "items": {"type": "string"}},
+          "invariant_elements": {"type": "array", "items": {"type": "string"}},
+          "equivalence_notes": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "platform_deliverables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["platform", "variant_id", "language", "planned_duration", "opening_contract", "script_blocks", "on_screen_text", "shot_list", "edit_map", "publishing_copy"],
+        "properties": {
+          "platform": {"type": "string", "enum": ["INSTAGRAM", "YOUTUBE_SHORTS", "YOUTUBE_LONG", "TELEGRAM"]},
+          "variant_id": {"type": "string", "minLength": 1},
+          "language": {"type": "string", "minLength": 1},
+          "planned_duration": {"type": "string", "minLength": 1},
+          "opening_contract": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["first_visible_frame", "first_spoken_words", "first_on_screen_text", "event_by_1s", "information_by_3s", "viewer_question", "payoff_reference"],
+            "properties": {
+              "first_visible_frame": {"type": "string", "minLength": 1},
+              "first_spoken_words": {"type": ["string", "null"]},
+              "first_on_screen_text": {"type": ["string", "null"]},
+              "event_by_1s": {"type": "string", "minLength": 1},
+              "information_by_3s": {"type": "string", "minLength": 1},
+              "viewer_question": {"type": "string", "minLength": 1},
+              "payoff_reference": {"type": "array", "items": {"type": "string"}}
+            }
+          },
+          "script_blocks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["block_id", "planned_time_range", "spoken_lines", "on_screen_text_ids", "shot_ids", "claim_ids", "proof_references", "transition_line_or_action"],
+              "properties": {
+                "block_id": {"type": "string", "minLength": 1},
+                "planned_time_range": {"type": "string", "minLength": 1},
+                "spoken_lines": {"type": "array", "items": {"type": "string"}},
+                "on_screen_text_ids": {"type": "array", "items": {"type": "string"}},
+                "shot_ids": {"type": "array", "items": {"type": "string"}},
+                "claim_ids": {"type": "array", "items": {"type": "string"}},
+                "proof_references": {"type": "array", "items": {"type": "string"}},
+                "transition_line_or_action": {"type": ["string", "null"]}
+              }
+            }
+          },
+          "on_screen_text": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["text_id", "exact_text", "time_range", "placement", "style_job", "claim_id"],
+              "properties": {
+                "text_id": {"type": "string", "minLength": 1},
+                "exact_text": {"type": "string", "minLength": 1},
+                "time_range": {"type": "string", "minLength": 1},
+                "placement": {"type": "string", "minLength": 1},
+                "style_job": {"type": "string", "minLength": 1},
+                "claim_id": {"type": ["string", "null"]}
+              }
+            }
+          },
+          "shot_list": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["shot_id", "block_id", "edit_sequence", "estimated_duration_seconds", "shot_type", "framing", "subject_action", "spoken_line_references", "on_screen_text_references", "claim_ids", "proof_references", "capture_notes", "fallback"],
+              "properties": {
+                "shot_id": {"type": "string", "minLength": 1},
+                "block_id": {"type": "string", "minLength": 1},
+                "edit_sequence": {"type": "integer", "minimum": 1},
+                "estimated_duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+                "shot_type": {"type": "string", "minLength": 1},
+                "framing": {"type": "string", "minLength": 1},
+                "subject_action": {"type": "string", "minLength": 1},
+                "spoken_line_references": {"type": "array", "items": {"type": "string"}},
+                "on_screen_text_references": {"type": "array", "items": {"type": "string"}},
+                "claim_ids": {"type": "array", "items": {"type": "string"}},
+                "proof_references": {"type": "array", "items": {"type": "string"}},
+                "capture_notes": {"type": "array", "items": {"type": "string"}},
+                "fallback": {"type": ["string", "null"]}
+              }
+            }
+          },
+          "edit_map": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["aspect_ratio", "frame_order", "opening_frame_reference", "payoff_frame_reference", "caption_treatment", "audio_plan", "text_safe_placement", "proof_timestamps", "offer_timestamp", "cta_timestamp", "prohibited_edit_choices"],
+            "properties": {
+              "aspect_ratio": {"type": "string", "minLength": 1},
+              "frame_order": {"type": "array", "items": {"type": "string"}},
+              "opening_frame_reference": {"type": "string", "minLength": 1},
+              "payoff_frame_reference": {"type": "array", "items": {"type": "string"}},
+              "caption_treatment": {"type": "array", "items": {"type": "string"}},
+              "audio_plan": {"type": "array", "items": {"type": "string"}},
+              "text_safe_placement": {"type": "array", "items": {"type": "string"}},
+              "proof_timestamps": {"type": "array", "items": {"type": "string"}},
+              "offer_timestamp": {"type": ["string", "null"]},
+              "cta_timestamp": {"type": ["string", "null"]},
+              "prohibited_edit_choices": {"type": "array", "items": {"type": "string"}}
+            }
+          },
+          "publishing_copy": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "thumbnail_brief", "caption_or_description", "pinned_comment", "cta_text", "cta_destination", "hashtags_or_mentions", "upload_notes"],
+            "properties": {
+              "title": {"type": ["string", "null"]},
+              "thumbnail_brief": {"type": ["string", "null"]},
+              "caption_or_description": {"type": ["string", "null"]},
+              "pinned_comment": {"type": ["string", "null"]},
+              "cta_text": {"type": ["string", "null"]},
+              "cta_destination": {"type": ["string", "null"]},
+              "hashtags_or_mentions": {"type": "array", "items": {"type": "string"}},
+              "upload_notes": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "production_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["people", "equipment", "locations", "props_and_documents", "permissions", "vehicle_preparation", "capture_order", "estimated_shoot_time", "contingencies"],
+      "properties": {
+        "people": {"type": "array", "items": {"type": "string"}},
+        "equipment": {"type": "array", "items": {"type": "string"}},
+        "locations": {"type": "array", "items": {"type": "string"}},
+        "props_and_documents": {"type": "array", "items": {"type": "string"}},
+        "permissions": {"type": "array", "items": {"type": "string"}},
+        "vehicle_preparation": {"type": "array", "items": {"type": "string"}},
+        "capture_order": {"type": "array", "items": {"type": "string"}},
+        "estimated_shoot_time": {"type": "string", "minLength": 1},
+        "contingencies": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "pre_publish_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_id", "check", "owner", "status", "evidence"],
+        "properties": {
+          "check_id": {"type": "string", "minLength": 1},
+          "check": {"type": "string", "minLength": 1},
+          "owner": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "enum": ["PENDING", "PASSED", "FAILED", "NOT_APPLICABLE"]},
+          "evidence": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "analytics_execution_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content_post_id", "final_asset_id", "actual_duration", "actual_tested_variable_value", "actual_first_frame_event", "actual_first_3s_event", "actual_block_timestamps", "actual_proof_timestamps", "actual_offer_timestamp", "actual_cta_timestamp", "execution_deviations", "missing_or_substituted_shots", "production_anomalies", "final_claim_reverification"],
+      "properties": {
+        "content_post_id": {"type": ["string", "null"]},
+        "final_asset_id": {"type": ["string", "null"]},
+        "actual_duration": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "actual_tested_variable_value": {"type": ["string", "null"]},
+        "actual_first_frame_event": {"type": ["string", "null"]},
+        "actual_first_3s_event": {"type": ["string", "null"]},
+        "actual_block_timestamps": {"type": "array", "items": {"type": "string"}},
+        "actual_proof_timestamps": {"type": "array", "items": {"type": "string"}},
+        "actual_offer_timestamp": {"type": ["string", "null"]},
+        "actual_cta_timestamp": {"type": ["string", "null"]},
+        "execution_deviations": {"type": "array", "items": {"type": "string"}},
+        "missing_or_substituted_shots": {"type": "array", "items": {"type": "string"}},
+        "production_anomalies": {"type": "array", "items": {"type": "string"}},
+        "final_claim_reverification": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
