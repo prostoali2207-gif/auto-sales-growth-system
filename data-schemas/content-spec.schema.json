@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "content-spec.schema.json",
+  "title": "Auto Sales Growth Content Mechanics Specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "content_spec_id",
+    "experiment_id",
+    "status",
+    "source_strategy_reference",
+    "experiment_lock",
+    "content_objective",
+    "hook_specification",
+    "structural_timeline",
+    "pacing",
+    "proof_architecture",
+    "offer_and_cta",
+    "visual_requirements",
+    "creator_handoff",
+    "analytics_handoff"
+  ],
+  "properties": {
+    "content_spec_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": "string", "minLength": 1},
+    "status": {
+      "type": "string",
+      "enum": ["READY_FOR_CREATOR", "BLOCKED_MISSING_INPUT", "NEEDS_STRATEGIST_REVISION"]
+    },
+    "source_strategy_reference": {"type": "string", "minLength": 1},
+    "experiment_lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tested_variable", "locked_variables", "bounded_variables", "free_variables", "forbidden_deviations"],
+      "properties": {
+        "tested_variable": {"type": "string", "minLength": 1},
+        "locked_variables": {"type": "array", "items": {"type": "string"}},
+        "bounded_variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["variable", "allowed_range"],
+            "properties": {
+              "variable": {"type": "string"},
+              "allowed_range": {"type": "string"}
+            }
+          }
+        },
+        "free_variables": {"type": "array", "items": {"type": "string"}},
+        "forbidden_deviations": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "content_objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform", "primary_funnel_role", "audience_signal", "promise_or_problem", "desired_viewer_action"],
+      "properties": {
+        "platform": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "enum": ["INSTAGRAM", "YOUTUBE_SHORTS", "YOUTUBE_LONG", "TELEGRAM"]}
+        },
+        "primary_funnel_role": {"type": "string", "enum": ["REACH", "TRUST", "LEAD", "DIRECT_SALE"]},
+        "audience_signal": {"type": "string", "minLength": 1},
+        "promise_or_problem": {"type": "string", "minLength": 1},
+        "desired_viewer_action": {"type": "string", "minLength": 1}
+      }
+    },
+    "hook_specification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hook_type", "first_frame_job", "first_1s_event", "first_3s_information", "viewer_question_or_tension", "payoff_requirement"],
+      "properties": {
+        "hook_type": {
+          "type": "string",
+          "enum": ["OUTCOME_FIRST", "PROBLEM_TENSION", "SPECIFIC_VALUE", "CONTRAST", "REVEAL", "DEMONSTRATION", "QUESTION", "HUMAN_EVENT", "COLD_OPEN", "OTHER"]
+        },
+        "first_frame_job": {"type": "string", "minLength": 1},
+        "first_1s_event": {"type": "string", "minLength": 1},
+        "first_3s_information": {"type": "string", "minLength": 1},
+        "viewer_question_or_tension": {"type": "string", "minLength": 1},
+        "payoff_requirement": {"type": "string", "minLength": 1}
+      }
+    },
+    "structural_timeline": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["block_id", "job", "information_required", "visual_requirement", "target_time_range", "transition_job", "locked"],
+        "properties": {
+          "block_id": {"type": "string", "minLength": 1},
+          "job": {"type": "string", "minLength": 1},
+          "information_required": {"type": "array", "items": {"type": "string"}},
+          "visual_requirement": {"type": "array", "items": {"type": "string"}},
+          "proof_requirement": {"type": "array", "items": {"type": "string"}},
+          "target_time_range": {"type": "string", "minLength": 1},
+          "transition_job": {"type": "string", "minLength": 1},
+          "locked": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "pacing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_duration_range", "rationale", "fast_zones", "slow_zones", "removable_material_rules"],
+      "properties": {
+        "target_duration_range": {"type": "string", "minLength": 1},
+        "rationale": {"type": "string", "minLength": 1},
+        "fast_zones": {"type": "array", "items": {"type": "string"}},
+        "slow_zones": {"type": "array", "items": {"type": "string"}},
+        "removable_material_rules": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "proof_architecture": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_supported", "proof_type", "must_be_visible_or_stated", "placement", "source_or_verification", "failure_condition"],
+        "properties": {
+          "claim_supported": {"type": "string"},
+          "proof_type": {"type": "string"},
+          "must_be_visible_or_stated": {"type": "string"},
+          "placement": {"type": "string"},
+          "source_or_verification": {"type": "string"},
+          "failure_condition": {"type": "string"}
+        }
+      }
+    },
+    "offer_and_cta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["offer_constraints", "offer_placement", "cta_objective", "cta_destination", "cta_first_appearance", "cta_context_trigger", "tracking_requirements", "competing_actions_forbidden"],
+      "properties": {
+        "offer_constraints": {"type": "array", "items": {"type": "string"}},
+        "offer_placement": {"type": "string", "minLength": 1},
+        "cta_objective": {"type": "string", "minLength": 1},
+        "cta_destination": {"type": "string", "minLength": 1},
+        "cta_first_appearance": {"type": "string", "minLength": 1},
+        "cta_final_appearance": {"type": ["string", "null"]},
+        "cta_context_trigger": {"type": "string", "minLength": 1},
+        "tracking_requirements": {"type": "array", "items": {"type": "string"}},
+        "competing_actions_forbidden": {"type": "boolean"}
+      }
+    },
+    "visual_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "framing", "readability", "product_visibility", "proof_visibility", "prohibited_choices"],
+      "properties": {
+        "format": {"type": "array", "items": {"type": "string"}},
+        "framing": {"type": "array", "items": {"type": "string"}},
+        "readability": {"type": "array", "items": {"type": "string"}},
+        "product_visibility": {"type": "array", "items": {"type": "string"}},
+        "proof_visibility": {"type": "array", "items": {"type": "string"}},
+        "prohibited_choices": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "creator_handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deliverables", "must_preserve", "may_choose", "must_escalate"],
+      "properties": {
+        "deliverables": {"type": "array", "items": {"type": "string"}},
+        "must_preserve": {"type": "array", "items": {"type": "string"}},
+        "may_choose": {"type": "array", "items": {"type": "string"}},
+        "must_escalate": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "analytics_handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tested_creative_variable", "locked_variables", "planned_duration", "actual_duration_field", "hook_type", "first_3s_event", "block_timeline", "offer_first_appearance", "cta_first_appearance", "proof_timestamps", "primary_kpi", "secondary_kpis", "guardrail_metrics", "platform_diagnostics", "attribution_requirements", "execution_deviation_fields"],
+      "properties": {
+        "tested_creative_variable": {"type": "string", "minLength": 1},
+        "locked_variables": {"type": "array", "items": {"type": "string"}},
+        "planned_duration": {"type": "string", "minLength": 1},
+        "actual_duration_field": {"type": "string", "minLength": 1},
+        "hook_type": {"type": "string", "minLength": 1},
+        "first_3s_event": {"type": "string", "minLength": 1},
+        "block_timeline": {"type": "array", "items": {"type": "string"}},
+        "offer_first_appearance": {"type": "string", "minLength": 1},
+        "cta_first_appearance": {"type": "string", "minLength": 1},
+        "proof_timestamps": {"type": "array", "items": {"type": "string"}},
+        "primary_kpi": {"type": "string", "minLength": 1},
+        "secondary_kpis": {"type": "array", "items": {"type": "string"}},
+        "guardrail_metrics": {"type": "array", "items": {"type": "string"}},
+        "platform_diagnostics": {"type": "array", "items": {"type": "string"}},
+        "attribution_requirements": {"type": "array", "items": {"type": "string"}},
+        "execution_deviation_fields": {"type": "array", "items": {"type": "string"}},
+        "content_post_id": {"type": ["string", "null"]}
+      }
+    },
+    "blocker_reason": {"type": ["string", "null"]},
+    "strategist_revision_request": {"type": ["string", "null"]}
+  }
+}
