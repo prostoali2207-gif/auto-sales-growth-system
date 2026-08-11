@@ -1,0 +1,338 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "orchestrator-workflow.schema.json",
+  "title": "Growth Orchestrator Workflow Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workflow_id",
+    "experiment_id",
+    "revision",
+    "current_state",
+    "owner",
+    "created_at",
+    "updated_at",
+    "artifacts",
+    "approvals",
+    "retry_state",
+    "blockers",
+    "next_action",
+    "transition_history"
+  ],
+  "properties": {
+    "workflow_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "experiment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "current_state": {
+      "$ref": "#/$defs/state"
+    },
+    "owner": {
+      "$ref": "#/$defs/owner"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "active_handoff_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_type",
+          "artifact_id",
+          "uri",
+          "version",
+          "validation_status"
+        ],
+        "properties": {
+          "artifact_type": {
+            "type": "string"
+          },
+          "artifact_id": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "validation_status": {
+            "type": "string",
+            "enum": [
+              "VALID",
+              "INVALID",
+              "STALE",
+              "MISSING",
+              "PENDING"
+            ]
+          }
+        }
+      }
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "approval_type",
+          "status",
+          "requested_at"
+        ],
+        "properties": {
+          "approval_type": {
+            "type": "string",
+            "enum": [
+              "EXPERIMENT",
+              "CREATIVE",
+              "PUBLISH",
+              "COMMERCIAL_FACT",
+              "SCALE",
+              "EXCEPTION"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NOT_REQUIRED",
+              "PENDING",
+              "APPROVED",
+              "REJECTED",
+              "EXPIRED"
+            ]
+          },
+          "requested_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "decided_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "decided_by": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "retry_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt",
+        "max_attempts",
+        "next_retry_at"
+      ],
+      "properties": {
+        "attempt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "next_retry_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "last_error_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "owner",
+          "message",
+          "created_at",
+          "resolvable"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "#/$defs/owner"
+          },
+          "message": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resolvable": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "next_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner",
+        "action"
+      ],
+      "properties": {
+        "owner": {
+          "$ref": "#/$defs/owner"
+        },
+        "action": {
+          "type": "string"
+        },
+        "due_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "transition_history": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/transition"
+      }
+    }
+  },
+  "$defs": {
+    "state": {
+      "type": "string",
+      "enum": [
+        "INTAKE",
+        "RESEARCH_REQUIRED",
+        "RESEARCH_IN_PROGRESS",
+        "STRATEGY_REQUIRED",
+        "STRATEGY_IN_PROGRESS",
+        "EXPERIMENT_APPROVAL_REQUIRED",
+        "CONTENT_ANALYSIS_REQUIRED",
+        "CONTENT_ANALYSIS_IN_PROGRESS",
+        "CREATIVE_REQUIRED",
+        "CREATIVE_IN_PROGRESS",
+        "CREATIVE_APPROVAL_REQUIRED",
+        "READY_TO_PUBLISH",
+        "PUBLISHING",
+        "PUBLISHED",
+        "MEASUREMENT_WAIT",
+        "ANALYTICS_REQUIRED",
+        "ANALYTICS_IN_PROGRESS",
+        "STRATEGIST_DECISION_REQUIRED",
+        "SCALE_APPROVAL_REQUIRED",
+        "ITERATION_REQUIRED",
+        "SCALED",
+        "KILLED",
+        "PARKED",
+        "BLOCKED",
+        "CANCELLED"
+      ]
+    },
+    "owner": {
+      "type": "string",
+      "enum": [
+        "ORCHESTRATOR",
+        "MARKET_INTELLIGENCE",
+        "STRATEGIST",
+        "CONTENT_ANALYST",
+        "CONTENT_CREATOR",
+        "PUBLISHER",
+        "SALES_LEAD_AGENT",
+        "ANALYTICS",
+        "HUMAN",
+        "NONE"
+      ]
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "from",
+        "to",
+        "actor",
+        "occurred_at",
+        "reason",
+        "evidence_refs",
+        "idempotency_key"
+      ],
+      "properties": {
+        "transition_id": {
+          "type": "string"
+        },
+        "from": {
+          "$ref": "#/$defs/state"
+        },
+        "to": {
+          "$ref": "#/$defs/state"
+        },
+        "actor": {
+          "$ref": "#/$defs/owner"
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "idempotency_key": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
