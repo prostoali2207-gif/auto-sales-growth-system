@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sales-funnel-event.schema.json",
+  "title": "Auto Sales Funnel Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "event_type",
+    "occurred_at",
+    "recorded_at",
+    "lead_id",
+    "inquiry_id",
+    "channel",
+    "actor_type",
+    "source_system",
+    "attribution_id",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "INQUIRY_RECEIVED",
+        "FIRST_RESPONSE_SENT",
+        "CUSTOMER_REPLIED",
+        "FACT_VERIFICATION_REQUESTED",
+        "QUALIFICATION_UPDATED",
+        "QUALIFICATION_COMPLETED",
+        "ALTERNATIVE_PRESENTED",
+        "OBJECTION_RECORDED",
+        "OBJECTION_RESOLVED",
+        "FOLLOW_UP_SENT",
+        "APPOINTMENT_PROPOSED",
+        "APPOINTMENT_SET",
+        "APPOINTMENT_CONFIRMED",
+        "APPOINTMENT_CANCELLED",
+        "APPOINTMENT_RESCHEDULED",
+        "SHOWED",
+        "NO_SHOW",
+        "TEST_DRIVE_COMPLETED",
+        "HUMAN_HANDOFF_REQUESTED",
+        "HUMAN_HANDOFF_ACCEPTED",
+        "NEGOTIATION_STARTED",
+        "SALE_WON",
+        "SALE_LOST",
+        "OPT_OUT",
+        "LEAD_CLOSED",
+        "LEAD_REOPENED",
+        "STATE_CHANGED",
+        "TEMPERATURE_CHANGED",
+        "ATTRIBUTION_UPDATED"
+      ]
+    },
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "lead_id": {"type": "string", "minLength": 1},
+    "inquiry_id": {"type": "string", "minLength": 1},
+    "conversation_id": {"type": ["string", "null"]},
+    "channel": {
+      "type": "string",
+      "enum": ["INSTAGRAM_DM", "WHATSAPP", "TELEGRAM", "YOUTUBE", "LANDING_FORM", "WEBSITE_CHAT", "PHONE", "EMAIL", "WALK_IN", "REFERRAL", "OTHER", "UNKNOWN"]
+    },
+    "actor_type": {"type": "string", "enum": ["CUSTOMER", "AI_AGENT", "HUMAN", "SYSTEM", "THIRD_PARTY"]},
+    "actor_id": {"type": ["string", "null"]},
+    "source_system": {"type": "string", "minLength": 1},
+    "source_event_id": {"type": ["string", "null"]},
+    "idempotency_key": {"type": ["string", "null"]},
+    "attribution_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": ["string", "null"]},
+    "content_spec_id": {"type": ["string", "null"]},
+    "content_id": {"type": ["string", "null"]},
+    "vehicle_ids": {"type": "array", "items": {"type": "string"}},
+    "previous_state": {"type": ["string", "null"]},
+    "new_state": {"type": ["string", "null"]},
+    "previous_temperature": {"type": ["string", "null"]},
+    "new_temperature": {"type": ["string", "null"]},
+    "response_to_event_id": {"type": ["string", "null"]},
+    "facts_used": {"type": "array", "items": {"type": "string"}},
+    "payload": {
+      "type": "object",
+      "description": "Event-specific structured data. Do not store unnecessary sensitive message content.",
+      "additionalProperties": true
+    },
+    "data_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "complete": {"type": "boolean"},
+        "missing_fields": {"type": "array", "items": {"type": "string"}},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "schema_version": {"type": ["string", "null"]}
+  }
+}
