@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lead-attribution.schema.json",
+  "title": "Auto Sales Lead Attribution",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attribution_id",
+    "inquiry_channel",
+    "captured_at",
+    "first_touch",
+    "touches",
+    "confidence",
+    "sale_credit"
+  ],
+  "properties": {
+    "attribution_id": {"type": "string", "minLength": 1},
+    "lead_id": {"type": ["string", "null"]},
+    "inquiry_id": {"type": ["string", "null"]},
+    "inquiry_channel": {"$ref": "#/$defs/channel"},
+    "inquiry_thread_id": {"type": ["string", "null"]},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "first_touch": {"$ref": "#/$defs/touch"},
+    "last_non_direct_touch": {
+      "oneOf": [
+        {"$ref": "#/$defs/touch"},
+        {"type": "null"}
+      ]
+    },
+    "touches": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/touch"}
+    },
+    "experiment_id": {"type": ["string", "null"]},
+    "content_spec_id": {"type": ["string", "null"]},
+    "content_id": {"type": ["string", "null"]},
+    "platform_content_id": {"type": ["string", "null"]},
+    "campaign_id": {"type": ["string", "null"]},
+    "ad_id": {"type": ["string", "null"]},
+    "advertised_vehicle_id": {"type": ["string", "null"]},
+    "inquired_vehicle_id": {"type": ["string", "null"]},
+    "cta_keyword": {"type": ["string", "null"]},
+    "landing_url": {"type": ["string", "null"], "format": "uri"},
+    "referrer_url": {"type": ["string", "null"], "format": "uri"},
+    "utm": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {"type": ["string", "null"]},
+        "medium": {"type": ["string", "null"]},
+        "campaign": {"type": ["string", "null"]},
+        "term": {"type": ["string", "null"]},
+        "content": {"type": ["string", "null"]}
+      }
+    },
+    "click_ids": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "self_reported_source": {"type": ["string", "null"]},
+    "confidence": {
+      "type": "string",
+      "enum": ["DETERMINISTIC", "CORROBORATED", "SELF_REPORTED", "INFERRED", "UNKNOWN"]
+    },
+    "confidence_reason": {"type": ["string", "null"]},
+    "sale_credit": {
+      "type": "string",
+      "enum": ["DIRECT", "ASSISTED", "UNKNOWN", "NOT_APPLICABLE"]
+    },
+    "raw_capture": {
+      "type": "object",
+      "description": "Immutable source payload or a pointer/hash to it. Sensitive values may be redacted under policy.",
+      "additionalProperties": true
+    },
+    "normalization_version": {"type": ["string", "null"]},
+    "correction_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["corrected_at", "field", "old_value", "new_value", "reason", "actor"],
+        "properties": {
+          "corrected_at": {"type": "string", "format": "date-time"},
+          "field": {"type": "string"},
+          "old_value": {},
+          "new_value": {},
+          "reason": {"type": "string"},
+          "actor": {"type": "string"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "channel": {
+      "type": "string",
+      "enum": [
+        "INSTAGRAM_DM",
+        "WHATSAPP",
+        "TELEGRAM",
+        "YOUTUBE",
+        "LANDING_FORM",
+        "WEBSITE_CHAT",
+        "PHONE",
+        "EMAIL",
+        "WALK_IN",
+        "REFERRAL",
+        "OTHER",
+        "UNKNOWN"
+      ]
+    },
+    "touch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["touch_id", "occurred_at", "channel", "source_type", "evidence_type"],
+      "properties": {
+        "touch_id": {"type": "string", "minLength": 1},
+        "occurred_at": {"type": "string", "format": "date-time"},
+        "channel": {"$ref": "#/$defs/channel"},
+        "source_type": {
+          "type": "string",
+          "enum": ["ORGANIC_CONTENT", "PAID_CONTENT", "PROFILE", "DIRECT", "REFERRAL", "SEARCH", "OWNED_CHANNEL", "OFFLINE", "UNKNOWN"]
+        },
+        "experiment_id": {"type": ["string", "null"]},
+        "content_spec_id": {"type": ["string", "null"]},
+        "content_id": {"type": ["string", "null"]},
+        "platform_content_id": {"type": ["string", "null"]},
+        "campaign_id": {"type": ["string", "null"]},
+        "vehicle_id": {"type": ["string", "null"]},
+        "cta_keyword": {"type": ["string", "null"]},
+        "url": {"type": ["string", "null"], "format": "uri"},
+        "evidence_type": {
+          "type": "string",
+          "enum": ["UNIQUE_TOKEN", "CLICK_ID", "PLATFORM_REFERRER", "THREAD_METADATA", "FORM_FIELD", "SELF_REPORT", "TEMPORAL_CONTEXT", "RAW_ONLY", "UNKNOWN"]
+        },
+        "evidence_reference": {"type": ["string", "null"]}
+      }
+    }
+  }
+}
