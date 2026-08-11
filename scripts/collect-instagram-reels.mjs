@@ -21,8 +21,12 @@ const run = await client.actor('apify/instagram-reel-scraper').call({
 
 const { items } = await client.dataset(run.defaultDatasetId).listItems();
 const normalized = items.map((item) => ({
+  id: item.id ?? item.shortCode ?? null,
+  shortCode: item.shortCode ?? null,
   ownerUsername: item.ownerUsername ?? item.owner?.username ?? null,
   url: item.url ?? item.inputUrl ?? null,
+  videoUrl: item.videoUrl ?? null,
+  displayUrl: item.displayUrl ?? item.images?.[0] ?? null,
   timestamp: item.timestamp ?? item.takenAt ?? null,
   caption: item.caption ?? null,
   transcript: item.transcript ?? null,
