@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sales-lead-turn.schema.json",
+  "title": "Sales Lead Agent Turn Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["input", "output"],
+  "properties": {
+    "input": {"$ref": "#/$defs/turnInput"},
+    "output": {"$ref": "#/$defs/turnOutput"}
+  },
+  "$defs": {
+    "turnInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_context", "inquiry", "lead_snapshot", "attribution", "verified_facts", "conversation_history"],
+      "properties": {
+        "run_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["run_id", "occurred_at", "business_id", "timezone", "agent_version", "policy_version", "permitted_actions"],
+          "properties": {
+            "run_id": {"type": "string"},
+            "occurred_at": {"type": "string", "format": "date-time"},
+            "business_id": {"type": "string"},
+            "timezone": {"type": "string"},
+            "agent_version": {"type": "string"},
+            "policy_version": {"type": "string"},
+            "permitted_actions": {
+              "type": "array",
+              "items": {"type": "string", "enum": ["DRAFT_MESSAGE", "SEND_MESSAGE", "READ_FACTS", "SEARCH_INVENTORY", "UPDATE_LEAD", "CREATE_TASK", "PROPOSE_APPOINTMENT", "CREATE_APPOINTMENT", "REQUEST_HANDOFF", "EMIT_EVENT"]}
+            }
+          }
+        },
+        "inquiry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["inquiry_id", "event_id", "channel", "thread_id", "received_at", "direction", "raw_text"],
+          "properties": {
+            "inquiry_id": {"type": "string"},
+            "event_id": {"type": "string"},
+            "channel": {"type": "string"},
+            "thread_id": {"type": "string"},
+            "received_at": {"type": "string", "format": "date-time"},
+            "direction": {"const": "INBOUND"},
+            "raw_text": {"type": "string"},
+            "attachments": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+            "identity_hints": {"type": "object", "additionalProperties": true}
+          }
+        },
+        "lead_snapshot": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "sales-lead.schema.json"}
+          ]
+        },
+        "attribution": {"$ref": "lead-attribution.schema.json"},
+        "verified_facts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/verifiedFact"}
+        },
+        "conversation_history": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["messages", "summary_source_event_ids"],
+          "properties": {
+            "messages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["message_id", "occurred_at", "direction", "actor_type", "text"],
+                "properties": {
+                  "message_id": {"type": "string"},
+                  "occurred_at": {"type": "string", "format": "date-time"},
+                  "direction": {"type": "string", "enum": ["INBOUND", "OUTBOUND"]},
+                  "actor_type": {"type": "string", "enum": ["CUSTOMER", "AI_AGENT", "HUMAN", "SYSTEM"]},
+                  "text": {"type": "string"}
+                }
+              }
+            },
+            "traceable_summary": {"type": ["string", "null"]},
+            "summary_source_event_ids": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "turnOutput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "decision", "customer_message", "facts_used", "lead_patch", "state_transition", "temperature_assessment", "events_to_emit", "tasks_to_create", "handoff_packet", "attribution_patch", "blocked_reasons", "policy_checks"],
+      "properties": {
+        "run_id": {"type": "string"},
+        "decision": {
+          "type": "string",
+          "enum": ["RESPOND", "ASK_QUALIFICATION", "VERIFY_FACT", "PROPOSE_APPOINTMENT", "CREATE_APPOINTMENT", "FOLLOW_UP", "HANDOFF", "WAIT", "CLOSE", "NO_ACTION"]
+        },
+        "customer_message": {"type": ["string", "null"]},
+        "facts_used": {"type": "array", "items": {"type": "string"}},
+        "lead_patch": {
+          "type": "object",
+          "description": "Explicit partial update. Executor must enforce optimistic versioning.",
+          "additionalProperties": true
+        },
+        "expected_lead_version": {"type": ["integer", "null"], "minimum": 1},
+        "state_transition": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["from", "to", "reason", "evidence_event_ids"],
+              "properties": {
+                "from": {"type": "string"},
+                "to": {"type": "string"},
+                "reason": {"type": "string"},
+                "evidence_event_ids": {"type": "array", "items": {"type": "string"}}
+              }
+            }
+          ]
+        },
+        "temperature_assessment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level", "reason_codes", "evidence_event_ids", "assessed_at"],
+          "properties": {
+            "level": {"type": "string", "enum": ["HOT", "WARM", "COOL", "COLD", "UNKNOWN"]},
+            "reason_codes": {"type": "array", "items": {"type": "string"}},
+            "evidence_event_ids": {"type": "array", "items": {"type": "string"}},
+            "assessed_at": {"type": "string", "format": "date-time"}
+          }
+        },
+        "events_to_emit": {"type": "array", "items": {"$ref": "sales-funnel-event.schema.json"}},
+        "tasks_to_create": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["task_type", "reason", "priority", "due_at"],
+            "properties": {
+              "task_type": {"type": "string", "enum": ["VERIFY_FACT", "HUMAN_REPLY", "CALL", "FOLLOW_UP", "APPOINTMENT_CONFIRMATION", "TRADE_IN_REVIEW", "FINANCE_REVIEW", "DATA_REPAIR"]},
+              "reason": {"type": "string"},
+              "priority": {"type": "string", "enum": ["URGENT", "HIGH", "NORMAL", "LOW"]},
+              "due_at": {"type": "string", "format": "date-time"},
+              "owner_id": {"type": ["string", "null"]}
+            }
+          }
+        },
+        "handoff_packet": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "#/$defs/handoffPacket"}
+          ]
+        },
+        "attribution_patch": {
+          "type": "object",
+          "description": "Additive evidence or a provenance-bearing correction; never a silent replacement of raw/first-touch data.",
+          "additionalProperties": true
+        },
+        "blocked_reasons": {"type": "array", "items": {"type": "string"}},
+        "policy_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["check", "result", "reason"],
+            "properties": {
+              "check": {"type": "string"},
+              "result": {"type": "string", "enum": ["PASS", "FAIL", "NOT_APPLICABLE"]},
+              "reason": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "verifiedFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_id", "entity_type", "entity_id", "field", "value", "source_system", "verified_at", "status"],
+      "properties": {
+        "fact_id": {"type": "string"},
+        "entity_type": {"type": "string", "enum": ["VEHICLE", "OFFER", "PRICE", "FINANCE_POLICY", "WARRANTY_POLICY", "APPOINTMENT_SLOT", "LOCATION", "BUSINESS_POLICY", "OTHER"]},
+        "entity_id": {"type": "string"},
+        "field": {"type": "string"},
+        "value": {},
+        "source_system": {"type": "string"},
+        "verified_at": {"type": "string", "format": "date-time"},
+        "expires_at": {"type": ["string", "null"], "format": "date-time"},
+        "status": {"type": "string", "enum": ["CONFIRMED", "STALE", "CONFLICTING", "REVOKED"]}
+      }
+    },
+    "handoffPacket": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handoff_id", "lead_id", "reason_code", "reason", "urgency", "latest_customer_message", "conversation_summary", "qualification_summary", "facts_used", "unresolved_facts", "recommended_next_action", "automation_paused", "consent_status"],
+      "properties": {
+        "handoff_id": {"type": "string"},
+        "lead_id": {"type": "string"},
+        "reason_code": {"type": "string", "enum": ["CUSTOMER_REQUEST", "HOT_LEAD", "APPOINTMENT", "NEGOTIATION", "DISCOUNT", "FINANCE", "TRADE_IN", "MISSING_FACT", "CONFLICTING_FACT", "COMPLAINT", "SAFETY_LEGAL_PRIVACY", "TOOL_FAILURE", "LANGUAGE_COMPLEXITY", "OTHER"]},
+        "reason": {"type": "string"},
+        "urgency": {"type": "string", "enum": ["IMMEDIATE", "HIGH", "NORMAL"]},
+        "owner_id": {"type": ["string", "null"]},
+        "latest_customer_message": {"type": "string"},
+        "conversation_summary": {"type": "string"},
+        "qualification_summary": {"type": "object", "additionalProperties": true},
+        "attribution_summary": {"type": "object", "additionalProperties": true},
+        "vehicle_ids": {"type": "array", "items": {"type": "string"}},
+        "objections": {"type": "array", "items": {"type": "string"}},
+        "facts_used": {"type": "array", "items": {"type": "string"}},
+        "unresolved_facts": {"type": "array", "items": {"type": "string"}},
+        "recommended_next_action": {"type": "string"},
+        "due_at": {"type": ["string", "null"], "format": "date-time"},
+        "automation_paused": {"type": "boolean"},
+        "consent_status": {"type": "string"},
+        "appointment_id": {"type": ["string", "null"]}
+      }
+    }
+  }
+}
