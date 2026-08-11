@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "analytics-decision.schema.json",
+  "title": "Auto Sales Growth Analytics Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["analysis_id", "experiment_id", "experiment_version", "evaluated_at", "recommendation", "evidence_grade", "data_quality", "primary_result", "sample_assessment", "funnel_results", "attribution", "confounders", "causal_claim", "decision_rationale", "next_action", "learning_note"],
+  "properties": {
+    "analysis_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": "string", "minLength": 1},
+    "experiment_version": {"type": "string", "minLength": 1},
+    "content_spec_ids": {"type": "array", "items": {"type": "string"}},
+    "platform_content_ids": {"type": "array", "items": {"type": "string"}},
+    "evaluated_at": {"type": "string", "format": "date-time"},
+    "recommendation": {"type": "string", "enum": ["CONTINUE", "ITERATE", "SCALE", "KILL", "INCONCLUSIVE"]},
+    "evidence_grade": {"type": "string", "enum": ["STRONG", "MODERATE", "WEAK", "UNUSABLE"]},
+    "data_quality": {
+      "type": "object", "additionalProperties": false,
+      "required": ["completeness", "experiment_integrity", "join_integrity", "missing_critical_fields", "notes"],
+      "properties": {
+        "completeness": {"type": "number", "minimum": 0, "maximum": 1},
+        "experiment_integrity": {"type": "string", "enum": ["PASS", "DEGRADED", "FAIL"]},
+        "join_integrity": {"type": "string", "enum": ["PASS", "DEGRADED", "FAIL"]},
+        "missing_critical_fields": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "primary_result": {"$ref": "#/$defs/metricResult"},
+    "secondary_results": {"type": "array", "items": {"$ref": "#/$defs/metricResult"}},
+    "guardrail_results": {"type": "array", "items": {"$ref": "#/$defs/metricResult"}},
+    "sample_assessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["observed", "minimum_required", "window_complete", "sample_complete", "stopping_rule", "uncertainty_statement"],
+      "properties": {
+        "observed": {"type": "string"},
+        "minimum_required": {"type": "string"},
+        "window_complete": {"type": "boolean"},
+        "sample_complete": {"type": "boolean"},
+        "stopping_rule": {"type": "string"},
+        "method": {"type": ["string", "null"]},
+        "uncertainty_statement": {"type": "string", "minLength": 1}
+      }
+    },
+    "funnel_results": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["stage", "count", "availability"],
+        "properties": {
+          "stage": {"type": "string", "enum": ["EXPOSURE", "VIEW_OR_ATTENTION", "PROFILE_OR_CLICK", "INQUIRY", "QUALIFIED_LEAD", "APPOINTMENT", "TEST_DRIVE", "RESERVATION", "SALE"]},
+          "count": {"type": ["number", "null"], "minimum": 0},
+          "denominator": {"type": ["number", "null"], "minimum": 0},
+          "conversion_rate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "availability": {"$ref": "#/$defs/availability"},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "lead_quality": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "definition_version": {"type": "string"},
+        "qualified": {"type": "integer", "minimum": 0},
+        "partially_qualified": {"type": "integer", "minimum": 0},
+        "unqualified": {"type": "integer", "minimum": 0},
+        "spam_or_duplicate": {"type": "integer", "minimum": 0},
+        "unknown": {"type": "integer", "minimum": 0}
+      }
+    },
+    "vehicle_outcomes": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["vehicle_id", "qualified_inquiries", "appointments", "sales"],
+        "properties": {
+          "vehicle_id": {"type": "string"},
+          "qualified_inquiries": {"type": "integer", "minimum": 0},
+          "appointments": {"type": "integer", "minimum": 0},
+          "sales": {"type": "integer", "minimum": 0},
+          "gross_profit": {"type": ["number", "null"]},
+          "currency": {"type": ["string", "null"]},
+          "time_to_sale_days": {"type": ["number", "null"], "minimum": 0}
+        }
+      }
+    },
+    "attribution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["method", "conversion_window", "direct_deterministic", "self_reported_corroborated", "assisted_deterministic", "assisted_probabilistic", "unknown", "coverage", "limitations"],
+      "properties": {
+        "method": {"type": "string"},
+        "conversion_window": {"type": "string"},
+        "direct_deterministic": {"type": "integer", "minimum": 0},
+        "self_reported_corroborated": {"type": "integer", "minimum": 0},
+        "assisted_deterministic": {"type": "integer", "minimum": 0},
+        "assisted_probabilistic": {"type": "integer", "minimum": 0},
+        "unknown": {"type": "integer", "minimum": 0},
+        "coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "limitations": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "confounders": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["name", "severity", "evidence", "likely_direction"],
+        "properties": {
+          "name": {"type": "string"},
+          "severity": {"type": "string", "enum": ["NONE_OBSERVED", "LOW", "MATERIAL", "FATAL"]},
+          "evidence": {"type": "string"},
+          "likely_direction": {"type": "string", "enum": ["INFLATES", "DEPRESSES", "MIXED", "UNKNOWN", "NONE"]}
+        }
+      }
+    },
+    "execution_deviations": {"type": "array", "items": {"type": "string"}},
+    "causal_claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["level", "statement"],
+      "properties": {
+        "level": {"type": "string", "enum": ["CAUSAL", "NEAR_CAUSAL", "ASSOCIATIONAL", "DESCRIPTIVE_ONLY", "NOT_EVALUABLE"]},
+        "statement": {"type": "string", "minLength": 1}
+      }
+    },
+    "decision_rationale": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "next_action": {
+      "type": "object", "additionalProperties": false,
+      "required": ["owner", "action", "evidence_required"],
+      "properties": {
+        "owner": {"type": "string", "enum": ["STRATEGIST", "CONTENT_ANALYST", "CONTENT_CREATOR", "SALES_LEAD_AGENT", "ANALYTICS_AGENT", "HUMAN"]},
+        "action": {"type": "string", "minLength": 1},
+        "evidence_required": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "learning_note": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "availability": {"type": "string", "enum": ["OBSERVED", "NOT_AVAILABLE", "NOT_COLLECTED", "DELAYED", "INVALID"]},
+    "metricResult": {
+      "type": "object", "additionalProperties": false,
+      "required": ["metric_name", "value", "unit", "availability", "baseline", "success_threshold", "failure_threshold", "threshold_result"],
+      "properties": {
+        "metric_name": {"type": "string"},
+        "value": {"type": ["number", "null"]},
+        "unit": {"type": "string"},
+        "numerator": {"type": ["number", "null"]},
+        "denominator": {"type": ["number", "null"]},
+        "availability": {"$ref": "#/$defs/availability"},
+        "baseline": {"type": "string"},
+        "absolute_change": {"type": ["number", "null"]},
+        "relative_change": {"type": ["number", "null"]},
+        "interval_low": {"type": ["number", "null"]},
+        "interval_high": {"type": ["number", "null"]},
+        "success_threshold": {"type": "string"},
+        "failure_threshold": {"type": "string"},
+        "threshold_result": {"type": "string", "enum": ["SUCCESS", "FAILURE", "BETWEEN", "NOT_EVALUABLE"]},
+        "definition_version": {"type": ["string", "null"]},
+        "notes": {"type": ["string", "null"]}
+      }
+    }
+  }
+}
