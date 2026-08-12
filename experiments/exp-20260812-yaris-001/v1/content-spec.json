@@ -1,0 +1,364 @@
+{
+  "content_spec_id": "cs-20260812-yaris-001-v1",
+  "experiment_id": "exp-20260812-yaris-001",
+  "status": "READY_FOR_CREATOR",
+  "source_strategy_reference": "experiments/exp-20260812-yaris-001/v1/strategy-experiment.json",
+  "experiment_lock": {
+    "tested_variable": "Single-offer paid-demand baseline at AED 51,900; no comparative creative variable",
+    "locked_variables": [
+      "Exact Toyota Yaris",
+      "AED 51,900 price",
+      "2026 year",
+      "GCC Specs",
+      "4,546 km",
+      "Known repair disclosure",
+      "One WhatsApp CTA",
+      "Instagram vertical format"
+    ],
+    "bounded_variables": [
+      {
+        "variable": "Duration",
+        "allowed_range": "18-24 seconds"
+      },
+      {
+        "variable": "First price appearance",
+        "allowed_range": "0.0-1.0 seconds"
+      },
+      {
+        "variable": "Repair disclosure",
+        "allowed_range": "Must begin no later than 9 seconds and remain readable for at least 4 seconds"
+      },
+      {
+        "variable": "CTA",
+        "allowed_range": "Final 4-6 seconds; one WhatsApp action only"
+      }
+    ],
+    "free_variables": [
+      "Exact source clip selections from the existing Yaris media",
+      "Clean cut points",
+      "Text layout within Instagram safe zones",
+      "Use of original presenter audio versus clean voice-over from the approved copy"
+    ],
+    "forbidden_deviations": [
+      "Hide or soften known repairs into 'minor' or 'accident-free'",
+      "Claim warranty, original paint, exact trim, financing or perfect condition",
+      "Change price",
+      "Add a second CTA",
+      "Use another vehicle",
+      "Add music"
+    ]
+  },
+  "content_objective": {
+    "platform": [
+      "INSTAGRAM"
+    ],
+    "primary_funnel_role": "LEAD",
+    "audience_signal": "UAE buyer actively comparing recent economical GCC sedans around AED 50,000",
+    "promise_or_problem": "A 2026 GCC Yaris with 4,546 km at AED 51,900, presented with transparent known repair information",
+    "desired_viewer_action": "Start an attributed WhatsApp conversation about this exact Yaris and request a viewing"
+  },
+  "hook_specification": {
+    "hook_type": "SPECIFIC_VALUE",
+    "first_frame_job": "Show the exact white Yaris and AED 51,900 together so the offer is understood without audio",
+    "first_1s_event": "Immediate price reveal over a clear front three-quarter view",
+    "first_3s_information": "Toyota Yaris 2026, AED 51,900",
+    "viewer_question_or_tension": "Why is a 2026 low-mileage GCC Yaris priced below many advertised alternatives?",
+    "payoff_requirement": "Answer with mileage and transparent repair facts before asking for WhatsApp contact"
+  },
+  "structural_timeline": [
+    {
+      "block_id": "hook-offer",
+      "job": "Stop relevant buyers and identify the offer",
+      "information_required": [
+        "Toyota Yaris 2026",
+        "AED 51,900"
+      ],
+      "visual_requirement": [
+        "Clear exterior front three-quarter shot",
+        "Car fills most of vertical frame"
+      ],
+      "proof_requirement": [
+        "Use the exact vehicle from supplied media"
+      ],
+      "target_time_range": "0.0-3.0s",
+      "transition_job": "Move from price to verified core facts",
+      "locked": [
+        "Price",
+        "Year",
+        "Exact vehicle"
+      ]
+    },
+    {
+      "block_id": "core-facts",
+      "job": "Establish recent, GCC, low-mileage fit",
+      "information_required": [
+        "GCC Specs",
+        "4,546 km"
+      ],
+      "visual_requirement": [
+        "Dashboard/odometer plus exterior or interior detail"
+      ],
+      "proof_requirement": [
+        "Odometer image or footage must visibly support 4,546 km"
+      ],
+      "target_time_range": "3.0-7.0s",
+      "transition_job": "Resolve the obvious trust question",
+      "locked": [
+        "GCC Specs",
+        "Mileage"
+      ]
+    },
+    {
+      "block_id": "repair-disclosure",
+      "job": "Disclose known repair facts plainly",
+      "information_required": [
+        "Headlight: used original",
+        "Bumper: original replacement",
+        "Hood: repaired and repainted"
+      ],
+      "visual_requirement": [
+        "Front, open-hood or relevant existing footage without concealing the area"
+      ],
+      "proof_requirement": [
+        "Wording must match the business video; do not add severity or official accident claims"
+      ],
+      "target_time_range": "7.0-14.0s",
+      "transition_job": "Return attention to the complete vehicle",
+      "locked": [
+        "All three repair statements"
+      ]
+    },
+    {
+      "block_id": "vehicle-proof",
+      "job": "Let the buyer inspect the visible product briefly",
+      "information_required": [
+        "Exact vehicle remains available subject to final reconfirmation"
+      ],
+      "visual_requirement": [
+        "Clean exterior then interior shot"
+      ],
+      "proof_requirement": [
+        "Only visible features; no unverified condition claim"
+      ],
+      "target_time_range": "14.0-18.0s",
+      "transition_job": "Give one direct next action",
+      "locked": [
+        "Exact vehicle"
+      ]
+    },
+    {
+      "block_id": "cta",
+      "job": "Convert interest to attributable conversation",
+      "information_required": [
+        "WhatsApp",
+        "Keyword YARIS"
+      ],
+      "visual_requirement": [
+        "Strong exterior closing frame with readable CTA"
+      ],
+      "proof_requirement": [
+        "Destination tested before launch"
+      ],
+      "target_time_range": "18.0-23.0s",
+      "transition_job": "End cleanly",
+      "locked": [
+        "One CTA",
+        "Keyword YARIS"
+      ]
+    }
+  ],
+  "pacing": {
+    "target_duration_range": "18-24 seconds",
+    "rationale": "Short enough for a direct paid offer while retaining the repair disclosure required for trust and lead quality",
+    "fast_zones": [
+      "0-7s: offer and core facts",
+      "14-18s: exterior/interior proof"
+    ],
+    "slow_zones": [
+      "7-14s: repair disclosure must remain readable",
+      "Final CTA frame"
+    ],
+    "removable_material_rules": [
+      "Remove repeated walkarounds, greetings, dealership introduction and general praise",
+      "Never shorten or remove the repair disclosure",
+      "Do not remove the exact price, mileage or CTA"
+    ]
+  },
+  "proof_architecture": [
+    {
+      "claim_supported": "Toyota Yaris 2026 at AED 51,900",
+      "proof_type": "Business-confirmed commercial fact plus exact vehicle visual",
+      "must_be_visible_or_stated": "Year and price on screen",
+      "placement": "0-3s",
+      "source_or_verification": "bf-20260812-yaris-001-v1",
+      "failure_condition": "Price/availability not reconfirmed before launch"
+    },
+    {
+      "claim_supported": "4,546 km",
+      "proof_type": "Odometer visual",
+      "must_be_visible_or_stated": "Mileage text and dashboard footage/photo",
+      "placement": "3-7s",
+      "source_or_verification": "Business-supplied odometer image",
+      "failure_condition": "Odometer cannot be read or current mileage materially differs"
+    },
+    {
+      "claim_supported": "Known repaired parts",
+      "proof_type": "Business disclosure",
+      "must_be_visible_or_stated": "Used original headlight; original bumper replacement; hood repaired and repainted",
+      "placement": "7-14s",
+      "source_or_verification": "Business Yaris Reel reviewed with audio",
+      "failure_condition": "Wording omits a known repaired item or adds unverified severity/history"
+    }
+  ],
+  "offer_and_cta": {
+    "offer_constraints": [
+      "Cash advertised price only",
+      "No finance claim",
+      "No warranty claim",
+      "Availability reconfirmed before launch"
+    ],
+    "offer_placement": "Price in first frame; no artificial crossed-out price",
+    "cta_objective": "Start a WhatsApp conversation about this exact vehicle",
+    "cta_destination": "Business WhatsApp linked from the Instagram ad",
+    "cta_first_appearance": "18.0s",
+    "cta_final_appearance": "End frame",
+    "cta_context_trigger": "After price, core facts and repairs have been disclosed",
+    "tracking_requirements": [
+      "Use experiment-specific keyword or prefilled token YARIS",
+      "Record eventual ad ID",
+      "Sales records qualified status and appointment"
+    ],
+    "competing_actions_forbidden": true
+  },
+  "visual_requirements": {
+    "format": [
+      "Vertical 9:16",
+      "1080x1920 preferred",
+      "No letterboxing"
+    ],
+    "framing": [
+      "Exact white Yaris fills the frame",
+      "Use stable existing exterior, odometer, front/open-hood and interior footage"
+    ],
+    "readability": [
+      "Large high-contrast Russian text",
+      "Keep text inside Instagram safe zones",
+      "Repair disclosure readable without pausing"
+    ],
+    "product_visibility": [
+      "Vehicle visible in first frame",
+      "No unrelated cars as primary subject",
+      "Show front repair area during disclosure"
+    ],
+    "proof_visibility": [
+      "Odometer visible for mileage",
+      "Relevant front/open-hood footage supports disclosure"
+    ],
+    "prohibited_choices": [
+      "Generic cinematic intro",
+      "Logo animation before car",
+      "Unverified badges",
+      "Music",
+      "Small legal-style disclosure",
+      "Filters that obscure paint or body panels"
+    ]
+  },
+  "creator_handoff": {
+    "deliverables": [
+      "One editor-ready 18-24s Instagram Reel script",
+      "Exact source-shot order",
+      "On-screen text",
+      "Caption",
+      "WhatsApp CTA and tracking token placeholder"
+    ],
+    "must_preserve": [
+      "Price",
+      "Year",
+      "GCC",
+      "Mileage",
+      "All known repair disclosures",
+      "One CTA",
+      "No music"
+    ],
+    "may_choose": [
+      "Best matching clips from existing media",
+      "Original presenter excerpts or clean approved voice-over",
+      "Simple cuts and text styling"
+    ],
+    "must_escalate": [
+      "Missing readable odometer footage",
+      "No usable front-area footage",
+      "Current price or availability conflict",
+      "Any request to hide repairs or claim warranty/accident-free status"
+    ]
+  },
+  "analytics_handoff": {
+    "tested_creative_variable": "None; first attributed single-offer baseline",
+    "locked_variables": [
+      "Vehicle",
+      "Price",
+      "Core facts",
+      "Repair disclosure",
+      "WhatsApp destination"
+    ],
+    "planned_duration": "18-24s",
+    "actual_duration_field": "actual_duration_seconds",
+    "hook_type": "SPECIFIC_VALUE",
+    "first_3s_event": "Exact Yaris and AED 51,900 appear immediately",
+    "block_timeline": [
+      "0-3 offer",
+      "3-7 core facts",
+      "7-14 repairs",
+      "14-18 vehicle proof",
+      "18-23 CTA"
+    ],
+    "offer_first_appearance": "0.0-1.0s",
+    "cta_first_appearance": "18.0s",
+    "proof_timestamps": [
+      "Odometer 3-7s",
+      "Front repair area 7-14s"
+    ],
+    "primary_kpi": "Qualified WhatsApp conversations directly attributed to the Yaris pilot",
+    "secondary_kpis": [
+      "Conversation starts",
+      "Qualified share",
+      "Appointments",
+      "Sale",
+      "Cost per qualified conversation"
+    ],
+    "guardrail_metrics": [
+      "Claim compliance",
+      "Tracking works",
+      "Availability and price current",
+      "Spend cap respected",
+      "Sales response recorded"
+    ],
+    "platform_diagnostics": [
+      "Reach",
+      "Messaging clicks",
+      "3-second views if available",
+      "Average watch time if available"
+    ],
+    "attribution_requirements": [
+      "Keyword/prefill YARIS",
+      "Experiment ID",
+      "Creative ID",
+      "Ad ID",
+      "Vehicle ID",
+      "Lead outcome"
+    ],
+    "execution_deviation_fields": [
+      "Actual duration",
+      "First price timestamp",
+      "Repair disclosure wording/timestamps",
+      "CTA wording/timestamp",
+      "Missing proof clip",
+      "Audio choice",
+      "Crop/readability",
+      "Ad settings and spend"
+    ],
+    "content_post_id": null
+  },
+  "blocker_reason": null,
+  "strategist_revision_request": null
+}
