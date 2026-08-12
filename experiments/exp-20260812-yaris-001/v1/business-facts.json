@@ -1,0 +1,46 @@
+{
+  "artifact_id": "bf-20260812-yaris-001-v1",
+  "artifact_type": "business-facts",
+  "version": "v1",
+  "verified_at": "2026-08-12T16:20:00+04:00",
+  "verified_by": "HUMAN_AND_BUSINESS_VIDEO",
+  "vehicle_id": "vehicle-toyota-yaris-2026-001",
+  "facts": {
+    "make": "Toyota",
+    "model": "Yaris Sedan",
+    "year": 2026,
+    "mileage_km": 4546,
+    "specification_origin": "GCC Specs",
+    "vin": "MR2BF9C36T0076997",
+    "advertised_price": {
+      "amount": 51900,
+      "currency": "AED",
+      "negotiable": true
+    },
+    "inventory_status": "FOR_SALE",
+    "disclosed_repairs": [
+      "Front headlight replaced with a used original part",
+      "Front bumper replaced with an original part",
+      "Hood was lightly damaged, repaired and repainted",
+      "Display issue was resolved by replacing a fuse"
+    ],
+    "existing_media": [
+      "Instagram Reel with presenter, exterior, open hood and open doors",
+      "Business-supplied vehicle photographs"
+    ],
+    "cta_path": "WhatsApp via business Instagram"
+  },
+  "unverified_or_forbidden_claims": [
+    "accident-free",
+    "full accident history",
+    "original paint",
+    "agency warranty or any warranty",
+    "exact trim",
+    "full service history",
+    "finance terms",
+    "discount",
+    "final negotiation floor",
+    "perfect condition",
+    "no further defects"
+  ]
+}
