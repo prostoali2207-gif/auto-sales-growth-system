@@ -4,10 +4,12 @@ First bounded paid-demand validation for the Toyota Yaris Sedan 2026.
 
 ## Current state
 
-- Workflow: `CONTENT_ANALYSIS_REQUIRED`
-- Owner: `ORCHESTRATOR`
+- Workflow: `CREATIVE_APPROVAL_REQUIRED`
+- Owner: `HUMAN`
 - Priority: `P0`
 - Strategy: `v1`
+- Content spec: `READY_FOR_CREATOR`
+- Creator deliverable: `READY_FOR_REVIEW`
 - Zero-spend preparation: human-approved on 2026-08-12
 - Advertising launch: not authorized
 - Budget: not approved
