@@ -1,0 +1,91 @@
+{
+  "experiment_id": "exp-20260812-yaris-001",
+  "status": "APPROVED",
+  "priority": "P0",
+  "decision_question": "Can one truthful Instagram click-to-WhatsApp offer for the Toyota Yaris 2026 at AED 51,900 generate qualified buyer conversations and at least one viewing or test-drive appointment within a small fixed pilot?",
+  "hypothesis": "For UAE buyers comparing recent economical sedans, showing the exact Yaris, 2026 year, GCC specification, 4,546 km mileage and AED 51,900 price while plainly disclosing the repaired front-area parts will generate qualified WhatsApp demand without relying on unverified warranty or condition claims.",
+  "evidence_basis": [
+    {
+      "evidence_class": "B",
+      "reference": "mir-20260812-yaris-001; pat-yaris-live-price-pressure",
+      "finding": "Current advertised alternatives cluster near AED 55,000 and above, so AED 51,900 creates a clearer asking-price gap than AED 54,000, though listing prices do not prove transaction value."
+    },
+    {
+      "evidence_class": "A",
+      "reference": "bf-20260812-yaris-001-v1",
+      "finding": "The business confirmed the exact vehicle, 2026 year, GCC specification, 4,546 km mileage, disclosed repairs and AED 51,900 advertised price."
+    },
+    {
+      "evidence_class": "B",
+      "reference": "experiments/exp-20260811-elantra-gt-001/v2/account-evidence.json",
+      "finding": "Recent organic volume and actions are insufficient for a lead decision, while historical paid delivery shows bounded distribution is operationally possible but does not establish qualified-lead economics."
+    }
+  ],
+  "confidence_before_test": "LOW",
+  "audience": {
+    "buying_stage": "Actively comparing or ready-now buyers",
+    "need_or_job": "Buy a recent, economical GCC sedan below the advertised prices of many competing 2026 Yaris listings",
+    "budget_or_payment_context": "Cash advertised price AED 51,900; no finance claim",
+    "trust_or_risk_concern": "Known front-area repairs and unknown warranty/official accident history",
+    "geography_or_language": "UAE Instagram audience; final ad language must match the account's actual buyer handling capacity",
+    "inventory_fit": "Toyota Yaris Sedan 2026, GCC, 4,546 km, currently offered for sale"
+  },
+  "primary_funnel_role": "LEAD",
+  "secondary_funnel_role": "DIRECT_SALE",
+  "platform": [
+    "INSTAGRAM"
+  ],
+  "mechanism_to_test": "Create one baseline direct-sale Reel/ad from the existing Yaris media. Open with the exact vehicle and AED 51,900 price, show year/GCC/mileage, disclose the repaired front-area parts without dramatization, and end with one click-to-WhatsApp action. This is a viability baseline, not a comparative creative test.",
+  "commercial_path": "Instagram ad exposure -> attributed WhatsApp conversation about the exact Yaris -> qualification for budget, timing and purchase intent -> human viewing/test drive -> sale outcome.",
+  "primary_kpi": "Number of qualified WhatsApp conversations directly attributed to the Yaris pilot",
+  "secondary_kpis": [
+    "Cost per attributed WhatsApp conversation start",
+    "Qualified-conversation share",
+    "Viewing or test-drive appointments",
+    "Exact-vehicle sale",
+    "Reach and outbound messaging click rate as diagnostics"
+  ],
+  "guardrail_metrics": [
+    "No accident-free, original-paint, warranty, finance, perfect-condition or unverified trim claim",
+    "Price and availability reconfirmed immediately before launch",
+    "Known repair disclosure remains present and readable",
+    "WhatsApp destination and attribution token tested before launch",
+    "No spend beyond a separately approved hard cap"
+  ],
+  "baseline": "No qualified-lead baseline exists. Recent organic posts produced zero attributable actions; historical paid conversation totals are not verified as qualified leads. This pilot establishes the first usable baseline.",
+  "success_threshold": "Within the separately approved fixed pilot, at least 3 qualified WhatsApp conversations and at least 1 confirmed viewing or test-drive appointment, with no claim or tracking guardrail failure.",
+  "failure_threshold": "After the full separately approved pilot window and hard spend cap, zero qualified WhatsApp conversations with valid delivery, working attribution, current availability and timely sales response.",
+  "minimum_sample": "Complete the separately approved fixed window and hard spend cap. The planning proposal is 3 complete days and no more than AED 150 total; this is not authorized until separately approved.",
+  "test_window": "Zero-spend creative preparation may begin now. Publication and a proposed 3-day paid pilot require a later human approval of final creative, targeting, schedule and hard budget cap.",
+  "variable_being_tested": "Commercial viability of one truthful AED 51,900 Yaris offer as the account's first attributed qualified-lead baseline; no causal comparison between creative variants.",
+  "controlled_variables": [
+    "Exact Toyota Yaris vehicle",
+    "AED 51,900 advertised price",
+    "2026 year",
+    "GCC specification",
+    "4,546 km mileage",
+    "Repair disclosure",
+    "Instagram placement plan",
+    "One WhatsApp destination",
+    "Sales qualification definition"
+  ],
+  "execution_constraints": [
+    "This approval authorizes only zero-spend Content Analyst and Content Creator preparation.",
+    "Do not publish, create or activate an ad, reserve budget or spend money before separate explicit human launch approval.",
+    "Use existing Yaris media where adequate; request only missing shots that materially prevent a truthful usable creative.",
+    "Do not imply the car is accident-free, original paint, under warranty or mechanically perfect.",
+    "Do not conceal known repair facts.",
+    "Confirm availability and AED 51,900 price again immediately before publication.",
+    "Record a unique WhatsApp attribution token and every lead outcome.",
+    "If the owner rejects the proposed AED 150 cap, return to Strategist; do not split a smaller budget into A/B variants."
+  ],
+  "attribution_method": "One Yaris-specific click-to-WhatsApp link or prefilled token joined to experiment_id, creative_id, eventual ad_id and vehicle_id. Sales records conversation start, qualification, appointment and exact-vehicle sale.",
+  "decision_rule": {
+    "continue": "Continue through zero-spend content preparation and human creative review. After separately approved launch, run only until the fixed window or cap ends unless a guardrail fails.",
+    "iterate": "If conversations start but are unqualified, revise audience or offer presentation in a new version. If clicks occur without conversations, repair the WhatsApp path. If delivery is weak, revise targeting/distribution separately.",
+    "scale": "If success threshold is met, extend the winning single creative with a new approved cap and replicate the baseline on another comparable vehicle before adopting a playbook.",
+    "kill": "If the failure threshold is met with valid execution, stop paid promotion of this offer at AED 51,900 and return price, vehicle choice or proposition to Strategist. If data is insufficient, classify INCONCLUSIVE rather than failed."
+  },
+  "downstream_owner": "CONTENT_ANALYST",
+  "learning_note": "The first small budget should establish qualified-lead viability for one truthful offer; do not spend it on an underpowered two-arm creative comparison."
+}
