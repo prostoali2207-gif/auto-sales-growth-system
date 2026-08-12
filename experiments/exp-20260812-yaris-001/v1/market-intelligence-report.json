@@ -1,0 +1,186 @@
+{
+  "report_id": "mir-20260812-yaris-001",
+  "created_at": "2026-08-12T12:20:00Z",
+  "scope": {
+    "market": "UAE Toyota Yaris Sedan 2026 offer and first paid-demand validation",
+    "platforms": [
+      "WEB",
+      "INSTAGRAM"
+    ],
+    "date_range": {
+      "from": "2026-08-12",
+      "to": "2026-08-12"
+    },
+    "accounts_count": 3,
+    "items_count": 6
+  },
+  "patterns": [
+    {
+      "pattern_id": "pat-yaris-live-price-pressure",
+      "mechanic": "Live UAE listings place advertised 2026 Yaris offers near AED 55,000, including original-paint or new-condition claims, so an AED 54,000 repaired vehicle without verified warranty lacks a clear price reason to inquire.",
+      "evidence_count": 3,
+      "examples": [
+        "Dubizzle live 2026 Yaris results included a 4,000 km listing at AED 54,000, an original-paint 16,000 km listing at AED 55,000, and brand-new GCC offers from about AED 58,000.",
+        "DubiCars reported used 2026 Yaris listings starting around AED 55,000.",
+        "Toyota UAE listed the official 2026 base model from AED 64,900."
+      ],
+      "commercial_purpose": "DIRECT_SALE",
+      "confidence": "MEDIUM",
+      "limitations": [
+        "Listings are asking prices, not completed transaction prices.",
+        "Trim, warranty, seller type and condition differ.",
+        "The market changes continuously."
+      ]
+    },
+    {
+      "pattern_id": "pat-truthful-risk-disclosure",
+      "mechanic": "Because the vehicle has repaired damage, the creative must pair the lower advertised price with factual disclosure and invite inspection rather than imply accident-free or perfect condition.",
+      "evidence_count": 1,
+      "examples": [
+        "The business's own Yaris video states the headlight and bumper were replaced with original parts and the hood was repaired and repainted."
+      ],
+      "commercial_purpose": "TRUST",
+      "confidence": "HIGH",
+      "limitations": [
+        "The official police/insurance accident record was not obtained.",
+        "No independent inspection or paint-depth report is available."
+      ]
+    },
+    {
+      "pattern_id": "pat-low-friction-whatsapp",
+      "mechanic": "Use one direct WhatsApp action so every conversation can be attributed and qualified.",
+      "evidence_count": 2,
+      "examples": [
+        "Existing business Instagram already routes prospects toward direct conversation.",
+        "Prior repository market research found WhatsApp repeatedly used by UAE dealers as a low-friction endpoint."
+      ],
+      "commercial_purpose": "LEAD",
+      "confidence": "HIGH",
+      "limitations": [
+        "Adoption does not prove conversion performance.",
+        "Response speed and sales handling can dominate results."
+      ]
+    }
+  ],
+  "weak_patterns": [
+    {
+      "pattern_id": "weak-hide-repair-history",
+      "mechanic": "Advertising the vehicle as nearly new without disclosing known repair facts may create low-quality inquiries and damage trust when buyers discover the repairs.",
+      "evidence_count": 1,
+      "examples": [
+        "The vehicle's low mileage coexists with disclosed front-area repairs."
+      ],
+      "commercial_purpose": "DIRECT_SALE",
+      "confidence": "HIGH",
+      "limitations": [
+        "The exact severity and official accident classification remain unknown."
+      ]
+    },
+    {
+      "pattern_id": "weak-small-ab-first",
+      "mechanic": "Spending the first small budget on two variants would divide an already limited sample before baseline qualified-lead viability is known.",
+      "evidence_count": 1,
+      "examples": [
+        "Recent account organic posts produced no attributable actions; historical paid conversation totals are not verified as qualified WhatsApp leads."
+      ],
+      "commercial_purpose": "LEAD",
+      "confidence": "MEDIUM",
+      "limitations": [
+        "A later A/B test may be appropriate after baseline economics and tracking are known."
+      ]
+    }
+  ],
+  "buyer_signals": [
+    {
+      "signal": "Price relative to new and original-paint alternatives",
+      "evidence_refs": [
+        "src-dubizzle-yaris-2026",
+        "src-dubicars-yaris-2026"
+      ],
+      "frequency": 3
+    },
+    {
+      "signal": "Repair and accident history",
+      "evidence_refs": [
+        "src-business-yaris-video"
+      ],
+      "frequency": 1
+    },
+    {
+      "signal": "Warranty status",
+      "evidence_refs": [
+        "src-business-facts"
+      ],
+      "frequency": 1
+    }
+  ],
+  "test_candidates": [
+    {
+      "hypothesis": "A truthful single Yaris offer at AED 51,900 can produce qualified WhatsApp conversations within a small fixed paid pilot because it creates a visible price gap while preserving trust through repair disclosure.",
+      "mechanism": "Lead with the exact vehicle, year, GCC status, mileage and AED 51,900 price; disclose repaired front-area damage plainly; use one click-to-WhatsApp CTA.",
+      "change": "Replace the prior AED 54,000 offer treatment with one baseline creative at AED 51,900 and measure qualified demand before funding an A/B test.",
+      "controls": [
+        "One vehicle",
+        "One advertised price",
+        "One Instagram creative",
+        "One WhatsApp destination",
+        "No warranty, accident-free, original-paint, finance or perfect-condition claims"
+      ],
+      "suggested_kpi": "Qualified WhatsApp conversations and viewing/test-drive appointments attributable to the Yaris pilot",
+      "minimum_attempts": 1,
+      "evidence_refs": [
+        "src-dubizzle-yaris-2026",
+        "src-dubicars-yaris-2026",
+        "src-business-yaris-video",
+        "src-account-evidence"
+      ]
+    }
+  ],
+  "unknowns": [
+    "Warranty status",
+    "Exact trim",
+    "Official accident history",
+    "Independent inspection result",
+    "Final negotiation floor",
+    "Approved paid budget and targeting",
+    "Sales response-time baseline"
+  ],
+  "sources": [
+    {
+      "source_id": "src-dubizzle-yaris-2026",
+      "url": "https://uae.dubizzle.com/motors/used-cars/toyota/yaris/s/year/2026/",
+      "observed_at": "2026-08-12T12:10:00Z",
+      "source_type": "LIVE_MARKET_LISTINGS"
+    },
+    {
+      "source_id": "src-dubicars-yaris-2026",
+      "url": "https://www.dubicars.com/uae/used/toyota/yaris/2026",
+      "observed_at": "2026-08-12T12:10:00Z",
+      "source_type": "LIVE_MARKET_LISTINGS"
+    },
+    {
+      "source_id": "src-toyota-uae-yaris",
+      "url": "https://www.toyota.ae/en/new-cars/yaris/",
+      "observed_at": "2026-08-12T12:10:00Z",
+      "source_type": "OFFICIAL_MANUFACTURER_PRICE"
+    },
+    {
+      "source_id": "src-business-yaris-video",
+      "url": "https://www.instagram.com/",
+      "observed_at": "2026-08-12T11:30:00Z",
+      "source_type": "BUSINESS_INSTAGRAM_REEL_REVIEWED_WITH_AUDIO"
+    },
+    {
+      "source_id": "src-account-evidence",
+      "url": "https://github.com/prostoali2207-gif/auto-sales-growth-system/pull/4",
+      "observed_at": "2026-08-12T06:00:00Z",
+      "source_type": "AUTHENTICATED_ACCOUNT_ANALYTICS"
+    },
+    {
+      "source_id": "src-business-facts",
+      "url": "experiments/exp-20260812-yaris-001/v1/business-facts.json",
+      "observed_at": "2026-08-12T12:20:00Z",
+      "source_type": "HUMAN_VERIFIED_BUSINESS_FACTS"
+    }
+  ]
+}
