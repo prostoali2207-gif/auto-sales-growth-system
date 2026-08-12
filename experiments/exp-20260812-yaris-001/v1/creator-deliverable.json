@@ -1,0 +1,183 @@
+{
+  "creative_id": "cr-20260812-yaris-001-v1",
+  "content_spec_id": "cs-20260812-yaris-001-v1",
+  "experiment_id": "exp-20260812-yaris-001",
+  "variant_id": "baseline-a",
+  "status": "READY_FOR_REVIEW",
+  "platform": "INSTAGRAM",
+  "block_execution": [
+    {
+      "block_id": "hook-offer",
+      "planned_position": 1,
+      "execution": "Open on the cleanest front three-quarter shot of the exact white Yaris. Show 'TOYOTA YARIS 2026' and '51 900 AED' immediately.",
+      "estimated_start_seconds": 0,
+      "estimated_end_seconds": 3
+    },
+    {
+      "block_id": "core-facts",
+      "planned_position": 2,
+      "execution": "Cut to the dashboard/odometer, then an interior detail. Show 'GCC • 4 546 km'.",
+      "estimated_start_seconds": 3,
+      "estimated_end_seconds": 7
+    },
+    {
+      "block_id": "repair-disclosure",
+      "planned_position": 3,
+      "execution": "Use front/open-hood footage. Present the complete factual repair disclosure in two readable screens.",
+      "estimated_start_seconds": 7,
+      "estimated_end_seconds": 14
+    },
+    {
+      "block_id": "vehicle-proof",
+      "planned_position": 4,
+      "execution": "Use one exterior side/rear clip followed by one brief interior clip; no praise or condition claim.",
+      "estimated_start_seconds": 14,
+      "estimated_end_seconds": 18
+    },
+    {
+      "block_id": "cta",
+      "planned_position": 5,
+      "execution": "Close on the strongest full-car shot with one WhatsApp instruction and keyword.",
+      "estimated_start_seconds": 18,
+      "estimated_end_seconds": 23
+    }
+  ],
+  "final_script_or_copy": "Toyota Yaris, 2026 год — 51 900 дирхам. GCC, пробег 4 546 километров. Говорим честно: передняя фара заменена на б/у оригинал, бампер — на оригинальный, капот ремонтировался и окрашивался. Напишите «YARIS» в WhatsApp, чтобы договориться о просмотре.",
+  "shot_list": [
+    {
+      "order": 1,
+      "shot": "Existing front three-quarter exterior clip, exact white Yaris, stable and unobstructed",
+      "purpose": "Immediate vehicle and price identification",
+      "estimated_seconds": 3
+    },
+    {
+      "order": 2,
+      "shot": "Readable odometer/dashboard clip or still showing 4,546 km",
+      "purpose": "Support low-mileage fact",
+      "estimated_seconds": 2
+    },
+    {
+      "order": 3,
+      "shot": "Interior/dashboard detail from existing media",
+      "purpose": "Maintain product visibility while GCC/mileage text remains",
+      "estimated_seconds": 2
+    },
+    {
+      "order": 4,
+      "shot": "Existing front/open-hood footage showing repaired area honestly",
+      "purpose": "Support repair disclosure",
+      "estimated_seconds": 7
+    },
+    {
+      "order": 5,
+      "shot": "Existing side/rear exterior then brief interior clip",
+      "purpose": "Give a compact visual inspection",
+      "estimated_seconds": 4
+    },
+    {
+      "order": 6,
+      "shot": "Strongest full-car exterior frame",
+      "purpose": "Carry the WhatsApp CTA",
+      "estimated_seconds": 5
+    }
+  ],
+  "onscreen_text": [
+    {
+      "text": "TOYOTA YARIS 2026",
+      "placement": "0.0-3.0s, upper safe zone"
+    },
+    {
+      "text": "51 900 AED",
+      "placement": "0.0-3.0s, large central/lower safe zone"
+    },
+    {
+      "text": "GCC • 4 546 km",
+      "placement": "3.0-7.0s, lower safe zone"
+    },
+    {
+      "text": "Фара — б/у оригинал\nБампер — оригинал",
+      "placement": "7.0-10.5s, central safe zone over relevant footage"
+    },
+    {
+      "text": "Капот ремонтировался\nи окрашивался",
+      "placement": "10.5-14.0s, central safe zone"
+    },
+    {
+      "text": "Напишите «YARIS» в WhatsApp\nДоговоримся о просмотре",
+      "placement": "18.0-23.0s, central safe zone"
+    }
+  ],
+  "b_roll": [
+    "Front three-quarter exterior",
+    "Odometer/dashboard",
+    "Interior",
+    "Front/open hood",
+    "Side or rear exterior",
+    "Full-car closing frame"
+  ],
+  "cta": "Напишите «YARIS» в WhatsApp, чтобы договориться о просмотре.",
+  "caption": "Toyota Yaris Sedan 2026 — 51 900 AED.\n\nGCC Specs • пробег 4 546 км.\n\nПо ремонту честно: передняя фара заменена на б/у оригинал, бампер — на оригинальный, капот ремонтировался и окрашивался. Официальная история ДТП и гарантия не заявляются.\n\nНапишите «YARIS» в WhatsApp — договоримся о просмотре автомобиля.",
+  "tracking": {
+    "experiment_id": "exp-20260812-yaris-001",
+    "content_spec_id": "cs-20260812-yaris-001-v1",
+    "vehicle_ids": [
+      "vehicle-toyota-yaris-2026-001"
+    ],
+    "cta_token": "YARIS"
+  },
+  "deviations": [],
+  "fact_usage": [
+    {
+      "claim": "Toyota Yaris Sedan 2026",
+      "fact_id": "bf-20260812-yaris-001-v1",
+      "status": "CONFIRMED"
+    },
+    {
+      "claim": "AED 51,900 advertised price",
+      "fact_id": "bf-20260812-yaris-001-v1",
+      "status": "CONFIRMED"
+    },
+    {
+      "claim": "GCC Specs",
+      "fact_id": "bf-20260812-yaris-001-v1",
+      "status": "CONFIRMED"
+    },
+    {
+      "claim": "4,546 km",
+      "fact_id": "bf-20260812-yaris-001-v1",
+      "status": "CONFIRMED"
+    },
+    {
+      "claim": "Used original headlight, original bumper replacement, hood repaired and repainted",
+      "fact_id": "bf-20260812-yaris-001-v1",
+      "status": "CONFIRMED"
+    }
+  ],
+  "creator_checks": [
+    {
+      "check": "All commercial claims map to confirmed facts",
+      "result": "PASS",
+      "reason": "Every used claim is present in bf-20260812-yaris-001-v1 or the reviewed business video."
+    },
+    {
+      "check": "Known repair facts are disclosed",
+      "result": "PASS",
+      "reason": "All three relevant repair statements are in script, on-screen text and caption."
+    },
+    {
+      "check": "No forbidden claim is used",
+      "result": "PASS",
+      "reason": "No warranty, accident-free, original-paint, finance, trim or perfect-condition claim appears."
+    },
+    {
+      "check": "One CTA and attribution token",
+      "result": "PASS",
+      "reason": "Only WhatsApp with keyword YARIS is used."
+    },
+    {
+      "check": "Existing source media is sufficient for final edit",
+      "result": "NOT_APPLICABLE",
+      "reason": "The editor must confirm access to the original-quality Yaris file and a readable odometer asset before rendering."
+    }
+  ]
+}
