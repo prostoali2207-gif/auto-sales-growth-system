@@ -15,6 +15,8 @@ assert(lock.components[0].content_digest === spec.professional_stack.core_digest
 assert(lock.source_commit === spec.professional_stack.source_commit, "core commit drift");
 assert(spec.schema_version === launchSchema.properties.schema_version.const, "launch schema version mismatch");
 assert(spec.creative_test.single_declared_difference.includes("0–2.4"), "creative difference not bounded");
+assert(spec.creative_test.ad_b_ready === true, "Ad B is not ready");
+assert(spec.creative_test.arms[1].asset === "toyota_yaris_2026_reel_ad_b.mp4", "Ad B asset mismatch");
 assert(spec.creative_test.controlled_variables.includes("Audience"), "audience is not controlled");
 assert(spec.vehicle.forbidden_claims.includes("Accident-free"), "claim guard missing");
 assert(spec.budget.approved_cap === null, "budget must remain unapproved");

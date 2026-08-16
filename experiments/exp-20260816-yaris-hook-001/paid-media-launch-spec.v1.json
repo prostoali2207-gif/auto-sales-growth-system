@@ -119,10 +119,10 @@
       },
       {
         "arm": "B",
-        "asset": "PENDING",
-        "opening_0_to_2_4_seconds": "REPAIRED — WHY AED 54,000?",
+        "asset": "toyota_yaris_2026_reel_ad_b.mp4",
+        "opening_0_to_2_4_seconds": "REPAIRED CAR / WHY 54,000 AED?",
         "next_line": "TOYOTA YARIS 2026",
-        "ready": false
+        "ready": true
       }
     ],
     "single_declared_difference": "Opening 0–2.4 second hook: price-first versus repair/transparency-first. From 2.4 seconds onward, video, disclosure sequence, duration, audio, captions, CTA and landing conversation stay identical.",
@@ -142,8 +142,8 @@
       "CTA",
       "all footage and overlays after 2.4 seconds"
     ],
-    "ad_b_ready": false,
-    "creator_brief": "Create Ad B from the same master and encoding. Replace only the 0–2.4 second opening overlay with the declared repair-first hook; do not change any later frame, duration, audio, caption or CTA."
+    "ad_b_ready": true,
+    "creator_brief": "Completed from the same Ad A master: only the visible 0–2.4 second black hook block was replaced. Duration, frame rate, resolution, no-audio state and all content after 2.4 seconds were preserved."
   },
   "budget": {
     "currency": "AED",
@@ -251,6 +251,12 @@
       "classification": "LIVE_ACCOUNT_CHECK_REQUIRED",
       "source": "Meta Ads Manager live account",
       "checked_at": "2026-08-16T21:00:00+04:00"
+    },
+    {
+      "claim": "Ad B rendered at 1080×1920, 30 fps, 18 seconds and 540 frames; post-2.4-second SSIM against Ad A is 0.997142.",
+      "classification": "FACT",
+      "source": "Library file /Автосалон/toyota_yaris_2026_reel_ad_b.mp4 and local ffprobe/SSIM validation",
+      "checked_at": "2026-08-16T21:45:00+04:00"
     }
   ],
   "unknowns": [
@@ -261,7 +267,7 @@
     "Approved budget cap",
     "Staffed WhatsApp hours, response owner and capacity",
     "Dealership gross/contribution economics and acceptable qualified-lead/appointment acquisition cost",
-    "Ad B final rendered asset and human approval"
+    "Final human visual approval of both Ad A and Ad B"
   ],
   "approvals": {
     "creative": {
