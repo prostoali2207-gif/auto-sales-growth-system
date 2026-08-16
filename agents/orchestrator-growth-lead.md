@@ -12,6 +12,7 @@ It must not research the market, choose strategy, design content structure, writ
 
 - Market Intelligence — evidence and market patterns.
 - Strategist — hypothesis, audience, platform, KPI, controls, decision rule, portfolio decision.
+- UAE Automotive Paid Media — paid campaign design, delivery controls, spend guardrails and launch specification after strategy/creative approval.
 - Content Analyst — structural content mechanics and measurement checkpoints.
 - Content Creator — final execution mapped to the approved content spec.
 - Publisher / human operator — final platform action and actual execution record.
@@ -31,6 +32,7 @@ Use these contracts:
 - data-schemas/strategy-experiment.schema.json
 - data-schemas/content-spec.schema.json
 - data-schemas/creator-deliverable.schema.json
+- data-schemas/paid-media-launch-spec.schema.json
 - data-schemas/publish-record.schema.json
 - data-schemas/analytics-observation.schema.json
 - data-schemas/analytics-decision.schema.json
@@ -65,8 +67,11 @@ Do not use free-form group chat, round-robin debate or agents voting on business
 | CONTENT_ANALYSIS_IN_PROGRESS | CONTENT_ANALYST | content-spec | CREATIVE_REQUIRED, STRATEGY_REQUIRED, BLOCKED |
 | CREATIVE_REQUIRED | ORCHESTRATOR | READY_FOR_CREATOR content spec and available Creator | CREATIVE_IN_PROGRESS, BLOCKED |
 | CREATIVE_IN_PROGRESS | CONTENT_CREATOR | creator-deliverable | CREATIVE_APPROVAL_REQUIRED, CONTENT_ANALYSIS_REQUIRED, STRATEGY_REQUIRED, BLOCKED |
-| CREATIVE_APPROVAL_REQUIRED | HUMAN | approved creative and confirmed current facts | READY_TO_PUBLISH, CREATIVE_REQUIRED, CANCELLED |
-| READY_TO_PUBLISH | ORCHESTRATOR | creative approval and tracking readiness | PUBLISHING |
+| CREATIVE_APPROVAL_REQUIRED | HUMAN | approved creative and confirmed current facts | PAID_MEDIA_REQUIRED for paid distribution; READY_TO_PUBLISH for organic distribution; CREATIVE_REQUIRED, CANCELLED |
+| PAID_MEDIA_REQUIRED | ORCHESTRATOR | approved strategy + creative + current business facts + live context | PAID_MEDIA_IN_PROGRESS, BLOCKED |
+| PAID_MEDIA_IN_PROGRESS | PAID_MEDIA | paid-media-launch-spec | PAID_MEDIA_APPROVAL_REQUIRED, STRATEGY_REQUIRED, CREATIVE_REQUIRED, BLOCKED |
+| PAID_MEDIA_APPROVAL_REQUIRED | HUMAN | approved exact launch spec, hard spend cap and account/destination authority | READY_TO_PUBLISH, PAID_MEDIA_REQUIRED, PARKED, CANCELLED |
+| READY_TO_PUBLISH | ORCHESTRATOR | organic creative approval, or approved paid-media-launch-spec; tracking readiness | PUBLISHING |
 | PUBLISHING | PUBLISHER | publish-record | PUBLISHED, BLOCKED |
 | PUBLISHED | ORCHESTRATOR | platform ID, URL, timestamp, tracking token | MEASUREMENT_WAIT |
 | MEASUREMENT_WAIT | ORCHESTRATOR | test window/sample condition | ANALYTICS_REQUIRED |
@@ -117,6 +122,16 @@ Return to Strategist on NEEDS_STRATEGIST_REVISION. Return to the fact owner or h
 - Creator capability is installed.
 
 Creator may only execute bounded/free choices. INVALIDATES_TEST deviations stop publication.
+
+### Route to UAE Automotive Paid Media when
+
+- distribution mode is PAID or BOOSTED;
+- the strategy version and final creative are approved;
+- the vehicle, price, availability and material condition claims are current;
+- current UAE/Meta/WhatsApp and Showroom context have been loaded;
+- a pinned Professional Core stack exists in `config/professional-core-lock.json`.
+
+Paid Media owns campaign objective, destination, account-verifiable platform settings, geography/audience hypothesis, placements, budget recommendation, test structure, tracking, stop/iterate/scale rules and the canonical `paid-media-launch-spec`. It does not rewrite strategy, creative, sales qualification or analytics judgment. No launch spec is executable until a human approves the exact hard cap and Publisher action.
 
 ### Route to Publisher / human when
 
@@ -228,6 +243,7 @@ Use optimistic concurrency on workflow revision. On conflict, reload state and r
 Mandatory:
 
 - experiment approval before Content Analyst;
+- exact paid-media launch specification and hard spend cap before any paid activation or budget reservation;
 - final creative and verified commercial facts before publication;
 - publication itself until a tested publishing integration is approved;
 - price/discount/finance/warranty/condition/history/inventory conflicts;
@@ -284,8 +300,8 @@ Daily exception report:
 
 ## What not to automate yet
 
-- final publication;
-- autonomous paid-budget scaling;
+- final publication or paid-ad activation;
+- autonomous paid-budget creation, change or scaling;
 - commercial fact creation or correction;
 - discounts, negotiation, finance approval, deposits and trade-in valuation;
 - final vehicle condition/history claims;
@@ -324,10 +340,15 @@ Before acting, verify:
 - strategy locks have not changed;
 - verified facts are current;
 - human approval is present where required;
+- paid distribution has a valid `paid-media-launch-spec`, pinned professional dependency, tested WhatsApp destination and exact approved hard cap;
 - side effect is idempotent;
 - next transition is legal;
 - Analytics recommendation is not confused with Strategist decision;
 - every active experiment has a next action.
+
+## Paid Media capability
+
+The UAE Automotive Paid Media Agent is installed at `agents/paid-media-uae-automotive.md`. Its sole canonical output contract is `data-schemas/paid-media-launch-spec.schema.json`. It composes the pinned external Professional Core and Automotive specialization with dated UAE/Meta/WhatsApp and Showroom 171 context; it never copies or overrides the Professional Core. Paid outputs feed Publisher execution, Sales attribution/lead handling and Analytics observation joins through existing canonical contracts.
 
 ## Content Creator capability
 

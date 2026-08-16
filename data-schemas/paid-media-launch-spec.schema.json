@@ -1,0 +1,438 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "paid-media-launch-spec.schema.json",
+  "title": "UAE Automotive Paid Media Launch Specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "launch_spec_id",
+    "experiment_id",
+    "experiment_version",
+    "status",
+    "professional_stack",
+    "vehicle",
+    "objective",
+    "destination",
+    "campaign_structure",
+    "audience",
+    "placements",
+    "creative_test",
+    "budget",
+    "schedule",
+    "copy",
+    "tracking",
+    "lead_capture",
+    "decision_rules",
+    "evidence",
+    "unknowns",
+    "approvals"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "launch_spec_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "experiment_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "BLOCKED",
+        "AWAITING_HUMAN_APPROVAL",
+        "APPROVED_FOR_PUBLISHER",
+        "ACTIVE",
+        "ENDED",
+        "CANCELLED"
+      ]
+    },
+    "professional_stack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lock_path",
+        "source_repository",
+        "source_commit",
+        "core_id",
+        "core_version",
+        "core_digest",
+        "automotive_specialization_id",
+        "automotive_specialization_version"
+      ],
+      "properties": {
+        "lock_path": {
+          "type": "string"
+        },
+        "source_repository": {
+          "type": "string"
+        },
+        "source_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "core_id": {
+          "type": "string"
+        },
+        "core_version": {
+          "type": "string"
+        },
+        "core_digest": {
+          "type": "string"
+        },
+        "automotive_specialization_id": {
+          "type": "string"
+        },
+        "automotive_specialization_version": {
+          "type": "string"
+        }
+      }
+    },
+    "vehicle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vehicle_id",
+        "verified_facts",
+        "forbidden_claims",
+        "availability_status",
+        "availability_recheck_required"
+      ],
+      "properties": {
+        "vehicle_id": {
+          "type": "string"
+        },
+        "verified_facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_claims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "availability_status": {
+          "enum": [
+            "VERIFIED_AVAILABLE",
+            "REQUIRES_RECONFIRMATION",
+            "SOLD",
+            "RESERVED",
+            "UNKNOWN"
+          ]
+        },
+        "availability_recheck_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "campaign_objective",
+        "conversion_location",
+        "performance_goal",
+        "live_account_verification_required"
+      ],
+      "properties": {
+        "campaign_objective": {
+          "type": "string"
+        },
+        "conversion_location": {
+          "type": "string"
+        },
+        "performance_goal": {
+          "type": "string"
+        },
+        "fallback_performance_goal": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "live_account_verification_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "destination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "account_or_number_status",
+        "continuity_message",
+        "test_required"
+      ],
+      "properties": {
+        "type": {
+          "const": "WHATSAPP"
+        },
+        "account_or_number_status": {
+          "enum": [
+            "VERIFIED",
+            "REQUIRES_ACCESS_CHECK",
+            "MISSING"
+          ]
+        },
+        "continuity_message": {
+          "type": "string"
+        },
+        "test_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "campaign_structure": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "campaigns",
+        "ad_sets",
+        "ads",
+        "randomization_method",
+        "budget_level"
+      ]
+    },
+    "audience": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "locations",
+        "age",
+        "gender",
+        "language_strategy",
+        "detailed_targeting",
+        "exclusions",
+        "hypothesis"
+      ]
+    },
+    "placements": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "mode",
+        "creative_integrity_controls",
+        "report_breakdown"
+      ]
+    },
+    "creative_test": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "arms",
+        "single_declared_difference",
+        "controlled_variables",
+        "ad_b_ready"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "recommended_test_cap",
+        "approved_cap",
+        "basis",
+        "fallback_if_not_approved",
+        "not_a_platform_minimum"
+      ],
+      "properties": {
+        "currency": {
+          "const": "AED"
+        },
+        "recommended_test_cap": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "approved_cap": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "basis": {
+          "type": "string"
+        },
+        "fallback_if_not_approved": {
+          "type": "string"
+        },
+        "not_a_platform_minimum": {
+          "type": "boolean"
+        }
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "recommended_days",
+        "start_status",
+        "timezone",
+        "no_early_winner_rule"
+      ]
+    },
+    "copy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "primary_text",
+        "headline",
+        "description",
+        "cta",
+        "same_across_arms"
+      ]
+    },
+    "tracking": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "experiment_id",
+        "required_platform_ids",
+        "arm_attribution",
+        "publish_join",
+        "sales_join",
+        "analytics_join"
+      ]
+    },
+    "lead_capture": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "required_fields",
+        "privacy_rule"
+      ]
+    },
+    "decision_rules": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "immediate_stop",
+        "evaluate",
+        "iterate",
+        "scale"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim",
+          "classification",
+          "source",
+          "checked_at"
+        ],
+        "properties": {
+          "claim": {
+            "type": "string"
+          },
+          "classification": {
+            "enum": [
+              "FACT",
+              "INFERENCE",
+              "HYPOTHESIS",
+              "LIVE_ACCOUNT_CHECK_REQUIRED"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "checked_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approvals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "creative",
+        "vehicle_facts",
+        "availability",
+        "whatsapp_destination",
+        "meta_account_access",
+        "budget_cap",
+        "publish_activation"
+      ],
+      "properties": {
+        "creative": {
+          "$ref": "#/$defs/approval"
+        },
+        "vehicle_facts": {
+          "$ref": "#/$defs/approval"
+        },
+        "availability": {
+          "$ref": "#/$defs/approval"
+        },
+        "whatsapp_destination": {
+          "$ref": "#/$defs/approval"
+        },
+        "meta_account_access": {
+          "$ref": "#/$defs/approval"
+        },
+        "budget_cap": {
+          "$ref": "#/$defs/approval"
+        },
+        "publish_activation": {
+          "$ref": "#/$defs/approval"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "approved_by",
+        "approved_at"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PENDING",
+            "APPROVED",
+            "REJECTED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "approved_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approved_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

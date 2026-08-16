@@ -1,0 +1,30 @@
+name: Paid Media Stack Gate
+
+on:
+  pull_request:
+    paths:
+      - "agents/orchestrator-growth-lead.md"
+      - "agents/paid-media-uae-automotive.md"
+      - "config/professional-core-lock.json"
+      - "data-schemas/agent-handoff.schema.json"
+      - "data-schemas/orchestrator-workflow.schema.json"
+      - "data-schemas/paid-media-launch-spec.schema.json"
+      - "experiments/**/paid-media-launch-spec*.json"
+      - "scripts/validate-paid-media-stack.mjs"
+      - "package.json"
+      - ".github/workflows/paid-media-stack-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm run validate:paid-media

@@ -1,0 +1,309 @@
+{
+  "schema_version": "1.0.0",
+  "launch_spec_id": "pmls-exp-20260816-yaris-hook-001-v1",
+  "experiment_id": "exp-20260816-yaris-hook-001",
+  "experiment_version": "1.0.0",
+  "status": "BLOCKED",
+  "professional_stack": {
+    "lock_path": "config/professional-core-lock.json",
+    "source_repository": "prostoali2207-gif/professional-ai-agents",
+    "source_commit": "d07537e5379005afb55c36aeda43172f484ce752",
+    "core_id": "paid-media-performance-marketing",
+    "core_version": "1.0.0",
+    "core_digest": "sha256:882477d8941c09538576096fbe93cd286584a77d040eecf1d8c266ffab3a9179",
+    "automotive_specialization_id": "automotive-paid-media",
+    "automotive_specialization_version": "1.0.0"
+  },
+  "vehicle": {
+    "vehicle_id": "toyota-yaris-2026-gcc-4546km",
+    "verified_facts": [
+      "Toyota Yaris model year 2026",
+      "GCC Specs",
+      "Mileage 4,546 km",
+      "Approved advertised price AED 54,000",
+      "Vehicle was purchased damaged",
+      "Front headlight replaced with a used original part",
+      "Front bumper replaced with an original part",
+      "Bonnet was repaired and painted"
+    ],
+    "forbidden_claims": [
+      "No accident",
+      "Accident-free",
+      "All original paint",
+      "Warranty",
+      "Exact accident severity",
+      "Complete official damage history",
+      "Unverified finance terms"
+    ],
+    "availability_status": "REQUIRES_RECONFIRMATION",
+    "availability_recheck_required": true
+  },
+  "objective": {
+    "campaign_objective": "LEADS",
+    "conversion_location": "MESSAGING_APPS",
+    "performance_goal": "MAXIMIZE_NUMBER_OF_LEADS",
+    "fallback_performance_goal": "MAXIMIZE_NUMBER_OF_CONVERSATIONS only if the live account does not offer the lead goal and the downgrade is recorded",
+    "live_account_verification_required": true
+  },
+  "destination": {
+    "type": "WHATSAPP",
+    "account_or_number_status": "REQUIRES_ACCESS_CHECK",
+    "continuity_message": "Hi, I am interested in the Toyota Yaris 2026 for AED 54,000. Is it still available for inspection?",
+    "test_required": true
+  },
+  "campaign_structure": {
+    "campaigns": 1,
+    "ad_sets": 2,
+    "ads": 2,
+    "randomization_method": "META_AB_TEST_OR_EXPERIMENTS with 50/50 audience split; do not call ordinary uneven two-ad delivery a clean A/B test",
+    "budget_level": "AD_SET_BUDGETS_EQUAL; campaign budget optimization off for test isolation",
+    "naming": {
+      "campaign": "EXP-20260816-YARIS-HOOK-001 | Leads | WhatsApp | UAE-North",
+      "ad_set_a": "A | Price-first | Ajman+Sharjah+Dubai",
+      "ad_set_b": "B | Repair-first | Ajman+Sharjah+Dubai",
+      "ad_a": "A | 54000-first | final-v1",
+      "ad_b": "B | repair-first | final-v1"
+    }
+  },
+  "audience": {
+    "locations": {
+      "include": [
+        "Ajman city",
+        "Sharjah city",
+        "Dubai city"
+      ],
+      "method": "City location controls if available in the live account; no overlapping radius stack",
+      "exclude_from_first_test": [
+        "Abu Dhabi",
+        "Al Ain",
+        "Ras Al Khaimah",
+        "Fujairah",
+        "Umm Al Quwain"
+      ],
+      "live_ui_check": "Confirm Meta does not expand beyond selected location controls and record the exact presence/location option shown."
+    },
+    "age": {
+      "min": 21,
+      "max": 60,
+      "classification": "HYPOTHESIS"
+    },
+    "gender": "ALL",
+    "language_strategy": "English creative and copy; leave Meta language targeting open to avoid excluding multilingual UAE users. Record preferred lead language.",
+    "detailed_targeting": "BROAD; no automotive-interest narrowing in the first test",
+    "exclusions": "No customer-list Custom Audience until lawful basis, provenance and suppression are approved. Exclude employees only if an approved list exists.",
+    "hypothesis": "A bounded Ajman–Sharjah–Dubai catchment is more serviceable for an Ajman showroom than all-UAE targeting while retaining the largest nearby demand pools. This is a testable geography hypothesis, not established lead-to-sale evidence."
+  },
+  "placements": {
+    "mode": "ADVANTAGE_PLUS_PLACEMENTS",
+    "creative_integrity_controls": [
+      "Use 9:16 master",
+      "Preview every eligible placement",
+      "Disable enhancements that rewrite, animate, crop away or reorder the tested 0–2.4 second hook",
+      "Keep placement settings identical across arms"
+    ],
+    "report_breakdown": [
+      "platform",
+      "placement",
+      "arm"
+    ],
+    "reason": "Meta currently recommends Advantage+ placements for budget efficiency; exact eligible placements for WhatsApp Leads must be verified in the live account."
+  },
+  "creative_test": {
+    "arms": [
+      {
+        "arm": "A",
+        "asset": "toyota_yaris_2026_reel_final.mp4",
+        "opening_0_to_2_4_seconds": "54,000 AED",
+        "next_line": "TOYOTA YARIS 2026",
+        "ready": true
+      },
+      {
+        "arm": "B",
+        "asset": "toyota_yaris_2026_reel_ad_b.mp4",
+        "opening_0_to_2_4_seconds": "REPAIRED CAR / WHY 54,000 AED?",
+        "next_line": "TOYOTA YARIS 2026",
+        "ready": true
+      }
+    ],
+    "single_declared_difference": "Opening 0–2.4 second hook: price-first versus repair/transparency-first. From 2.4 seconds onward, video, disclosure sequence, duration, audio, captions, CTA and landing conversation stay identical.",
+    "controlled_variables": [
+      "Audience",
+      "locations",
+      "age",
+      "placements",
+      "schedule",
+      "budget per arm",
+      "objective",
+      "performance goal",
+      "WhatsApp destination",
+      "primary text",
+      "headline",
+      "description",
+      "CTA",
+      "all footage and overlays after 2.4 seconds"
+    ],
+    "ad_b_ready": true,
+    "creator_brief": "Completed from the same Ad A master: only the visible 0–2.4 second black hook block was replaced. Duration, frame rate, resolution, no-audio state and all content after 2.4 seconds were preserved."
+  },
+  "budget": {
+    "currency": "AED",
+    "recommended_test_cap": 420,
+    "approved_cap": null,
+    "basis": "Planning floor of AED 30 per arm per day for 7 days. It is a constrained learning budget, not a guaranteed sample and not Meta's account minimum. Before approval compare with live estimated delivery; if either arm is unlikely to obtain decision-useful delivery, do not pretend the A/B test is powered.",
+    "fallback_if_not_approved": "Run Ad A only as a 7-day baseline at a separately approved cap of AED 140 (AED 20/day). Do not label that fallback an A/B test and do not infer A versus B.",
+    "not_a_platform_minimum": true
+  },
+  "schedule": {
+    "recommended_days": 7,
+    "start_status": "NOT_SCHEDULED",
+    "timezone": "Asia/Dubai",
+    "no_early_winner_rule": "Do not select a winner before the fixed 7-day checkpoint. Early pause is only for safety, truth, routing, availability or hard-cap failure.",
+    "launch_window_requirement": "Start only when WhatsApp is staffed for the declared response window and both creatives are approved."
+  },
+  "copy": {
+    "primary_text": "Toyota Yaris 2026 • GCC Specs • 4,546 km • AED 54,000. Previously damaged and repaired: used original front headlight, original front bumper replacement, and the bonnet was repaired and painted. Message us on WhatsApp to confirm availability and arrange an inspection.",
+    "headline": "Toyota Yaris 2026 — AED 54,000",
+    "description": "GCC Specs | 4,546 km | Ajman",
+    "cta": "SEND_WHATSAPP_MESSAGE",
+    "same_across_arms": true
+  },
+  "tracking": {
+    "experiment_id": "exp-20260816-yaris-hook-001",
+    "required_platform_ids": [
+      "meta_campaign_id",
+      "meta_ad_set_id",
+      "meta_ad_id",
+      "whatsapp_thread_or_referral_id when available"
+    ],
+    "arm_attribution": "Prefer Meta/WhatsApp referral ad metadata. If unavailable, use arm-specific neutral source codes YA/YB in the prefilled message and record confidence; do not manufacture deterministic attribution.",
+    "publish_join": "publish-record.experiment_id + creative_id + platform_content_id/actual_execution Meta IDs",
+    "sales_join": "lead-attribution.experiment_id + campaign_id + ad_id + advertised_vehicle_id",
+    "analytics_join": "analytics-observation.experiment_id + creative_id + platform/ad IDs + sales funnel lead_id"
+  },
+  "lead_capture": {
+    "required_fields": [
+      "lead_id",
+      "received_at",
+      "experiment_id",
+      "arm",
+      "campaign_id",
+      "ad_set_id",
+      "ad_id",
+      "vehicle_id",
+      "attribution_evidence",
+      "attribution_confidence",
+      "emirate_or_city",
+      "preferred_language",
+      "budget_context",
+      "cash_finance_or_undecided",
+      "purchase_timeframe",
+      "availability_question",
+      "appointment_or_inspection_readiness",
+      "qualification",
+      "qualification_reason",
+      "first_response_seconds",
+      "appointment_status",
+      "test_drive_status",
+      "sale_status",
+      "lost_reason"
+    ],
+    "privacy_rule": "Keep phone number and raw WhatsApp text in the authorized CRM/channel only; analytics records use privacy-safe IDs and classifications."
+  },
+  "decision_rules": {
+    "immediate_stop": [
+      "Pause if vehicle is sold, reserved, unavailable, repriced or any material fact changes.",
+      "Pause if the ad or placement obscures the repair disclosure or changes the controlled hook.",
+      "Pause if WhatsApp routing, attribution or staffed response fails.",
+      "Pause at the exact approved hard cap; never auto-increase.",
+      "Pause for credible misleading-claim, policy, privacy or safety complaint."
+    ],
+    "evaluate": "At day 7 compare qualified WhatsApp conversations by arm, cost per qualified conversation, qualification rate, appointment/inspection progression and placement mix. Message starts, CTR and video metrics are diagnostics.",
+    "iterate": "If either arm has fewer than 10 attributable WhatsApp conversations or material execution imbalance, mark the creative comparison INCONCLUSIVE. Use the evidence to repair or request a separately approved extension; do not declare a winner.",
+    "scale": "No autonomous SCALE. Require verified marginal business economics or an approved proxy threshold, delegated spend authority, current inventory, reliable downstream quality, operational response/appointment capacity and Strategist decision. Cheap messages alone cannot pass."
+  },
+  "evidence": [
+    {
+      "claim": "Meta Ads Manager supports Leads objective with WhatsApp as messaging destination.",
+      "classification": "FACT",
+      "source": "https://www.facebook.com/business/help/447934475640650",
+      "checked_at": "2026-08-16T21:00:00+04:00"
+    },
+    {
+      "claim": "Meta recommends Advantage+ placements to seek cost-efficient delivery.",
+      "classification": "FACT",
+      "source": "https://www.facebook.com/business/help/196554084569964",
+      "checked_at": "2026-08-16T21:00:00+04:00"
+    },
+    {
+      "claim": "Meta A/B testing can compare ad strategies while changing a declared variable; official guidance recommends at least 7 days for reliable results.",
+      "classification": "FACT",
+      "source": "https://www.facebook.com/business/help/290009911394576",
+      "checked_at": "2026-08-16T21:00:00+04:00"
+    },
+    {
+      "claim": "Ajman, Sharjah and Dubai are the correct first serviceable catchment for this showroom.",
+      "classification": "HYPOTHESIS",
+      "source": "context/paid-media/showroom-171/2026-08.md",
+      "checked_at": "2026-08-16T21:00:00+04:00"
+    },
+    {
+      "claim": "The exact lead performance goal, locations, eligible placements, WhatsApp identity, account floor and delivery estimate are available for this account.",
+      "classification": "LIVE_ACCOUNT_CHECK_REQUIRED",
+      "source": "Meta Ads Manager live account",
+      "checked_at": "2026-08-16T21:00:00+04:00"
+    },
+    {
+      "claim": "Ad B rendered at 1080×1920, 30 fps, 18 seconds and 540 frames; post-2.4-second SSIM against Ad A is 0.997142.",
+      "classification": "FACT",
+      "source": "Library file /Автосалон/toyota_yaris_2026_reel_ad_b.mp4 and local ffprobe/SSIM validation",
+      "checked_at": "2026-08-16T21:45:00+04:00"
+    }
+  ],
+  "unknowns": [
+    "Current vehicle availability at launch",
+    "Meta ad account/Page/Instagram/WhatsApp linkage and permissions",
+    "Exact live-account performance goal labels and eligible placements",
+    "Live estimated audience and delivery for the selected cities",
+    "Approved budget cap",
+    "Staffed WhatsApp hours, response owner and capacity",
+    "Dealership gross/contribution economics and acceptable qualified-lead/appointment acquisition cost",
+    "Final human visual approval of both Ad A and Ad B"
+  ],
+  "approvals": {
+    "creative": {
+      "status": "PENDING",
+      "approved_by": null,
+      "approved_at": null
+    },
+    "vehicle_facts": {
+      "status": "APPROVED",
+      "approved_by": "USER_PROVIDED_CONFIRMED_FACTS",
+      "approved_at": "2026-08-16T21:00:00+04:00"
+    },
+    "availability": {
+      "status": "PENDING",
+      "approved_by": null,
+      "approved_at": null
+    },
+    "whatsapp_destination": {
+      "status": "PENDING",
+      "approved_by": null,
+      "approved_at": null
+    },
+    "meta_account_access": {
+      "status": "PENDING",
+      "approved_by": null,
+      "approved_at": null
+    },
+    "budget_cap": {
+      "status": "PENDING",
+      "approved_by": null,
+      "approved_at": null
+    },
+    "publish_activation": {
+      "status": "PENDING",
+      "approved_by": null,
+      "approved_at": null
+    }
+  }
+}

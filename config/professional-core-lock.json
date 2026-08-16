@@ -1,0 +1,28 @@
+{
+  "lock_schema_version": "1.0.0",
+  "stack_id": "paid-media-uae-automotive",
+  "pinned_at": "2026-08-16T21:00:00+04:00",
+  "source_repository": "prostoali2207-gif/professional-ai-agents",
+  "source_commit": "d07537e5379005afb55c36aeda43172f484ce752",
+  "components": [
+    {
+      "id": "paid-media-performance-marketing",
+      "version": "1.0.0",
+      "lifecycle": "qualified",
+      "content_digest": "sha256:882477d8941c09538576096fbe93cd286584a77d040eecf1d8c266ffab3a9179",
+      "path": "architect/library/cores/paid-media-performance-marketing/1.0.0"
+    },
+    {
+      "id": "automotive-paid-media",
+      "version": "1.0.0",
+      "parent_id": "paid-media-performance-marketing",
+      "parent_content_digest": "sha256:882477d8941c09538576096fbe93cd286584a77d040eecf1d8c266ffab3a9179",
+      "path": "architect/specializations/automotive-paid-media/1.0.0"
+    }
+  ],
+  "update_policy": {
+    "mode": "manual_reviewed_pin",
+    "rule": "Do not follow main implicitly. Change source_commit or component version only after compatibility review and affected stack validation.",
+    "source_of_truth": "Professional methodology remains in professional-ai-agents; this repository stores only this reproducibility lock and project context."
+  }
+}
