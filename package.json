@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "collect:instagram": "node scripts/collect-instagram-reels.mjs"
+    "collect:instagram": "node scripts/collect-instagram-reels.mjs",
+    "validate:paid-media": "node scripts/validate-paid-media-stack.mjs"
   },
   "dependencies": {
     "apify-client": "^2.16.0"

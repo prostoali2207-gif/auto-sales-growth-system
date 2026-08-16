@@ -42,6 +42,7 @@
         "STRATEGIST",
         "CONTENT_ANALYST",
         "CONTENT_CREATOR",
+        "PAID_MEDIA",
         "PUBLISHER",
         "SALES_LEAD_AGENT",
         "ANALYTICS",
@@ -57,6 +58,7 @@
         "STRATEGIST",
         "CONTENT_ANALYST",
         "CONTENT_CREATOR",
+        "PAID_MEDIA",
         "PUBLISHER",
         "SALES_LEAD_AGENT",
         "ANALYTICS",
@@ -79,7 +81,9 @@
         "DECIDE_PORTFOLIO",
         "APPROVE_SCALE",
         "REPAIR_DATA",
-        "RESOLVE_CONTRACT_VIOLATION"
+        "RESOLVE_CONTRACT_VIOLATION",
+        "PLAN_PAID_MEDIA",
+        "APPROVE_PAID_MEDIA_SPEND"
       ]
     },
     "contract": {

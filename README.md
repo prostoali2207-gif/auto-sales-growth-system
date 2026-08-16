@@ -67,3 +67,15 @@ Before a live automated loop:
 3. connect verified inventory and commercial facts;
 4. connect publication/attribution/inquiry/outcome data;
 5. complete one end-to-end experiment whose entire history can be reconstructed without chat logs.
+
+
+## Paid Media stack
+
+Paid acquisition composes the external pinned Professional Core and Automotive specialization with this repository's dated UAE/Meta/WhatsApp and Showroom 171 context:
+
+`Professional Core → Automotive specialization → UAE Automotive Paid Media → Orchestrator → Human Publisher → Sales → Analytics`
+
+- dependency lock: `config/professional-core-lock.json`;
+- applied agent: `agents/paid-media-uae-automotive.md`;
+- sole paid launch contract: `data-schemas/paid-media-launch-spec.schema.json`;
+- no paid launch or spend without exact human approval.
