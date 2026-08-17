@@ -30,6 +30,21 @@ class AutomotiveVideoPostProductionContract(unittest.TestCase):
         self.assertEqual(len(cases), 8)
         self.assertEqual(len({case["id"] for case in cases}), 8)
 
+    def test_orchestrator_and_handoff_route_post_production(self):
+        workflow = json.loads((ROOT / "data-schemas/orchestrator-workflow.schema.json").read_text())
+        self.assertIn("POST_PRODUCTION_REQUIRED", workflow["$defs"]["state"]["enum"])
+        self.assertIn("POST_PRODUCTION_IN_PROGRESS", workflow["$defs"]["state"]["enum"])
+        self.assertIn("VIDEO_POST_PRODUCTION", workflow["$defs"]["owner"]["enum"])
+        handoff = json.loads((ROOT / "data-schemas/agent-handoff.schema.json").read_text())
+        self.assertIn("VIDEO_POST_PRODUCTION", handoff["properties"]["target_owner"]["enum"])
+        self.assertIn("POST_PRODUCE_VIDEO", handoff["properties"]["task_type"]["enum"])
+
+    def test_render_is_joinable_to_publish_and_analytics(self):
+        publish = json.loads((ROOT / "data-schemas/publish-record.schema.json").read_text())
+        observation = json.loads((ROOT / "data-schemas/analytics-observation.schema.json").read_text())
+        self.assertIn("render_id", publish["properties"])
+        self.assertIn("render_id", observation["properties"])
+
 
 if __name__ == "__main__":
     unittest.main()
