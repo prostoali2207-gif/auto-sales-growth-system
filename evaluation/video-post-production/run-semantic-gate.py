@@ -19,6 +19,9 @@ FLAGS = ["vehicle_identity","no_substitute_proof","condition_visibility","truth_
 
 
 def git_sha() -> str:
+    frozen = os.environ.get("AUTO_VE_CANDIDATE_SHA")
+    if frozen:
+        return frozen
     result = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, capture_output=True, check=True)
     return result.stdout.strip()
 
