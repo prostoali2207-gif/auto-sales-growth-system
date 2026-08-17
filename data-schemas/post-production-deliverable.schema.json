@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "post-production-deliverable.schema.json",
+  "title": "Video Post-Production Deliverable",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "render_id", "creative_id", "content_spec_id", "experiment_id", "variant_id",
+    "status", "platform", "source_assets", "timeline", "overlays", "audio",
+    "color", "export", "tracking", "deviations", "fact_usage", "qc_checks"
+  ],
+  "properties": {
+    "render_id": {"type": "string", "minLength": 1},
+    "creative_id": {"type": "string", "minLength": 1},
+    "content_spec_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": "string", "minLength": 1},
+    "variant_id": {"type": "string", "minLength": 1},
+    "status": {
+      "type": "string",
+      "enum": [
+        "READY_FOR_REVIEW", "BLOCKED_MISSING_ASSET", "BLOCKED_TECHNICAL",
+        "NEEDS_CONTENT_CREATOR_REVISION", "NEEDS_CONTENT_ANALYST_REVISION", "NEEDS_STRATEGIST_REVISION"
+      ]
+    },
+    "platform": {
+      "type": "string",
+      "enum": ["INSTAGRAM", "YOUTUBE_SHORTS", "YOUTUBE_LONG", "TELEGRAM"]
+    },
+    "source_assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["asset_id", "uri", "identity_status", "inspection_status"],
+        "properties": {
+          "asset_id": {"type": "string"},
+          "uri": {"type": "string"},
+          "sha256": {"type": ["string", "null"]},
+          "identity_status": {"type": "string", "enum": ["CONFIRMED", "CONFLICTING", "UNKNOWN"]},
+          "inspection_status": {"type": "string", "enum": ["INSPECTED", "UNREADABLE", "MISSING"]},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["order", "block_id", "source_asset_id", "timeline_start_seconds", "timeline_end_seconds", "source_in_seconds", "source_out_seconds", "purpose", "transformations"],
+        "properties": {
+          "order": {"type": "integer", "minimum": 1},
+          "block_id": {"type": "string"},
+          "source_asset_id": {"type": "string"},
+          "timeline_start_seconds": {"type": "number", "minimum": 0},
+          "timeline_end_seconds": {"type": "number", "minimum": 0},
+          "source_in_seconds": {"type": "number", "minimum": 0},
+          "source_out_seconds": {"type": "number", "minimum": 0},
+          "purpose": {"type": "string"},
+          "transformations": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "overlays": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "start_seconds", "end_seconds", "placement", "fact_id"],
+        "properties": {
+          "text": {"type": "string"},
+          "start_seconds": {"type": "number", "minimum": 0},
+          "end_seconds": {"type": "number", "minimum": 0},
+          "placement": {"type": "string"},
+          "fact_id": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "essential_meaning_without_audio", "integrated_loudness_lufs", "maximum_true_peak_dbtp", "notes"],
+      "properties": {
+        "mode": {"type": "string", "enum": ["SILENT", "SPEECH", "MUSIC", "SPEECH_MUSIC"]},
+        "essential_meaning_without_audio": {"type": "boolean"},
+        "integrated_loudness_lufs": {"type": ["number", "null"]},
+        "maximum_true_peak_dbtp": {"type": ["number", "null"]},
+        "notes": {"type": ["string", "null"]}
+      }
+    },
+    "color": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_assumption", "output_target", "corrections", "creative_grade", "truth_preservation_result"],
+      "properties": {
+        "input_assumption": {"type": "string"},
+        "output_target": {"type": "string"},
+        "corrections": {"type": "array", "items": {"type": "string"}},
+        "creative_grade": {"type": ["string", "null"]},
+        "truth_preservation_result": {"type": "string", "enum": ["PASS", "FAIL", "NOT_APPLICABLE"]}
+      }
+    },
+    "export": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asset_uri", "sha256", "container", "video_codec", "audio_codec", "width", "height", "frame_rate", "duration_seconds", "delivery_spec_source", "exported_at"],
+      "properties": {
+        "asset_uri": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"]},
+        "container": {"type": ["string", "null"]},
+        "video_codec": {"type": ["string", "null"]},
+        "audio_codec": {"type": ["string", "null"]},
+        "width": {"type": ["integer", "null"], "minimum": 1},
+        "height": {"type": ["integer", "null"], "minimum": 1},
+        "frame_rate": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "duration_seconds": {"type": ["number", "null"], "minimum": 0},
+        "delivery_spec_source": {"type": ["string", "null"]},
+        "exported_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "tracking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["experiment_id", "content_spec_id", "creative_id", "vehicle_ids", "cta_token"],
+      "properties": {
+        "experiment_id": {"type": "string"},
+        "content_spec_id": {"type": "string"},
+        "creative_id": {"type": "string"},
+        "vehicle_ids": {"type": "array", "items": {"type": "string"}},
+        "cta_token": {"type": ["string", "null"]}
+      }
+    },
+    "deviations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field", "deviation", "impact"],
+        "properties": {
+          "field": {"type": "string"},
+          "deviation": {"type": "string"},
+          "impact": {"type": "string", "enum": ["NONE", "LOW", "MATERIAL", "INVALIDATES_TEST"]}
+        }
+      }
+    },
+    "fact_usage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "fact_id", "status"],
+        "properties": {
+          "claim": {"type": "string"},
+          "fact_id": {"type": "string"},
+          "status": {"type": "string", "enum": ["CONFIRMED", "STALE", "CONFLICTING", "MISSING"]}
+        }
+      }
+    },
+    "qc_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check", "class", "result", "evidence"],
+        "properties": {
+          "check": {"type": "string"},
+          "class": {"type": "string", "enum": ["DETERMINISTIC", "PERCEPTUAL", "TRUTH", "EXPERIMENT", "DELIVERY"]},
+          "result": {"type": "string", "enum": ["PASS", "FAIL", "NOT_APPLICABLE"]},
+          "evidence": {"type": "string"}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "READY_FOR_REVIEW"}}},
+      "then": {
+        "properties": {
+          "export": {
+            "properties": {
+              "asset_uri": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^[A-Fa-f0-9]{64}$"},
+              "container": {"type": "string", "minLength": 1},
+              "video_codec": {"type": "string", "minLength": 1},
+              "width": {"type": "integer", "minimum": 1},
+              "height": {"type": "integer", "minimum": 1},
+              "frame_rate": {"type": "number", "exclusiveMinimum": 0},
+              "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+              "delivery_spec_source": {"type": "string", "minLength": 1},
+              "exported_at": {"type": "string", "format": "date-time"}
+            }
+          }
+        }
+      }
+    }
+  ]
+}
