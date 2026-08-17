@@ -23,6 +23,7 @@ market report
 → strategy experiment
 → content spec
 → creator deliverable
+→ post-production deliverable
 → publish record
 → analytics observation
 → analytics decision
@@ -38,7 +39,8 @@ Every artifact carries experiment_id where applicable. Never identify an experim
 | Market Intelligence | market-intelligence-report.schema.json | Strategist |
 | Strategist | strategy-experiment.schema.json | Content Analyst, Analytics |
 | Content Analyst | content-spec.schema.json | Content Creator, Analytics |
-| Content Creator | creator-deliverable.schema.json | Human/Publisher, Analytics |
+| Content Creator | creator-deliverable.schema.json | Video Post-Production, Analytics |
+| Video Post-Production | post-production-deliverable.schema.json | Human/Publisher, Analytics |
 | Publisher | publish-record.schema.json | Analytics, Sales attribution |
 | Sales | sales-funnel-event.schema.json | Analytics |
 | Analytics | analytics-decision.schema.json | Strategist |
@@ -50,6 +52,7 @@ Every artifact carries experiment_id where applicable. Never identify an experim
 - experiment version is approved;
 - content spec is READY_FOR_CREATOR;
 - creative maps to every required block ID;
+- post-production render exists and its deterministic, perceptual, truth and delivery QC passed;
 - no INVALIDATES_TEST deviation;
 - vehicle, price, availability, offer, finance, warranty, history and condition facts are current;
 - CTA destination works;
@@ -112,11 +115,13 @@ Each item must show exact decision, evidence, consequence, owner after approval/
 ## Bootstrap sequence
 
 1. Install Content Creator Agent and make it emit creator-deliverable.schema.json.
-2. Add a schema validator in CI for every JSON Schema and example fixture.
-3. Add example valid/invalid handoff fixtures.
-4. Add a persistent workflow table plus append-only event table.
-5. Add a small worker that claims work using revision/lease and idempotency keys.
-6. Add human approval UI or controlled manual approval records.
-7. Connect read-only verified inventory/commercial facts.
-8. Run one experiment end-to-end in shadow/manual mode.
-9. Enable automated routing only after the audit trail reconstructs the full run.
+2. Install Video Post-Production and make it emit post-production-deliverable.schema.json.
+3. Add a schema validator in CI for every JSON Schema and example fixture.
+4. Add example valid/invalid handoff fixtures.
+5. Add a persistent workflow table plus append-only event table.
+6. Add a small worker that claims work using revision/lease and idempotency keys.
+7. Add human approval UI or controlled manual approval records.
+8. Connect read-only verified inventory/commercial facts.
+9. Connect a render-capable toolchain and direct artifact inspection.
+10. Run one experiment end-to-end in shadow/manual mode.
+11. Enable automated routing only after the audit trail reconstructs the full run.

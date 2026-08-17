@@ -37,6 +37,13 @@
     "creative_id": {
       "type": "string"
     },
+    "render_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Required by orchestration for rendered video; null for non-rendered content."
+    },
     "platform": {
       "type": "string",
       "enum": [

@@ -17,13 +17,14 @@ Upstream ownership:
 
 Downstream ownership:
 
-- Orchestrator validates the deliverable and routes it for human creative/fact approval.
-- Publisher or the human operator records what was actually produced and published in `publish-record.schema.json`.
+- Orchestrator validates the deliverable and routes it to Video Post-Production.
+- Video Post-Production renders and verifies the produced asset under `post-production-deliverable.schema.json`.
+- Publisher or the human operator records what was actually approved and published in `publish-record.schema.json`.
 - Analytics joins the approved plan and actual execution using experiment, content-spec, creative and platform-content IDs.
 
 Operating chain:
 
-`Strategist → Content Analyst → Content Creator → human approval → Publisher → Analytics`
+`Strategist → Content Analyst → Content Creator → Video Post-Production → human approval → Publisher → Analytics`
 
 ## Authority boundary
 
@@ -278,11 +279,13 @@ Output must validate against `data-schemas/creator-deliverable.schema.json` with
 
 No wrapper, claim-ledger object, production-plan object or analytics-execution object may be added outside this schema. Their necessary instructions/evidence are represented through the canonical fields above and authoritative fact references.
 
-## Handoff to Publisher and Analytics
+## Handoff to Video Post-Production, Publisher and Analytics
 
-The Creator supplies the planned execution. It does not fabricate post IDs or actual timestamps.
+The Creator supplies the planned execution. It does not claim that a media asset has been rendered, QC-passed or published.
 
-Publisher/human must compare the produced asset with this deliverable and write `data-schemas/publish-record.schema.json`, including:
+Video Post-Production must compare the source media and actual render with this deliverable and write `data-schemas/post-production-deliverable.schema.json`. Human approval occurs on the produced render, not on the plan alone.
+
+After approval, Publisher/human writes `data-schemas/publish-record.schema.json`, including:
 
 - `creative_id`, `content_spec_id`, `experiment_id` and platform;
 - platform content ID, URL and published time;
@@ -291,7 +294,7 @@ Publisher/human must compare the produced asset with this deliverable and write 
 - final tracking token/destination/vehicle IDs;
 - human approval evidence.
 
-Analytics joins `creator-deliverable` + `publish-record` + platform observations + sales funnel events. This lets Analytics separate a failed mechanism from a production deviation. The Creator never interprets performance or changes the decision rule.
+Analytics joins `creator-deliverable` + `post-production-deliverable` + `publish-record` + platform observations + sales funnel events. This lets Analytics separate a failed mechanism from a production deviation. The Creator never interprets performance or changes the decision rule.
 
 ## Anti-patterns
 
