@@ -8,4 +8,4 @@ Execution stack:
 
 `Video Editing & Post-Production Core -> Automotive specialization -> UAE/platform live context -> Showroom 171 context -> vehicle/content experiment`.
 
-The parent core digest `sha256:7ff8ee887d64565632536596acaacfbcf884404abadd6003f2584f61eb1dfb9b` is qualified for its recorded decision-policy and synthetic-harness boundary. The local automotive integration still requires its own affected/new-case evaluation and must not broaden the parent's claims.
+The parent core digest `sha256:7ff8ee887d64565632536596acaacfbcf884404abadd6003f2584f61eb1dfb9b` is qualified for its recorded decision-policy and synthetic-harness boundary. The local automotive decision-policy delta is separately qualified in `evaluation/video-post-production/qualification-record.json`. Neither qualification proves real-media craft, arbitrary runtime execution, current legal compliance, or publication authority.
