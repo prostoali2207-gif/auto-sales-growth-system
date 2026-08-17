@@ -21,7 +21,8 @@ class AutomotiveVideoPostProductionContract(unittest.TestCase):
         text = (ROOT / "agents/uae-automotive-video-post-production.md").read_text()
         for phrase in (
             "does not copy or redefine", "no per-vehicle agent", "never publish directly",
-            "Do not pretend the video was mounted", "INVALIDATES_TEST"
+            "Do not pretend the video was mounted", "INVALIDATES_TEST",
+            "sha256:7ff8ee887d64565632536596acaacfbcf884404abadd6003f2584f61eb1dfb9b"
         ):
             self.assertIn(phrase, text)
 
@@ -29,6 +30,18 @@ class AutomotiveVideoPostProductionContract(unittest.TestCase):
         cases = json.loads((Path(__file__).with_name("semantic-cases.json")).read_text())
         self.assertEqual(len(cases), 8)
         self.assertEqual(len({case["id"] for case in cases}), 8)
+        for case in cases:
+            self.assertTrue(case["allowed_actions"])
+            self.assertTrue(case["forbidden_actions"])
+            self.assertTrue(case["required_flags"])
+
+    def test_semantic_gate_is_bounded(self):
+        runner = (Path(__file__).with_name("run-semantic-gate.py")).read_text()
+        workflow = (ROOT / ".github/workflows/automotive-video-post-production-qualification.yml").read_text()
+        self.assertIn("single gate invocation exceeds 3-call budget", runner)
+        self.assertIn("exactly 3 model calls", workflow)
+        self.assertIn("exactly 2 model calls", workflow)
+        self.assertIn("application_retries", runner)
 
     def test_orchestrator_and_handoff_route_post_production(self):
         workflow = json.loads((ROOT / "data-schemas/orchestrator-workflow.schema.json").read_text())
