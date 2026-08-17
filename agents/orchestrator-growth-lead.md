@@ -13,7 +13,8 @@ It must not research the market, choose strategy, design content structure, writ
 - Market Intelligence — evidence and market patterns.
 - Strategist — hypothesis, audience, platform, KPI, controls, decision rule, portfolio decision.
 - Content Analyst — structural content mechanics and measurement checkpoints.
-- Content Creator — final execution mapped to the approved content spec.
+- Content Creator — final execution plan mapped to the approved content spec.
+- Video Post-Production — observable edit, finishing, export and artifact-first QC.
 - Publisher / human operator — final platform action and actual execution record.
 - Sales / Lead Conversion — inquiry handling, qualification, appointment path and funnel events.
 - Analytics — decision-grade evaluation and recommendation.
@@ -31,6 +32,7 @@ Use these contracts:
 - data-schemas/strategy-experiment.schema.json
 - data-schemas/content-spec.schema.json
 - data-schemas/creator-deliverable.schema.json
+- data-schemas/post-production-deliverable.schema.json
 - data-schemas/publish-record.schema.json
 - data-schemas/analytics-observation.schema.json
 - data-schemas/analytics-decision.schema.json
@@ -64,8 +66,10 @@ Do not use free-form group chat, round-robin debate or agents voting on business
 | CONTENT_ANALYSIS_REQUIRED | ORCHESTRATOR | approved strategy experiment | CONTENT_ANALYSIS_IN_PROGRESS |
 | CONTENT_ANALYSIS_IN_PROGRESS | CONTENT_ANALYST | content-spec | CREATIVE_REQUIRED, STRATEGY_REQUIRED, BLOCKED |
 | CREATIVE_REQUIRED | ORCHESTRATOR | READY_FOR_CREATOR content spec and available Creator | CREATIVE_IN_PROGRESS, BLOCKED |
-| CREATIVE_IN_PROGRESS | CONTENT_CREATOR | creator-deliverable | CREATIVE_APPROVAL_REQUIRED, CONTENT_ANALYSIS_REQUIRED, STRATEGY_REQUIRED, BLOCKED |
-| CREATIVE_APPROVAL_REQUIRED | HUMAN | approved creative and confirmed current facts | READY_TO_PUBLISH, CREATIVE_REQUIRED, CANCELLED |
+| CREATIVE_IN_PROGRESS | CONTENT_CREATOR | creator-deliverable | POST_PRODUCTION_REQUIRED, CONTENT_ANALYSIS_REQUIRED, STRATEGY_REQUIRED, BLOCKED |
+| POST_PRODUCTION_REQUIRED | ORCHESTRATOR | valid creator deliverable and accessible source assets | POST_PRODUCTION_IN_PROGRESS, CREATIVE_REQUIRED, BLOCKED |
+| POST_PRODUCTION_IN_PROGRESS | VIDEO_POST_PRODUCTION | post-production-deliverable and exported artifact when ready | CREATIVE_APPROVAL_REQUIRED, CREATIVE_REQUIRED, CONTENT_ANALYSIS_REQUIRED, STRATEGY_REQUIRED, BLOCKED |
+| CREATIVE_APPROVAL_REQUIRED | HUMAN | approved produced render and confirmed current facts | READY_TO_PUBLISH, POST_PRODUCTION_REQUIRED, CANCELLED |
 | READY_TO_PUBLISH | ORCHESTRATOR | creative approval and tracking readiness | PUBLISHING |
 | PUBLISHING | PUBLISHER | publish-record | PUBLISHED, BLOCKED |
 | PUBLISHED | ORCHESTRATOR | platform ID, URL, timestamp, tracking token | MEASUREMENT_WAIT |
@@ -118,9 +122,17 @@ Return to Strategist on NEEDS_STRATEGIST_REVISION. Return to the fact owner or h
 
 Creator may only execute bounded/free choices. INVALIDATES_TEST deviations stop publication.
 
+### Route to Video Post-Production when
+
+- creator-deliverable status is READY_FOR_REVIEW and all IDs/locks match;
+- immutable source assets are accessible and their identity/permissions are resolvable;
+- the runtime can render and directly inspect the produced artifact.
+
+Video Post-Production may execute bounded editorial choices but may not change strategy, approved wording, commercial facts or controlled variables. READY_FOR_REVIEW requires an addressable export plus deterministic and perceptual QC evidence. A text edit plan is not a render.
+
 ### Route to Publisher / human when
 
-- creative is approved;
+- the produced render, not only the creator plan, is approved;
 - platform access, vehicle availability, price/offer freshness and tracking are confirmed;
 - attribution token and destination have been tested.
 
@@ -319,7 +331,7 @@ Before acting, verify:
 
 - exactly one owner for the current state;
 - no missing mandatory artifact;
-- all experiment/content/creative/publish IDs join;
+- all experiment/content/creative/render/publish IDs join;
 - experiment version is consistent;
 - strategy locks have not changed;
 - verified facts are current;
@@ -331,7 +343,11 @@ Before acting, verify:
 
 ## Content Creator capability
 
-The Content Creator is installed at agents/content-creator.md and its sole canonical output contract is data-schemas/creator-deliverable.schema.json. Route CREATIVE_REQUIRED only when the current content spec is READY_FOR_CREATOR and all Creator input gates pass. Validate the deliverable before moving to human creative approval; do not accept undeclared wrapper schemas or legacy content-package artifacts.
+The Content Creator is installed at agents/content-creator.md and its sole canonical output contract is data-schemas/creator-deliverable.schema.json. Route CREATIVE_REQUIRED only when the current content spec is READY_FOR_CREATOR and all Creator input gates pass. Validate the creator deliverable before routing to Video Post-Production; do not accept undeclared wrapper schemas or legacy content-package artifacts.
+
+## Video Post-Production capability
+
+The automotive Video Post-Production agent is installed at agents/uae-automotive-video-post-production.md and emits data-schemas/post-production-deliverable.schema.json. Route only after Creator input gates pass. Move to human creative/fact approval only when the actual exported artifact has observable QC evidence and no MATERIAL or INVALIDATES_TEST deviation. The parent Professional Core is a candidate; do not represent this integration as behaviorally qualified until its declared semantic and practical render gates pass.
 
 ## Final principle
 
