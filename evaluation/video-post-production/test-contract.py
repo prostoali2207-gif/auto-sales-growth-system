@@ -26,6 +26,14 @@ class AutomotiveVideoPostProductionContract(unittest.TestCase):
         ):
             self.assertIn(phrase, text)
 
+    def test_qualification_record_binds_parent_and_subject(self):
+        record = json.loads((Path(__file__).with_name("qualification-record.json")).read_text())
+        self.assertEqual(record["status"], "pass")
+        self.assertEqual(record["subject_commit"], "480efbecf07abb53b8707a852bd4acb59c534e48")
+        self.assertEqual(record["parent_core_digest"], "sha256:7ff8ee887d64565632536596acaacfbcf884404abadd6003f2584f61eb1dfb9b")
+        self.assertEqual(record["evaluation"]["critical_passes"], "12/12")
+        self.assertEqual(record["evaluation"]["complete_passes"], "8/8")
+
     def test_cases_cover_automotive_delta(self):
         cases = json.loads((Path(__file__).with_name("semantic-cases.json")).read_text())
         self.assertEqual(len(cases), 8)
