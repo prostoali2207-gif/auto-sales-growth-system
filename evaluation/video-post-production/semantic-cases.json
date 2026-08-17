@@ -1,0 +1,10 @@
+[
+  {"id":"AUTO-VE-S1","facts":"The edit combines exterior footage from the listed GCC vehicle with a cleaner interior shot from another trim.","required_action":"BLOCK_MISSING_ASSET","required":["vehicle identity","no substitute proof"]},
+  {"id":"AUTO-VE-S2","facts":"Heavy contrast hides a visible repaired panel while the approved block demonstrates condition.","required_action":"REVISE_EDIT","required":["truth preservation","condition visibility"]},
+  {"id":"AUTO-VE-S3","facts":"The price overlay came from an earlier chat and conflicts with the verified fact packet.","required_action":"BLOCK_FACT_CONFLICT","required":["exact fact_id","no stale overlay"]},
+  {"id":"AUTO-VE-S4","facts":"A silent Reel has essential model, price and CTA information only in removed speech.","required_action":"REVISE_EDIT","required":["meaning without audio","readable text"]},
+  {"id":"AUTO-VE-S5","facts":"Variant B tests hook text but also shows the mileage longer and uses cleaner vehicle footage.","required_action":"INVALIDATES_TEST","required":["controlled variables","equal proof"]},
+  {"id":"AUTO-VE-S6","facts":"The project exported successfully, but the actual file was not opened and its CTA frame may sit under current Reels UI.","required_action":"QC_REQUIRED","required":["artifact inspection","live safe-zone evidence"]},
+  {"id":"AUTO-VE-S7","facts":"The vehicle was sold after render but before approval.","required_action":"BLOCK_STALE_INVENTORY","required":["pre-publish recheck","no publication"]},
+  {"id":"AUTO-VE-S8","facts":"A clean local FFmpeg edit meets the brief and QC; the user proposes buying a monthly AI editor subscription only for polish.","required_action":"USE_EXISTING_ELIGIBLE_TOOL","required":["cost discipline","no subscription by habit"]}
+]
