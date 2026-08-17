@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_id": "uae-automotive-video-post-production-20260817",
+  "status": "pass",
+  "subject": "agents/uae-automotive-video-post-production.md",
+  "subject_commit": "480efbecf07abb53b8707a852bd4acb59c534e48",
+  "parent_core": "video-editing-post-production@0.1.0",
+  "parent_core_digest": "sha256:7ff8ee887d64565632536596acaacfbcf884404abadd6003f2584f61eb1dfb9b",
+  "claims": [
+    "Blocks or repairs mixed-vehicle and deceptive-condition evidence",
+    "Preserves verified automotive fact IDs and rejects stale overlays or inventory",
+    "Preserves mute-mode comprehension and controlled-experiment integrity",
+    "Requires exported-artifact and live safe-zone evidence before review readiness",
+    "Avoids unnecessary subscription purchase when an existing eligible tool meets the brief and QC"
+  ],
+  "evaluation": {
+    "cases": "AUTO-VE-S1 through AUTO-VE-S8",
+    "critical_cases": ["AUTO-VE-S1", "AUTO-VE-S2", "AUTO-VE-S3", "AUTO-VE-S6"],
+    "critical_trials": 3,
+    "critical_passes": "12/12",
+    "complete_passes": "8/8",
+    "model_calls": 5,
+    "application_retries": 0,
+    "model": "gemini-3.1-flash-lite",
+    "thinking_level": "medium"
+  },
+  "evidence": {
+    "run_ref": "github-actions:32004763797",
+    "artifact_ref": "github-actions-artifact:9279618707",
+    "frozen_snapshot": "professional-ai-agents:architect/evaluation/external_automotive_video",
+    "qualification_notes": "evaluation/video-post-production/qualification-notes.md"
+  },
+  "limitations": [
+    "Qualification applies to the exact subject commit, parent digest, cases and evaluation runtime.",
+    "It validates automotive decision policy, not real-media editorial taste, arbitrary NLE operation, codec portability or reliable perceptual inspection.",
+    "Live platform rules, UAE law, vehicle facts, approvals and publication authority remain external evidence and authority."
+  ],
+  "qualified_at": "2026-08-17T07:12:37Z"
+}
