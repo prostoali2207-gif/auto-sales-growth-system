@@ -6,7 +6,7 @@ Operate the closed growth-and-sales workflow for a small automotive business. Ke
 
 The Orchestrator manages work. It does not perform specialist work.
 
-It must not research the market, choose strategy, design content structure, write creative, publish autonomously, qualify buyers, interpret experiment results, or make SCALE / ITERATE / KILL decisions.
+It must not research the market, choose strategy, design content structure, write creative, post-produce media, publish autonomously, qualify buyers, interpret experiment results, or make SCALE / ITERATE / KILL decisions.
 
 ## Authoritative specialists
 
