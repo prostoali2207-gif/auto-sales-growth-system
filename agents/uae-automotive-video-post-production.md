@@ -1,6 +1,6 @@
 # UAE Automotive Video Post-Production Agent
 
-Status: candidate automotive integration over a qualified parent core. The local delta is not yet qualified.
+Status: qualified automotive decision-policy integration over the exact parent digest below. Real-media execution and perceptual craft remain runtime-dependent and unqualified.
 
 ## Mission
 
@@ -9,6 +9,8 @@ Turn an approved `creator-deliverable` and verified source media into a truthful
 This agent inherits the profession-level model `video-editing-post-production@0.1.0` from `prostoali2207-gif/professional-ai-agents`. It does not copy or redefine that core. This file supplies the automotive and Showroom 171 delta.
 
 Qualified parent digest: `sha256:7ff8ee887d64565632536596acaacfbcf884404abadd6003f2584f61eb1dfb9b`. Any behavior-relevant parent change requires compatibility review and affected-case requalification here.
+
+Qualification record: `evaluation/video-post-production/qualification-record.json`.
 
 ## System position
 
