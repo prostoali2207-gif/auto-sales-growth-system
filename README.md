@@ -13,6 +13,7 @@ Do not invent content ideas in isolation. Collect evidence, register a measurabl
 - `research/` — market and architecture research
 - `data-schemas/` — structured artifacts, state and handoff contracts
 - `reports/` — dated analysis and architecture audits
+- `scripts/meta-ads-executor.mjs` — guarded Meta Marketing API publisher
 
 ## Agent team
 
@@ -24,7 +25,7 @@ Do not invent content ideas in isolation. Collect evidence, register a measurabl
 6. UAE Automotive Video Post-Production Agent — candidate integration
 7. Sales / Lead Conversion Agent — active
 8. Analytics Agent — active
-9. Publisher — human/manual for now
+9. Publisher — human-approved; guarded Meta API executor available for validation and paused creation
 
 The Orchestrator owns workflow state, routing, contract validation, retries, approvals and auditability. It never performs a specialist's work.
 
@@ -42,6 +43,7 @@ The Orchestrator owns workflow state, routing, contract validation, retries, app
 - `data-schemas/creator-deliverable.schema.json`
 - `data-schemas/post-production-deliverable.schema.json`
 - `data-schemas/publish-record.schema.json`
+- `data-schemas/meta-ad-launch-spec.schema.json`
 - `data-schemas/analytics-observation.schema.json`
 - `data-schemas/analytics-decision.schema.json`
 - `data-schemas/lead-attribution.schema.json`
@@ -56,12 +58,13 @@ The Orchestrator owns workflow state, routing, contract validation, retries, app
 - Content Creator: `agents/content-creator.md`
 - Video Post-Production: `agents/uae-automotive-video-post-production.md`
 - Operating procedure: `playbooks/orchestration-runbook.md`
+- Meta Ads Executor: `docs/meta-ads-executor.md`
 - Architecture research: `research/orchestrator-architecture-sources-2026-08.md`
 - Full system audit: `reports/architecture-audit-2026-08-11.md`
 
 ## Current readiness
 
-The repository is contract-ready, not yet production-ready.
+The repository is contract-ready, not yet production-ready. Meta ad specifications can be validated and, after one-time credentials and environment configuration, created through a guarded executor. Browser-based authorization, creative upload and inspection remain explicit human-controlled steps.
 
 Before a live automated loop:
 

@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "idempotency_key": "replace-yaris-creative-a-001",
+  "currency": "AED",
+  "campaign": {
+    "name": "Toyota Yaris messages experiment",
+    "objective": "OUTCOME_ENGAGEMENT",
+    "special_ad_categories": []
+  },
+  "ad_set": {
+    "name": "Approved UAE WhatsApp audience",
+    "budget": { "type": "LIFETIME", "amount_aed": 252 },
+    "start_time": "2026-08-18T08:00:00+04:00",
+    "end_time": "2026-08-25T08:00:00+04:00",
+    "billing_event": "IMPRESSIONS",
+    "optimization_goal": "CONVERSATIONS",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "destination_type": "WHATSAPP",
+    "targeting": {
+      "geo_locations": { "countries": ["AE"] },
+      "age_min": 21,
+      "age_max": 55
+    },
+    "promoted_object": {
+      "page_id": "REPLACE_WITH_PAGE_ID",
+      "whatsapp_phone_number": "REPLACE_WITH_APPROVED_WHATSAPP_NUMBER"
+    }
+  },
+  "creative": {
+    "name": "Toyota Yaris creative A",
+    "object_story_spec": {
+      "page_id": "REPLACE_WITH_PAGE_ID",
+      "instagram_actor_id": "REPLACE_WITH_INSTAGRAM_ACTOR_ID",
+      "video_data": {
+        "video_id": "REPLACE_WITH_META_VIDEO_ID",
+        "message": "REPLACE_WITH_APPROVED_COPY",
+        "call_to_action": { "type": "WHATSAPP_MESSAGE" }
+      }
+    }
+  },
+  "ad": { "name": "Toyota Yaris ad A" },
+  "approval": {
+    "requested_status": "PAUSED",
+    "approved_by": "REPLACE_WITH_APPROVER",
+    "approved_at": "2026-08-17T13:00:00+04:00",
+    "approval_id": "REPLACE_WITH_APPROVAL_ID",
+    "confirmation": null
+  }
+}
