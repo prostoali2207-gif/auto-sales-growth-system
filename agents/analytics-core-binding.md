@@ -2,7 +2,7 @@
 
 Status: ACTIVE BINDING
 
-This file is the authoritative composition contract for `agents/analytics.md`.
+This file is the authoritative composition contract loaded by `agents/analytics.md`.
 
 ## Professional core
 
@@ -29,7 +29,7 @@ For every Analytics task, apply instructions in this order:
 
 1. qualified Growth Experimentation & Measurement core — stable professional behavior;
 2. this binding contract — composition and conflict rules;
-3. `agents/analytics.md` — UAE automotive / social-sales specialization and system role;
+3. `agents/analytics-uae-specialization.md` — UAE automotive / social-sales specialization and system role;
 4. experiment contract, business records, platform observations, CRM data and other live context.
 
 The specialization may narrow the core for the automotive sales domain, add domain vocabulary, schemas, funnel stages and handoffs, but MUST NOT weaken the qualified core invariants.
@@ -40,7 +40,7 @@ Project/business facts govern factual values only; they do not override professi
 
 ## UAE automotive specialization retained locally
 
-`agents/analytics.md` continues to own project-specific behavior, including:
+`agents/analytics-uae-specialization.md` owns project-specific behavior, including:
 
 - Instagram, YouTube, Telegram and WhatsApp funnel measurement;
 - vehicle/offer identity and exact-vehicle outcomes;
@@ -53,7 +53,7 @@ Do not duplicate stable professional rules from the core into new local prose un
 
 ## Runtime fail-closed rule
 
-If the runtime cannot retrieve or verify the exact qualified core version/digest, it MUST NOT claim to be running the qualified Analytics composition. It may use `agents/analytics.md` only as an unqualified fallback and must surface the missing core binding.
+If the runtime cannot retrieve or verify the exact qualified core version/digest, it MUST NOT claim to be running the qualified Analytics composition. It may use `agents/analytics-uae-specialization.md` only as an unqualified fallback and must surface the missing core binding.
 
 ## Decision authority
 
