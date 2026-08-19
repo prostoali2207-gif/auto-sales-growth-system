@@ -1,0 +1,65 @@
+name: Meta Ads Executor
+
+on:
+  workflow_dispatch:
+    inputs:
+      spec_path:
+        description: Committed launch-spec JSON path
+        required: true
+        default: examples/meta-ads/yaris-template.json
+        type: string
+      mode:
+        description: Validate only or call Meta
+        required: true
+        default: validate
+        type: choice
+        options:
+          - validate
+          - execute
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm run test:meta-ads
+      - name: Validate launch specification
+        env:
+          SPEC_PATH: ${{ inputs.spec_path }}
+          META_MAX_LIFETIME_BUDGET_AED: ${{ vars.META_MAX_LIFETIME_BUDGET_AED }}
+          META_ALLOW_ACTIVE: ${{ inputs.mode == 'execute' && vars.META_ALLOW_ACTIVE || 'false' }}
+        run: node scripts/meta-ads-executor.mjs --spec "$SPEC_PATH"
+
+  execute:
+    if: inputs.mode == 'execute'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: meta-ads-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Execute approved Meta launch
+        env:
+          SPEC_PATH: ${{ inputs.spec_path }}
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          META_AD_ACCOUNT_ID: ${{ secrets.META_AD_ACCOUNT_ID }}
+          META_GRAPH_API_VERSION: ${{ vars.META_GRAPH_API_VERSION }}
+          META_MAX_LIFETIME_BUDGET_AED: ${{ vars.META_MAX_LIFETIME_BUDGET_AED }}
+          META_ALLOW_ACTIVE: ${{ vars.META_ALLOW_ACTIVE }}
+        run: |
+          set -o pipefail
+          node scripts/meta-ads-executor.mjs --spec "$SPEC_PATH" --execute 2>&1 | tee "$RUNNER_TEMP/meta-ads-result.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: meta-ads-result-${{ github.run_id }}
+          path: ${{ runner.temp }}/meta-ads-result.json
+          retention-days: 30

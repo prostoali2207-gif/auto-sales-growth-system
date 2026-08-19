@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "collect:instagram": "node scripts/collect-instagram-reels.mjs"
+    "collect:instagram": "node scripts/collect-instagram-reels.mjs",
+    "test:meta-ads": "node --test test/meta-ads-contract.test.mjs",
+    "meta-ads:validate": "node scripts/meta-ads-executor.mjs"
   },
   "dependencies": {
     "apify-client": "^2.16.0"

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "meta-ad-launch-spec.schema.json",
+  "title": "Safe Meta Ad Launch Specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "idempotency_key", "currency", "campaign", "ad_set", "creative", "ad", "approval"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "idempotency_key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{5,79}$" },
+    "currency": { "const": "AED" },
+    "campaign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "objective", "special_ad_categories"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "objective": { "type": "string", "minLength": 1 },
+        "buying_type": { "type": "string", "default": "AUCTION" },
+        "special_ad_categories": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "ad_set": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "budget", "start_time", "end_time", "billing_event", "optimization_goal", "bid_strategy", "destination_type", "targeting", "promoted_object"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "amount_aed"],
+          "properties": {
+            "type": { "const": "LIFETIME" },
+            "amount_aed": { "type": "number", "exclusiveMinimum": 0, "multipleOf": 0.01 }
+          }
+        },
+        "start_time": { "type": "string", "format": "date-time" },
+        "end_time": { "type": "string", "format": "date-time" },
+        "billing_event": { "type": "string", "minLength": 1 },
+        "optimization_goal": { "type": "string", "minLength": 1 },
+        "bid_strategy": { "type": "string", "minLength": 1 },
+        "destination_type": { "type": "string", "minLength": 1 },
+        "targeting": { "type": "object" },
+        "promoted_object": { "type": "object" }
+      }
+    },
+    "creative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "object_story_spec"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "object_story_spec": { "type": "object" },
+        "degrees_of_freedom_spec": { "type": "object" }
+      }
+    },
+    "ad": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": { "name": { "type": "string", "minLength": 1 } }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requested_status", "approved_by", "approved_at", "approval_id", "confirmation"],
+      "properties": {
+        "requested_status": { "enum": ["PAUSED", "ACTIVE"] },
+        "approved_by": { "type": "string", "minLength": 1 },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "approval_id": { "type": "string", "minLength": 1 },
+        "confirmation": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
