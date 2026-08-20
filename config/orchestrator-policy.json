@@ -1,5 +1,5 @@
 {
-  "policy_version": "0.1.0",
+  "policy_version": "0.2.0",
   "controller_identifier": "ORCHESTRATOR",
   "semantic_role": "DETERMINISTIC_WORKFLOW_CONTROLLER",
   "states": {
@@ -27,7 +27,7 @@
     "ITERATION_REQUIRED": {"owner": "STRATEGIST", "next": ["CONTENT_ANALYSIS_REQUIRED", "RESEARCH_REQUIRED", "BLOCKED"]},
     "SCALED": {"owner": "NONE", "next": []},
     "KILLED": {"owner": "NONE", "next": []},
-    "PARKED": {"owner": "NONE", "next": []},
+    "PARKED": {"owner": "NONE", "next": ["STRATEGY_REQUIRED"]},
     "BLOCKED": {"owner": "DYNAMIC_BLOCKER_OWNER", "next": ["RESUME_LAST_VALID"]},
     "CANCELLED": {"owner": "NONE", "next": []}
   },
@@ -41,9 +41,12 @@
     "APPROVE_CREATIVE": "HUMAN",
     "PUBLISH": "PUBLISHER",
     "HANDLE_LEAD": "SALES_LEAD_AGENT",
+    "COLLECT_MEASUREMENT": "ORCHESTRATOR",
     "ANALYZE_EXPERIMENT": "ANALYTICS",
     "DECIDE_PORTFOLIO": "STRATEGIST",
-    "APPROVE_SCALE": "HUMAN"
+    "APPROVE_SCALE": "HUMAN",
+    "REPAIR_DATA": "DYNAMIC_DATA_OWNER",
+    "RESOLVE_CONTRACT_VIOLATION": "DYNAMIC_PRODUCER_OR_HUMAN"
   },
   "controller_forbidden_tasks": [
     "RESEARCH",
@@ -55,6 +58,7 @@
     "ANALYZE_EXPERIMENT",
     "DECIDE_PORTFOLIO"
   ],
+  "controller_allowed_mechanical_tasks": ["COLLECT_MEASUREMENT"],
   "retry_policy": {
     "TRANSIENT_TOOL": {"automatic": true, "max_retries_after_first_attempt": 2, "same_idempotency_key": true},
     "DATA_NOT_READY": {"automatic": false, "directive": "SCHEDULE_WAKEUP"},
@@ -68,5 +72,6 @@
   "side_effect_tasks": ["PUBLISH", "HANDLE_LEAD", "CREATE_APPOINTMENT", "SEND_OUTBOUND_MESSAGE", "RESERVE_VEHICLE", "TAKE_DEPOSIT"],
   "approval_boundaries": ["EXPERIMENT", "CREATIVE", "PUBLISH", "COMMERCIAL_FACT", "SCALE", "EXCEPTION"],
   "terminal_states": ["SCALED", "KILLED", "CANCELLED"],
-  "parallel_sales_routing": true
+  "parallel_sales_routing": true,
+  "parked_reopen_requires": "EXPLICIT_STRATEGIST_OR_HUMAN_TRIGGER"
 }
