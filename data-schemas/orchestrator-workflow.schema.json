@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "orchestrator-workflow.schema.json",
-  "title": "Growth Orchestrator Workflow Record",
+  "title": "Workflow Controller Record",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,6 +10,7 @@
     "revision",
     "current_state",
     "owner",
+    "blocked_from_state",
     "created_at",
     "updated_at",
     "artifacts",
@@ -20,165 +21,43 @@
     "transition_history"
   ],
   "properties": {
-    "workflow_id": {
-      "type": "string",
-      "minLength": 1
+    "workflow_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": ["string", "null"]},
+    "revision": {"type": "integer", "minimum": 1},
+    "current_state": {"$ref": "#/$defs/state"},
+    "owner": {"$ref": "#/$defs/owner"},
+    "blocked_from_state": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/nonBlockedState"}
+      ],
+      "description": "Last valid non-BLOCKED state. Must be non-null only while current_state is BLOCKED; enforced by controller policy."
     },
-    "experiment_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "revision": {
-      "type": "integer",
-      "minimum": 1
-    },
-    "current_state": {
-      "$ref": "#/$defs/state"
-    },
-    "owner": {
-      "$ref": "#/$defs/owner"
-    },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "updated_at": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "active_handoff_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "active_handoff_id": {"type": ["string", "null"]},
     "artifacts": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "artifact_type",
-          "artifact_id",
-          "uri",
-          "version",
-          "validation_status"
-        ],
-        "properties": {
-          "artifact_type": {
-            "type": "string"
-          },
-          "artifact_id": {
-            "type": "string"
-          },
-          "uri": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "validation_status": {
-            "type": "string",
-            "enum": [
-              "VALID",
-              "INVALID",
-              "STALE",
-              "MISSING",
-              "PENDING"
-            ]
-          }
-        }
-      }
+      "items": {"$ref": "#/$defs/artifactRef"}
     },
     "approvals": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "approval_type",
-          "status",
-          "requested_at"
-        ],
-        "properties": {
-          "approval_type": {
-            "type": "string",
-            "enum": [
-              "EXPERIMENT",
-              "CREATIVE",
-              "PUBLISH",
-              "COMMERCIAL_FACT",
-              "SCALE",
-              "EXCEPTION"
-            ]
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "NOT_REQUIRED",
-              "PENDING",
-              "APPROVED",
-              "REJECTED",
-              "EXPIRED"
-            ]
-          },
-          "requested_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "decided_at": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time"
-          },
-          "decided_by": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "reason": {
-            "type": [
-              "string",
-              "null"
-            ]
-          }
-        }
-      }
+      "items": {"$ref": "#/$defs/approval"}
     },
     "retry_state": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "attempt",
-        "max_attempts",
-        "next_retry_at"
-      ],
+      "required": ["attempt", "max_attempts", "next_retry_at"],
       "properties": {
-        "attempt": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "max_attempts": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "next_retry_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "last_error_code": {
-          "type": [
-            "string",
-            "null"
-          ]
+        "operation_id": {"type": ["string", "null"]},
+        "idempotency_key": {"type": ["string", "null"]},
+        "attempt": {"type": "integer", "minimum": 0},
+        "max_attempts": {"type": "integer", "minimum": 0},
+        "next_retry_at": {"type": ["string", "null"], "format": "date-time"},
+        "last_error_code": {"type": ["string", "null"]},
+        "reconciliation_status": {
+          "type": ["string", "null"],
+          "enum": [null, "NOT_REQUIRED", "PENDING", "CONFIRMED_NOT_APPLIED", "CONFIRMED_APPLIED", "UNRESOLVED"]
         }
       }
     },
@@ -187,154 +66,130 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "code",
-          "owner",
-          "message",
-          "created_at",
-          "resolvable"
-        ],
+        "required": ["code", "owner", "message", "created_at", "resolvable", "status"],
         "properties": {
-          "code": {
-            "type": "string"
-          },
-          "owner": {
-            "$ref": "#/$defs/owner"
-          },
-          "message": {
-            "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "resolvable": {
-            "type": "boolean"
-          }
+          "code": {"type": "string"},
+          "owner": {"$ref": "#/$defs/owner"},
+          "message": {"type": "string"},
+          "created_at": {"type": "string", "format": "date-time"},
+          "resolvable": {"type": "boolean"},
+          "status": {"type": "string", "enum": ["OPEN", "RESOLVED"]},
+          "resolved_at": {"type": ["string", "null"], "format": "date-time"},
+          "resolution_evidence_refs": {"type": "array", "items": {"type": "string"}}
         }
       }
     },
     "next_action": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "owner",
-        "action"
-      ],
+      "required": ["owner", "action"],
       "properties": {
-        "owner": {
-          "$ref": "#/$defs/owner"
-        },
-        "action": {
-          "type": "string"
-        },
-        "due_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        }
+        "owner": {"$ref": "#/$defs/owner"},
+        "action": {"type": "string"},
+        "due_at": {"type": ["string", "null"], "format": "date-time"}
       }
     },
     "transition_history": {
       "type": "array",
-      "items": {
-        "$ref": "#/$defs/transition"
-      }
+      "items": {"$ref": "#/$defs/transition"}
     }
   },
   "$defs": {
     "state": {
       "type": "string",
       "enum": [
-        "INTAKE",
-        "RESEARCH_REQUIRED",
-        "RESEARCH_IN_PROGRESS",
-        "STRATEGY_REQUIRED",
-        "STRATEGY_IN_PROGRESS",
-        "EXPERIMENT_APPROVAL_REQUIRED",
-        "CONTENT_ANALYSIS_REQUIRED",
-        "CONTENT_ANALYSIS_IN_PROGRESS",
-        "CREATIVE_REQUIRED",
-        "CREATIVE_IN_PROGRESS",
-        "POST_PRODUCTION_REQUIRED",
-        "POST_PRODUCTION_IN_PROGRESS",
-        "CREATIVE_APPROVAL_REQUIRED",
-        "READY_TO_PUBLISH",
-        "PUBLISHING",
-        "PUBLISHED",
-        "MEASUREMENT_WAIT",
-        "ANALYTICS_REQUIRED",
-        "ANALYTICS_IN_PROGRESS",
-        "STRATEGIST_DECISION_REQUIRED",
-        "SCALE_APPROVAL_REQUIRED",
-        "ITERATION_REQUIRED",
-        "SCALED",
-        "KILLED",
-        "PARKED",
-        "BLOCKED",
-        "CANCELLED"
+        "INTAKE", "RESEARCH_REQUIRED", "RESEARCH_IN_PROGRESS", "STRATEGY_REQUIRED", "STRATEGY_IN_PROGRESS",
+        "EXPERIMENT_APPROVAL_REQUIRED", "CONTENT_ANALYSIS_REQUIRED", "CONTENT_ANALYSIS_IN_PROGRESS", "CREATIVE_REQUIRED",
+        "CREATIVE_IN_PROGRESS", "POST_PRODUCTION_REQUIRED", "POST_PRODUCTION_IN_PROGRESS", "CREATIVE_APPROVAL_REQUIRED",
+        "READY_TO_PUBLISH", "PUBLISHING", "PUBLISHED", "MEASUREMENT_WAIT", "ANALYTICS_REQUIRED", "ANALYTICS_IN_PROGRESS",
+        "STRATEGIST_DECISION_REQUIRED", "SCALE_APPROVAL_REQUIRED", "ITERATION_REQUIRED", "SCALED", "KILLED", "PARKED",
+        "BLOCKED", "CANCELLED"
+      ]
+    },
+    "nonBlockedState": {
+      "type": "string",
+      "enum": [
+        "INTAKE", "RESEARCH_REQUIRED", "RESEARCH_IN_PROGRESS", "STRATEGY_REQUIRED", "STRATEGY_IN_PROGRESS",
+        "EXPERIMENT_APPROVAL_REQUIRED", "CONTENT_ANALYSIS_REQUIRED", "CONTENT_ANALYSIS_IN_PROGRESS", "CREATIVE_REQUIRED",
+        "CREATIVE_IN_PROGRESS", "POST_PRODUCTION_REQUIRED", "POST_PRODUCTION_IN_PROGRESS", "CREATIVE_APPROVAL_REQUIRED",
+        "READY_TO_PUBLISH", "PUBLISHING", "PUBLISHED", "MEASUREMENT_WAIT", "ANALYTICS_REQUIRED", "ANALYTICS_IN_PROGRESS",
+        "STRATEGIST_DECISION_REQUIRED", "SCALE_APPROVAL_REQUIRED", "ITERATION_REQUIRED", "SCALED", "KILLED", "PARKED", "CANCELLED"
       ]
     },
     "owner": {
       "type": "string",
       "enum": [
-        "ORCHESTRATOR",
-        "MARKET_INTELLIGENCE",
-        "STRATEGIST",
-        "CONTENT_ANALYST",
-        "CONTENT_CREATOR",
-        "VIDEO_POST_PRODUCTION",
-        "PUBLISHER",
-        "SALES_LEAD_AGENT",
-        "ANALYTICS",
-        "HUMAN",
-        "NONE"
+        "ORCHESTRATOR", "MARKET_INTELLIGENCE", "STRATEGIST", "CONTENT_ANALYST", "CONTENT_CREATOR",
+        "VIDEO_POST_PRODUCTION", "PUBLISHER", "SALES_LEAD_AGENT", "ANALYTICS", "HUMAN", "NONE"
       ]
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_type", "artifact_id", "uri", "version", "sha256_or_revision", "validation_status"],
+      "properties": {
+        "artifact_type": {"type": "string"},
+        "artifact_id": {"type": "string"},
+        "uri": {"type": "string"},
+        "version": {"type": "string"},
+        "sha256_or_revision": {"type": "string", "minLength": 1},
+        "validation_status": {"type": "string", "enum": ["VALID", "INVALID", "STALE", "MISSING", "PENDING"]}
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approval_id", "approval_type", "status", "requested_at", "scope"],
+      "properties": {
+        "approval_id": {"type": "string", "minLength": 1},
+        "approval_type": {
+          "type": "string",
+          "enum": ["EXPERIMENT", "CREATIVE", "PUBLISH", "COMMERCIAL_FACT", "SCALE", "EXCEPTION"]
+        },
+        "status": {"type": "string", "enum": ["NOT_REQUIRED", "PENDING", "APPROVED", "REJECTED", "EXPIRED"]},
+        "requested_at": {"type": "string", "format": "date-time"},
+        "decided_at": {"type": ["string", "null"], "format": "date-time"},
+        "decided_by": {"type": ["string", "null"]},
+        "reason": {"type": ["string", "null"]},
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["workflow_revision", "experiment_id", "experiment_version", "artifact_refs"],
+          "properties": {
+            "workflow_revision": {"type": "integer", "minimum": 1},
+            "experiment_id": {"type": ["string", "null"]},
+            "experiment_version": {"type": ["string", "null"]},
+            "artifact_refs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["artifact_id", "version", "sha256_or_revision"],
+                "properties": {
+                  "artifact_id": {"type": "string"},
+                  "version": {"type": "string"},
+                  "sha256_or_revision": {"type": "string", "minLength": 1}
+                }
+              }
+            },
+            "scope_hash": {"type": ["string", "null"]}
+          }
+        }
+      }
     },
     "transition": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "transition_id",
-        "from",
-        "to",
-        "actor",
-        "occurred_at",
-        "reason",
-        "evidence_refs",
-        "idempotency_key"
-      ],
+      "required": ["transition_id", "from", "to", "actor", "occurred_at", "reason", "evidence_refs", "idempotency_key"],
       "properties": {
-        "transition_id": {
-          "type": "string"
-        },
-        "from": {
-          "$ref": "#/$defs/state"
-        },
-        "to": {
-          "$ref": "#/$defs/state"
-        },
-        "actor": {
-          "$ref": "#/$defs/owner"
-        },
-        "occurred_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "reason": {
-          "type": "string"
-        },
-        "evidence_refs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "idempotency_key": {
-          "type": "string"
-        }
+        "transition_id": {"type": "string"},
+        "from": {"$ref": "#/$defs/state"},
+        "to": {"$ref": "#/$defs/state"},
+        "actor": {"$ref": "#/$defs/owner"},
+        "occurred_at": {"type": "string", "format": "date-time"},
+        "reason": {"type": "string"},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "idempotency_key": {"type": "string"}
       }
     }
   }
