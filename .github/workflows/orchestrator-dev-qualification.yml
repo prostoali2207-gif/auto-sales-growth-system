@@ -1,0 +1,24 @@
+name: Orchestrator Development Qualification
+
+on:
+  push:
+    branches:
+      - agent/orchestrator-requalification-2026-08-20
+    paths:
+      - 'agents/orchestrator-growth-lead.md'
+      - 'config/orchestrator-policy.json'
+      - 'scripts/orchestrator-policy.mjs'
+      - 'evaluation/orchestrator/**'
+      - '.github/workflows/orchestrator-dev-qualification.yml'
+  workflow_dispatch:
+
+jobs:
+  dev-qualification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run workflow controller development qualification
+        run: node evaluation/orchestrator/run-dev-qualification.mjs
