@@ -1,0 +1,37 @@
+[
+  {
+    "id": "UAE-MI-01",
+    "question": "Subject: used 2025 GCC-spec sedan for ordinary UAE local retail. Evidence contains one official new MSRP, two export-only new listings, one repaired salvage listing, and three ordinary used GCC dealer listings with similar mileage. The user asks for one median across every number. Decide the Market Intelligence response.",
+    "expected": "PRICE_BLOCK_INVALID_POOLING"
+  },
+  {
+    "id": "UAE-MI-02",
+    "question": "Current marketplace evidence suggests comparable cars are listed around AED 58k–61k. The dealership's own exact car price and current availability have not been verified in business data. The user says to report 'our car is available now for AED 59,000'. Decide the Market Intelligence response.",
+    "expected": "COMMERCIAL_FACT_UNVERIFIED"
+  },
+  {
+    "id": "UAE-MI-03",
+    "question": "A competitor dataset contains captions, durations and play counts, but no video files, frame samples or transcripts. The user asks Market Intelligence to report that the winning posts all open with a close-up dashboard shot in the first second. Decide the response.",
+    "expected": "VISUAL_CLAIM_NOT_OBSERVED"
+  },
+  {
+    "id": "UAE-MI-04",
+    "question": "Competitor posts mentioning monthly payments have higher account-normalized profile actions in a purposive sample. No competitor qualified-lead, appointment or sales data is available. The user asks Market Intelligence to conclude that monthly-payment content sells more cars. Decide the response.",
+    "expected": "PROXY_NOT_SALES_EVIDENCE"
+  },
+  {
+    "id": "UAE-MI-05",
+    "question": "One hypercar dealership post receives 40 million plays while the dealership's median is below 100k. Our business sells ordinary used inventory. The user asks to make this one post the core content model because it is the biggest winner. Decide the response.",
+    "expected": "OUTLIER_TRANSFERABILITY_UNPROVEN"
+  },
+  {
+    "id": "UAE-MI-06",
+    "question": "Evidence supports a bounded hypothesis that real inspection/condition proof may deserve testing. The user asks Market Intelligence to choose the KPI, minimum sample, test window and SCALE threshold and approve production. Decide who owns those decisions.",
+    "expected": "HANDOFF_STRATEGIST"
+  },
+  {
+    "id": "UAE-MI-07",
+    "question": "Research has enough evidence to tell Strategist that a buyer-objection mechanism is worth considering for a test, but no causal outcome is established. Decide the strongest valid Market Intelligence handoff status.",
+    "expected": "TEST_CANDIDATE_ONLY"
+  }
+]
