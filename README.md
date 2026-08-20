@@ -8,15 +8,16 @@ Do not invent content ideas in isolation. Collect evidence, register a measurabl
 
 ## Structure
 
-- `agents/` — specialist and orchestration instructions
+- `agents/` — specialist instructions and workflow-controller contract
 - `playbooks/` — repeatable operating procedures
 - `research/` — market and architecture research
 - `data-schemas/` — structured artifacts, state and handoff contracts
+- `evaluation/` — development/qualification gates
 - `reports/` — dated analysis and architecture audits
 
-## Agent team
+## Operating roles
 
-1. Orchestrator / Growth Lead Agent — active
+1. Workflow Controller (`ORCHESTRATOR` compatibility identifier) — candidate deterministic control mechanism, not a Growth Lead Professional Core
 2. Market Intelligence Agent — active
 3. Strategist Agent — active
 4. Content Analyst Agent — active
@@ -26,16 +27,21 @@ Do not invent content ideas in isolation. Collect evidence, register a measurabl
 8. Analytics Agent — active
 9. Publisher — human/manual for now
 
-The Orchestrator owns workflow state, routing, contract validation, retries, approvals and auditability. It never performs a specialist's work.
+The Workflow Controller owns only workflow mechanics: state, routing by declared contracts, validation, retries, approvals, timers, idempotency and auditability. It never performs specialist work or decides strategy, measurement interpretation, creative quality, lead qualification or portfolio outcomes.
 
 ## Core operating loop
 
-`Market Intelligence → Strategist → Content Analyst → Content Creator → Video Post-Production → human approval → Publisher → Sales path + measurement → Analytics → Strategist → SCALE / ITERATE / KILL → shared knowledge`
+Default operating hypothesis:
+
+`Strategist intake/frame → Market Intelligence when explicitly requested → Strategist → Content Analyst → Content Creator → Video Post-Production → human approval → Publisher → Sales path + measurement → Analytics → Strategist → SCALE / ITERATE / KILL → shared knowledge`
+
+This sequence is not sacred. Specialist dispositions and evidence may route back for research/revision, while the controller enforces only legal deterministic edges.
 
 ## Operational contracts
 
 - `data-schemas/orchestrator-workflow.schema.json`
 - `data-schemas/agent-handoff.schema.json`
+- `config/orchestrator-policy.json`
 - `data-schemas/market-intelligence-report.schema.json`
 - `data-schemas/strategy-experiment.schema.json`
 - `data-schemas/content-spec.schema.json`
@@ -52,22 +58,24 @@ The Orchestrator owns workflow state, routing, contract validation, retries, app
 
 ## Start here
 
-- Orchestrator: `agents/orchestrator-growth-lead.md`
-- Content Creator: `agents/content-creator.md`
-- Video Post-Production: `agents/uae-automotive-video-post-production.md`
+- Workflow Controller contract: `agents/orchestrator-growth-lead.md`
+- Executable policy helpers: `scripts/orchestrator-policy.mjs`
+- Controller qualification plan: `evaluation/orchestrator/qualification-plan.md`
+- Architect reconstruction: `research/orchestrator-profession-reconstruction-2026-08-20.md`
 - Operating procedure: `playbooks/orchestration-runbook.md`
-- Architecture research: `research/orchestrator-architecture-sources-2026-08.md`
+- Prior architecture sources: `research/orchestrator-architecture-sources-2026-08.md`
 - Full system audit: `reports/architecture-audit-2026-08-11.md`
 
 ## Current readiness
 
-The repository is contract-ready, not yet production-ready.
+The repository is not yet production-ready.
 
-Before a live automated loop:
+The Workflow Controller remains **candidate / not production-qualified** until:
 
-1. add schema validation and fixtures in CI;
-2. implement persistent workflow/event/artifact/approval storage;
-3. connect verified inventory and commercial facts;
-4. connect a render-capable media toolchain and artifact inspection;
-5. connect publication/attribution/inquiry/outcome data;
-6. complete one end-to-end experiment whose entire history can be reconstructed without chat logs.
+1. development/regression fixtures pass in executable CI;
+2. a genuinely independent held-out/adversarial layer passes without tuning to it;
+3. persistent workflow/event/artifact/approval storage exists;
+4. verified inventory/commercial-fact adapters exist;
+5. publication/attribution/inquiry/outcome adapters exist with reconciliation for ambiguous side effects;
+6. checkpoint/resume and approval supersession are tested;
+7. one end-to-end shadow/manual experiment can be reconstructed without chat logs.
