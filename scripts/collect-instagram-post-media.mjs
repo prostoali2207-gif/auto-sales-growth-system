@@ -13,7 +13,7 @@ await fs.mkdir(outDir, { recursive: true });
 
 const client = new ApifyClient({ token });
 const run = await client.actor('seemuapps/instagram-post-details-scraper').call({
-  urls: [postUrl],
+  postUrls: [postUrl],
 });
 
 const { items } = await client.dataset(run.defaultDatasetId).listItems();
