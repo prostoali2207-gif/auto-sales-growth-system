@@ -1,7 +1,12 @@
-name: Collect Instagram competitor reels
+name: Collect Instagram data
 
 on:
   workflow_dispatch:
+    inputs:
+      post_url:
+        description: Optional Instagram post/carousel URL. Leave empty to run competitor Reels collection.
+        required: false
+        type: string
 
 jobs:
   collect:
@@ -18,19 +23,37 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Collect one Instagram post/carousel
+        if: ${{ inputs.post_url != '' }}
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: node scripts/collect-instagram-post-media.mjs "${{ inputs.post_url }}" data/raw/instagram/post-media
 
       - name: Collect competitor reels
+        if: ${{ inputs.post_url == '' }}
         env:
           APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
         run: npm run collect:instagram -- config/competitors.json data/raw/instagram
 
+      - name: Install ffmpeg
+        if: ${{ inputs.post_url == '' }}
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Extract 0s 1s 3s hook frames
+        if: ${{ inputs.post_url == '' }}
         run: node scripts/extract-hook-frames.mjs data/raw/instagram data/analysis/hook-frames
 
-      - name: Upload collected data
-        if: always()
+      - name: Upload carousel media
+        if: ${{ inputs.post_url != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-post-media
+          path: data/raw/instagram/post-media
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload competitor data
+        if: ${{ inputs.post_url == '' }}
         uses: actions/upload-artifact@v4
         with:
           name: instagram-competitor-data
