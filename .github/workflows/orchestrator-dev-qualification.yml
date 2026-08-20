@@ -10,6 +10,15 @@ on:
       - 'scripts/orchestrator-policy.mjs'
       - 'evaluation/orchestrator/**'
       - '.github/workflows/orchestrator-dev-qualification.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'agents/orchestrator-growth-lead.md'
+      - 'config/orchestrator-policy.json'
+      - 'scripts/orchestrator-policy.mjs'
+      - 'evaluation/orchestrator/**'
+      - '.github/workflows/orchestrator-dev-qualification.yml'
   workflow_dispatch:
 
 jobs:
