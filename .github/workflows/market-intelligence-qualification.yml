@@ -9,6 +9,14 @@ on:
       - 'data-schemas/market-intelligence-report.schema.json'
       - 'evaluation/market-intelligence/**'
       - '.github/workflows/market-intelligence-qualification.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'agents/market-intelligence.md'
+      - 'data-schemas/market-intelligence-report.schema.json'
+      - 'evaluation/market-intelligence/**'
+      - '.github/workflows/market-intelligence-qualification.yml'
   workflow_dispatch:
 
 permissions:
