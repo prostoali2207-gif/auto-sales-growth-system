@@ -10,12 +10,9 @@ function stableId(prefix, ...parts) {
   return `${prefix}_${digest}`;
 }
 
-async function sendControlledTestAck(message, turn) {
-  const text = typeof message.text === 'string' ? message.text.trim() : '';
-  if (text !== '#SYSTEM_TEST') return { attempted: false };
-
+async function sendTelegramBusinessMessage(message, text) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  if (!token) return { attempted: true, ok: false, reason: 'missing_bot_token' };
+  if (!token) return { ok: false, reason: 'missing_bot_token' };
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
@@ -23,11 +20,100 @@ async function sendControlledTestAck(message, turn) {
     body: JSON.stringify({
       business_connection_id: message.business_connection_id,
       chat_id: message.chat?.id,
-      text: `SYSTEM TEST PASSED\nchannel=TELEGRAM\ninquiry=${turn.input.inquiry.inquiry_id}`
+      text
     })
   });
   const data = await response.json().catch(() => ({}));
-  return { attempted: true, ok: Boolean(response.ok && data.ok), description: data.description || null };
+  return { ok: Boolean(response.ok && data.ok), description: data.description || null };
+}
+
+async function sendControlledTestAck(message, turn) {
+  const text = typeof message.text === 'string' ? message.text.trim() : '';
+  if (text !== '#SYSTEM_TEST') return { attempted: false };
+
+  const sent = await sendTelegramBusinessMessage(
+    message,
+    `SYSTEM TEST PASSED\nchannel=TELEGRAM\ninquiry=${turn.input.inquiry.inquiry_id}`
+  );
+  return { attempted: true, ...sent };
+}
+
+const SALES_DRAFT_TEST_PREFIX = '#SALES_TEST ';
+
+async function runControlledSalesDraftTest(message, turn) {
+  const raw = typeof message.text === 'string' ? message.text.trim() : '';
+  if (!raw.startsWith(SALES_DRAFT_TEST_PREFIX)) return { attempted: false };
+
+  const customerText = raw.slice(SALES_DRAFT_TEST_PREFIX.length).trim();
+  if (!customerText) {
+    const sent = await sendTelegramBusinessMessage(message, 'SALES TEST BLOCKED\nreason=empty_test_message');
+    return { attempted: true, generated: false, sent };
+  }
+
+  const apiKey = process.env.OPENAI_API_KEY;
+  const model = process.env.SALES_MODEL;
+  if (!apiKey || !model) {
+    const missing = [!apiKey ? 'OPENAI_API_KEY' : null, !model ? 'SALES_MODEL' : null].filter(Boolean).join(',');
+    const sent = await sendTelegramBusinessMessage(message, `SALES TEST BLOCKED\nmissing=${missing}`);
+    return { attempted: true, generated: false, reason: `missing:${missing}`, sent };
+  }
+
+  const input = structuredClone(turn.input);
+  input.inquiry.raw_text = customerText;
+  input.conversation_history.messages[0].text = customerText;
+
+  const system = [
+    'You are the existing Sales / Lead Conversion specialist for a UAE used-car showroom, running in DRAFT-ONLY TEST mode.',
+    'Produce only a concise customer-facing draft reply to the inbound Telegram message.',
+    'Use only verified_facts supplied in the input for commercial facts.',
+    'Never invent price, availability, mileage, condition/history, discount, finance, warranty, location, appointment slot, scarcity, or approval.',
+    'If a requested commercial fact is missing, say it needs confirmation and move the conversation forward with at most one or two useful questions.',
+    'Do not claim that any message, appointment, reservation, lead update, or handoff was executed.',
+    'Do not negotiate, promise discounts, approve finance, value trade-ins, take deposits, or bind the business.',
+    'Prefer the smallest sensible next commitment toward qualification, showroom visit, or test drive, but only using verified facts.',
+    'Reply in the same language as the customer where possible.',
+    'No markdown labels, no internal reasoning, no policy explanation.'
+  ].join(' ');
+
+  let draft;
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${apiKey}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'developer', content: system },
+          { role: 'user', content: JSON.stringify({ input }) }
+        ]
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const sent = await sendTelegramBusinessMessage(message, `SALES TEST BLOCKED\nmodel_http=${response.status}`);
+      return { attempted: true, generated: false, reason: `model_http:${response.status}`, sent };
+    }
+    draft = data?.choices?.[0]?.message?.content?.trim();
+  } catch (error) {
+    const sent = await sendTelegramBusinessMessage(message, 'SALES TEST BLOCKED\nreason=model_request_failed');
+    return { attempted: true, generated: false, reason: 'model_request_failed', sent };
+  }
+
+  if (!draft) {
+    const sent = await sendTelegramBusinessMessage(message, 'SALES TEST BLOCKED\nreason=empty_model_output');
+    return { attempted: true, generated: false, reason: 'empty_model_output', sent };
+  }
+
+  // The model output is sent only because the user explicitly invoked #SALES_TEST.
+  // Normal customer messages remain non-autonomous and receive no model-generated reply.
+  const sent = await sendTelegramBusinessMessage(
+    message,
+    `SALES DRAFT TEST\n---\n${draft}\n---\nNOT LIVE AUTO-REPLY`
+  );
+  return { attempted: true, generated: true, sent };
 }
 
 function normalizeTelegramBusinessMessage(update, message) {
@@ -158,6 +244,7 @@ export default async function handler(req, res) {
   if (message) {
     const turn = normalizeTelegramBusinessMessage(update, message);
     const testAck = await sendControlledTestAck(message, turn);
+    const salesDraftTest = await runControlledSalesDraftTest(message, turn);
     console.log(JSON.stringify({
       event: 'telegram_sales_turn_normalized',
       update_id: update.update_id,
@@ -169,6 +256,7 @@ export default async function handler(req, res) {
       channel: turn.input.inquiry.channel,
       attribution_confidence: turn.input.attribution.confidence,
       controlled_test_ack: testAck,
+      controlled_sales_draft_test: salesDraftTest,
       received_at: new Date().toISOString()
     }));
   }
