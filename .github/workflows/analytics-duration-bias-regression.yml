@@ -1,0 +1,21 @@
+name: Analytics duration-bias regression
+
+on:
+  pull_request:
+    paths:
+      - 'agents/analytics.md'
+      - 'agents/analytics-causal-evidence-gates.md'
+      - 'evaluation/analytics-duration-bias/**'
+      - 'package.json'
+      - '.github/workflows/analytics-duration-bias-regression.yml'
+  workflow_dispatch:
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run test:analytics-duration-bias

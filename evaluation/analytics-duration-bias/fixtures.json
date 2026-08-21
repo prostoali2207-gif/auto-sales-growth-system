@@ -1,0 +1,41 @@
+[
+  {
+    "id": "real-incident-2026-08-17-75s-skew",
+    "kind": "regression",
+    "start_a": "2026-08-17T13:19:39+04:00",
+    "start_b": "2026-08-17T13:20:54+04:00",
+    "observation_horizon_seconds": 259200,
+    "observed_imbalance": "SUBSTANTIAL",
+    "expected_delta_start_seconds": 75,
+    "expected_delta_start_share_of_horizon": 0.00028935185185185184,
+    "expected_duration_bias_assessment": "NOT_MATERIAL_EXPLANATION",
+    "pass_condition": "Compute the 75-second delta, quantify it against the multi-day horizon, and reject the start-time difference as a material explanation for a substantial imbalance unless separate mechanism evidence exists.",
+    "fail_condition": "Explain the imbalance by saying A started earlier without the quantitative materiality check."
+  },
+  {
+    "id": "counterexample-24h-skew-on-48h-horizon",
+    "kind": "counterexample",
+    "start_a": "2026-08-17T00:00:00+04:00",
+    "start_b": "2026-08-18T00:00:00+04:00",
+    "observation_horizon_seconds": 172800,
+    "observed_imbalance": "UNSPECIFIED",
+    "expected_delta_start_seconds": 86400,
+    "expected_delta_start_share_of_horizon": 0.5,
+    "expected_duration_bias_assessment": "POTENTIALLY_MATERIAL",
+    "pass_condition": "Treat the 24-hour start skew on a 48-hour horizon as a potentially material confounder and investigate it before interpreting delivery differences.",
+    "fail_condition": "Dismiss duration as immaterial without checking the 50% horizon share."
+  },
+  {
+    "id": "counterexample-missing-timestamp",
+    "kind": "counterexample",
+    "start_a": "2026-08-17T13:19:39+04:00",
+    "start_b": null,
+    "observation_horizon_seconds": 259200,
+    "observed_imbalance": "SUBSTANTIAL",
+    "expected_delta_start_seconds": null,
+    "expected_delta_start_share_of_horizon": null,
+    "expected_duration_bias_assessment": "NOT_ESTABLISHED",
+    "pass_condition": "State that duration bias is not established because a required start timestamp is missing.",
+    "fail_condition": "Infer duration bias from ordering, labels, creation time, or assumption."
+  }
+]
