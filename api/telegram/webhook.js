@@ -10,6 +10,26 @@ function stableId(prefix, ...parts) {
   return `${prefix}_${digest}`;
 }
 
+async function sendControlledTestAck(message, turn) {
+  const text = typeof message.text === 'string' ? message.text.trim() : '';
+  if (text !== '#SYSTEM_TEST') return { attempted: false };
+
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return { attempted: true, ok: false, reason: 'missing_bot_token' };
+
+  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      business_connection_id: message.business_connection_id,
+      chat_id: message.chat?.id,
+      text: `SYSTEM TEST PASSED\nchannel=TELEGRAM\ninquiry=${turn.input.inquiry.inquiry_id}`
+    })
+  });
+  const data = await response.json().catch(() => ({}));
+  return { attempted: true, ok: Boolean(response.ok && data.ok), description: data.description || null };
+}
+
 function normalizeTelegramBusinessMessage(update, message) {
   const receivedAt = new Date().toISOString();
   const occurredAt = message.date ? new Date(message.date * 1000).toISOString() : receivedAt;
@@ -47,7 +67,6 @@ function normalizeTelegramBusinessMessage(update, message) {
         timezone: 'Asia/Dubai',
         agent_version: 'sales-lead-conversion',
         policy_version: 'telegram-ingress-v1',
-        // Ingress cannot autonomously send or mutate commercial state.
         permitted_actions: ['DRAFT_MESSAGE', 'READ_FACTS', 'SEARCH_INVENTORY', 'REQUEST_HANDOFF', 'EMIT_EVENT']
       },
       inquiry: {
@@ -136,10 +155,9 @@ export default async function handler(req, res) {
   const update = req.body || {};
   const message = update.business_message || update.edited_business_message || null;
 
-  // Transport + deterministic normalization only. Autonomous customer replies stay
-  // disabled until the existing Sales authority/business-fact gates are executable.
   if (message) {
     const turn = normalizeTelegramBusinessMessage(update, message);
+    const testAck = await sendControlledTestAck(message, turn);
     console.log(JSON.stringify({
       event: 'telegram_sales_turn_normalized',
       update_id: update.update_id,
@@ -150,6 +168,7 @@ export default async function handler(req, res) {
       event_id: turn.input.inquiry.event_id,
       channel: turn.input.inquiry.channel,
       attribution_confidence: turn.input.attribution.confidence,
+      controlled_test_ack: testAck,
       received_at: new Date().toISOString()
     }));
   }
