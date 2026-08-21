@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "collect:instagram": "node scripts/collect-instagram-reels.mjs"
+    "collect:instagram": "node scripts/collect-instagram-reels.mjs",
+    "test:analytics-duration-bias": "node --test evaluation/analytics-duration-bias/duration-bias-gate.test.mjs"
   },
   "dependencies": {
     "apify-client": "^2.16.0"
