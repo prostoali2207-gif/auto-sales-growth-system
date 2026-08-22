@@ -1,5 +1,15 @@
 import crypto from 'node:crypto';
 
+const TELEGRAM_CHAT_ROUTES = Object.freeze({
+  '-1003963335180': Object.freeze({
+    kind: 'OWNED_CHANNEL',
+    owner: 'PUBLISHER_HUMAN',
+    workflow_role: 'PUBLICATION_CHANNEL',
+    mode: 'OBSERVE_ONLY',
+    publish_requires_human_approval: true
+  })
+});
+
 function json(res, status, body) {
   res.status(status).setHeader('content-type', 'application/json');
   res.send(JSON.stringify(body));
@@ -173,6 +183,7 @@ function observeTelegramChatUpdate(update) {
   const messageId = String(message.message_id ?? 'unknown');
   const eventId = stableId('tg_chat_evt', update.update_id ?? 'unknown', updateType, chatId, messageId);
   const text = typeof message.text === 'string' ? message.text : (typeof message.caption === 'string' ? message.caption : '');
+  const route = TELEGRAM_CHAT_ROUTES[chatId] || null;
 
   return {
     event: 'telegram_chat_update_observed',
@@ -196,7 +207,9 @@ function observeTelegramChatUpdate(update) {
         is_bot: typeof message.from?.is_bot === 'boolean' ? message.from.is_bot : null
       }
     },
-    routing_status: 'OBSERVED_UNROUTED',
+    route: route ? { ...route } : null,
+    routing_status: route ? 'ROUTED_BY_EXACT_CHAT_ID' : 'OBSERVED_UNROUTED',
+    downstream_dispatch: false,
     openai_call: false,
     telegram_mutation: false,
     received_at: receivedAt
