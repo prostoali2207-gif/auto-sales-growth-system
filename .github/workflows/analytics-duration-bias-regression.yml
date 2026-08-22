@@ -20,6 +20,11 @@ jobs:
         with:
           node-version: '22'
       - run: npm run test:analytics-duration-bias
+      - name: Install ffmpeg for media smoke
+        if: github.event_name == 'pull_request' && github.head_ref == 'feat/sociality-tiktok-media-fetch'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
       - name: Real Sociality TikTok media smoke
         if: github.event_name == 'pull_request' && github.head_ref == 'feat/sociality-tiktok-media-fetch'
         env:
