@@ -21,6 +21,10 @@ export default async function handler(req, res) {
       url: WEBHOOK_URL,
       secret_token: secret,
       allowed_updates: [
+        'message',
+        'edited_message',
+        'channel_post',
+        'edited_channel_post',
         'business_connection',
         'business_message',
         'edited_business_message',
