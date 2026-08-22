@@ -1,0 +1,1 @@
+Trigger UAE Market Intelligence qualification through pull_request CI.
