@@ -1,257 +1,257 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "market-intelligence-report.schema.json",
-  "title": "Market Intelligence Report Contract",
+  "title": "Market Intelligence Evidence Report Contract",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "report_id",
     "created_at",
+    "research_contract",
     "scope",
-    "patterns",
-    "weak_patterns",
+    "collection",
+    "findings",
     "buyer_signals",
-    "test_candidates",
+    "competitor_offer_signals",
+    "weak_or_conflicted_evidence",
     "unknowns",
-    "sources"
+    "sources",
+    "stopping",
+    "strategist_handoff"
   ],
   "properties": {
-    "report_id": {
-      "type": "string"
-    },
-    "created_at": {
-      "type": "string",
-      "format": "date-time"
+    "report_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "research_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_supported", "research_question", "material_claims", "freshness_boundary", "stopping_condition", "downstream_owner"],
+      "properties": {
+        "decision_supported": {"type": "string", "minLength": 1},
+        "research_question": {"type": "string", "minLength": 1},
+        "material_claims": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "freshness_boundary": {"type": "string", "minLength": 1},
+        "stopping_condition": {"type": "string", "minLength": 1},
+        "downstream_owner": {"const": "STRATEGIST"}
+      }
     },
     "scope": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "market",
-        "platforms",
-        "date_range",
-        "accounts_count",
-        "items_count"
-      ],
+      "required": ["market", "platforms", "date_range", "accounts_count", "items_count"],
       "properties": {
-        "market": {
-          "type": "string"
-        },
+        "market": {"type": "string"},
         "platforms": {
           "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "INSTAGRAM",
-              "YOUTUBE_SHORTS",
-              "YOUTUBE_LONG",
-              "TELEGRAM",
-              "WEB",
-              "OTHER"
-            ]
-          }
+          "items": {"type": "string", "enum": ["INSTAGRAM", "YOUTUBE_SHORTS", "YOUTUBE_LONG", "TELEGRAM", "WEB", "META_AD_LIBRARY", "MARKETPLACE", "FIRST_PARTY", "OTHER"]}
         },
         "date_range": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "from",
-            "to"
-          ],
+          "required": ["from", "to"],
           "properties": {
-            "from": {
-              "type": "string",
-              "format": "date"
-            },
-            "to": {
-              "type": "string",
-              "format": "date"
-            }
+            "from": {"type": "string", "format": "date"},
+            "to": {"type": "string", "format": "date"}
           }
         },
-        "accounts_count": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "items_count": {
-          "type": "integer",
-          "minimum": 0
-        }
+        "accounts_count": {"type": "integer", "minimum": 0},
+        "items_count": {"type": "integer", "minimum": 0},
+        "vehicle_scope": {"type": ["string", "null"]}
       }
     },
-    "patterns": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/pattern"
+    "collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "sampling_or_selection", "coverage_limits", "longitudinal_comparability"],
+      "properties": {
+        "method": {"type": "string", "minLength": 1},
+        "sampling_or_selection": {"type": "string", "minLength": 1},
+        "coverage_limits": {"type": "array", "items": {"type": "string"}},
+        "longitudinal_comparability": {"type": "string", "enum": ["NOT_APPLICABLE", "COMPARABLE", "PARTIAL", "NOT_COMPARABLE", "UNKNOWN"]},
+        "collector_or_query_notes": {"type": "array", "items": {"type": "string"}}
       }
     },
-    "weak_patterns": {
+    "findings": {
       "type": "array",
-      "items": {
-        "$ref": "#/$defs/pattern"
-      }
+      "items": {"$ref": "#/$defs/finding"}
     },
     "buyer_signals": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "signal",
-          "evidence_refs",
-          "frequency"
-        ],
+        "required": ["signal", "epistemic_status", "support_scope", "evidence_refs", "population_prevalence", "limitations"],
         "properties": {
-          "signal": {
-            "type": "string"
-          },
-          "evidence_refs": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "frequency": {
-            "type": "integer",
-            "minimum": 1
-          }
+          "signal": {"type": "string", "minLength": 1},
+          "epistemic_status": {"$ref": "#/$defs/epistemicStatus"},
+          "support_scope": {"type": "string", "minLength": 1},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}},
+          "population_prevalence": {"type": "string", "enum": ["SUPPORTED", "UNPROVEN", "NOT_APPLICABLE"]},
+          "limitations": {"type": "array", "items": {"type": "string"}}
         }
       }
     },
-    "test_candidates": {
+    "competitor_offer_signals": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "hypothesis",
-          "mechanism",
-          "change",
-          "controls",
-          "suggested_kpi",
-          "minimum_attempts",
-          "evidence_refs"
-        ],
+        "required": ["signal", "state", "epistemic_status", "evidence_refs", "limitations"],
         "properties": {
-          "hypothesis": {
-            "type": "string"
-          },
-          "mechanism": {
-            "type": "string"
-          },
-          "change": {
-            "type": "string"
-          },
-          "controls": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "suggested_kpi": {
-            "type": "string"
-          },
-          "minimum_attempts": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "evidence_refs": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
+          "signal": {"type": "string", "minLength": 1},
+          "state": {"type": "string", "enum": ["OBSERVED_ACTION", "ANNOUNCED_INTENT", "VERIFIED_IMPLEMENTATION", "ADOPTION_UNPROVEN", "INFERRED_INTENT", "MARKET_IMPACT_UNPROVEN"]},
+          "epistemic_status": {"$ref": "#/$defs/epistemicStatus"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}},
+          "limitations": {"type": "array", "items": {"type": "string"}}
         }
       }
     },
-    "unknowns": {
+    "pricing_evidence": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/pricingEvidence"}
+      ]
+    },
+    "weak_or_conflicted_evidence": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_or_signal", "reason", "evidence_refs"],
+        "properties": {
+          "claim_or_signal": {"type": "string"},
+          "reason": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}}
+        }
       }
     },
+    "unknowns": {"type": "array", "items": {"type": "string"}},
     "sources": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "source_id",
-          "url",
-          "observed_at",
-          "source_type"
-        ],
-        "properties": {
-          "source_id": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
-          },
-          "observed_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "source_type": {
-            "type": "string"
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "stopping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason"],
+      "properties": {
+        "status": {"type": "string", "enum": ["STOP", "STOP_WITH_LIMITATION", "CONTINUE", "CLARIFY_FIRST", "ESCALATE_OR_DEFER"]},
+        "reason": {"type": "string", "minLength": 1},
+        "remaining_material_gaps": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "strategist_handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "bounded_implications", "decision_limits", "next_evidence_requirements"],
+      "properties": {
+        "owner": {"const": "STRATEGIST"},
+        "bounded_implications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["status", "statement", "evidence_refs"],
+            "properties": {
+              "status": {"type": "string", "enum": ["TEST_CANDIDATE", "WATCH", "NO_ACTIONABLE_SIGNAL", "RESEARCH_REQUIRED", "BLOCKED"]},
+              "statement": {"type": "string", "minLength": 1},
+              "evidence_refs": {"type": "array", "items": {"type": "string"}}
+            }
           }
-        }
+        },
+        "decision_limits": {"type": "array", "items": {"type": "string"}},
+        "next_evidence_requirements": {"type": "array", "items": {"type": "string"}}
       }
     }
   },
   "$defs": {
-    "pattern": {
+    "epistemicStatus": {
+      "type": "string",
+      "enum": ["OBSERVED_FACT", "DERIVED_FACT", "INFERENCE", "HYPOTHESIS", "UNRESOLVED"]
+    },
+    "finding": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "pattern_id",
-        "mechanic",
-        "evidence_count",
-        "examples",
-        "commercial_purpose",
-        "confidence",
-        "limitations"
-      ],
+      "required": ["finding_id", "claim", "epistemic_status", "support_state", "support_scope", "evidence_refs", "external_validity", "causal_validity", "confidence", "limitations"],
       "properties": {
-        "pattern_id": {
-          "type": "string"
-        },
-        "mechanic": {
-          "type": "string"
-        },
-        "evidence_count": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "examples": {
-          "type": "array",
-          "items": {
-            "type": "string"
+        "finding_id": {"type": "string", "minLength": 1},
+        "claim": {"type": "string", "minLength": 1},
+        "epistemic_status": {"$ref": "#/$defs/epistemicStatus"},
+        "support_state": {"type": "string", "enum": ["SUPPORTED", "PARTIAL", "CONFLICTED", "CONTRADICTED", "UNVERIFIED", "NOT_COMPARABLE"]},
+        "support_scope": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "external_validity": {"type": "string", "enum": ["SUPPORTED", "BOUNDED", "UNPROVEN", "NOT_APPLICABLE"]},
+        "causal_validity": {"type": "string", "enum": ["SUPPORTED", "UNPROVEN", "NOT_APPLICABLE"]},
+        "confidence": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "BLOCKED"]},
+        "limitations": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "canonical_ref", "source_type", "observed_at", "access_state", "authority_for_claims", "freshness_class"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "canonical_ref": {"type": "string", "minLength": 1},
+        "source_type": {"type": "string", "minLength": 1},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "access_state": {"type": "string", "enum": ["FULL", "PARTIAL", "METADATA_ONLY", "SNIPPET_ONLY", "INACCESSIBLE"]},
+        "authority_for_claims": {"type": "array", "items": {"type": "string"}},
+        "freshness_class": {"type": "string", "enum": ["STABLE", "SLOW", "VERSIONED", "VOLATILE"]},
+        "lineage_or_dependence": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "pricingEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject_identity", "comparability_status", "observations", "valid_primary_count", "confidence", "unresolved_facts"],
+      "properties": {
+        "subject_identity": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["make", "model", "model_year", "specification", "use_status"],
+          "properties": {
+            "make": {"type": ["string", "null"]},
+            "model": {"type": ["string", "null"]},
+            "model_year": {"type": ["integer", "null"]},
+            "specification": {"type": ["string", "null"]},
+            "use_status": {"type": ["string", "null"]}
           }
         },
-        "commercial_purpose": {
-          "type": "string",
-          "enum": [
-            "REACH",
-            "TRUST",
-            "LEAD",
-            "DIRECT_SALE"
-          ]
-        },
-        "confidence": {
-          "type": "string",
-          "enum": [
-            "LOW",
-            "MEDIUM",
-            "HIGH"
-          ]
-        },
-        "limitations": {
+        "comparability_status": {"type": "string", "enum": ["PASS", "LOW_EVIDENCE", "BLOCKED_PRICE_COMPARABILITY"]},
+        "observations": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_ref", "asking_price_aed", "price_class", "is_primary_comparable", "exclusion_reason"],
+            "properties": {
+              "source_ref": {"type": "string"},
+              "asking_price_aed": {"type": "number", "minimum": 0},
+              "price_class": {"type": "string", "enum": ["OFFICIAL_NEW_RETAIL", "LOCAL_DEALER_NEW_RETAIL", "EXPORT_ONLY", "USED_RETAIL", "PRIVATE_USED", "OTHER_NONCOMPARABLE"]},
+              "is_primary_comparable": {"type": "boolean"},
+              "exclusion_reason": {"type": ["string", "null"]}
+            }
           }
-        }
+        },
+        "valid_primary_count": {"type": "integer", "minimum": 0},
+        "bounded_primary_range_aed": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["min", "max", "median"],
+              "properties": {
+                "min": {"type": "number", "minimum": 0},
+                "max": {"type": "number", "minimum": 0},
+                "median": {"type": "number", "minimum": 0}
+              }
+            }
+          ]
+        },
+        "confidence": {"type": "string", "enum": ["HIGH", "MEDIUM", "LOW", "BLOCKED"]},
+        "unresolved_facts": {"type": "array", "items": {"type": "string"}}
       }
     }
   }
