@@ -107,8 +107,6 @@ async function runControlledSalesDraftTest(message, turn) {
     return { attempted: true, generated: false, reason: 'empty_model_output', sent };
   }
 
-  // The model output is sent only because the user explicitly invoked #SALES_TEST.
-  // Normal customer messages remain non-autonomous and receive no model-generated reply.
   const sent = await sendTelegramBusinessMessage(
     message,
     `SALES DRAFT TEST\n---\n${draft}\n---\nNOT LIVE AUTO-REPLY`
@@ -128,137 +126,109 @@ function normalizeTelegramBusinessMessage(update, message) {
   const text = typeof message.text === 'string' ? message.text : (typeof message.caption === 'string' ? message.caption : '');
 
   const touch = {
-    touch_id: stableId('tg_touch', eventId),
-    occurred_at: occurredAt,
-    channel: 'TELEGRAM',
-    source_type: 'DIRECT',
-    experiment_id: null,
-    content_spec_id: null,
-    content_id: null,
-    platform_content_id: null,
-    campaign_id: null,
-    vehicle_id: null,
-    cta_keyword: null,
-    url: null,
-    evidence_type: 'THREAD_METADATA',
-    evidence_reference: eventId
+    touch_id: stableId('tg_touch', eventId), occurred_at: occurredAt, channel: 'TELEGRAM', source_type: 'DIRECT',
+    experiment_id: null, content_spec_id: null, content_id: null, platform_content_id: null, campaign_id: null,
+    vehicle_id: null, cta_keyword: null, url: null, evidence_type: 'THREAD_METADATA', evidence_reference: eventId
   };
 
+  return { input: {
+    run_context: { run_id: stableId('sales_run', eventId), occurred_at: receivedAt, business_id: businessConnectionId,
+      timezone: 'Asia/Dubai', agent_version: 'sales-lead-conversion', policy_version: 'telegram-ingress-v1',
+      permitted_actions: ['DRAFT_MESSAGE', 'READ_FACTS', 'SEARCH_INVENTORY', 'REQUEST_HANDOFF', 'EMIT_EVENT'] },
+    inquiry: { inquiry_id: inquiryId, event_id: eventId, channel: 'TELEGRAM', thread_id: threadId, received_at: occurredAt,
+      direction: 'INBOUND', raw_text: text, attachments: [], identity_hints: {
+        telegram_user_id: message.from?.id ? String(message.from.id) : null, username: message.from?.username || null,
+        first_name: message.from?.first_name || null, language_code: message.from?.language_code || null } },
+    lead_snapshot: null,
+    attribution: { attribution_id: stableId('tg_attr', inquiryId), lead_id: null, inquiry_id: inquiryId, inquiry_channel: 'TELEGRAM',
+      inquiry_thread_id: threadId, captured_at: receivedAt, first_touch: touch, last_non_direct_touch: null, touches: [touch],
+      experiment_id: null, content_spec_id: null, content_id: null, platform_content_id: null, campaign_id: null, ad_id: null,
+      advertised_vehicle_id: null, inquired_vehicle_id: null, cta_keyword: null, landing_url: null, referrer_url: null,
+      confidence: 'UNKNOWN', confidence_reason: 'Telegram thread metadata proves the inquiry channel, but no upstream content/ad touch is established.',
+      sale_credit: 'UNKNOWN', raw_capture: { telegram_update_id: update.update_id ?? null, business_connection_id: businessConnectionId,
+        chat_id: chatId, message_id: messageId }, normalization_version: 'telegram-business-v1', correction_history: [] },
+    verified_facts: [],
+    conversation_history: { messages: [{ message_id: messageId, occurred_at: occurredAt, direction: 'INBOUND', actor_type: 'CUSTOMER', text }],
+      traceable_summary: null, summary_source_event_ids: [eventId] }
+  }};
+}
+
+function observeTelegramChatUpdate(update) {
+  const candidates = [
+    ['message', update.message],
+    ['edited_message', update.edited_message],
+    ['channel_post', update.channel_post],
+    ['edited_channel_post', update.edited_channel_post]
+  ];
+  const [updateType, message] = candidates.find(([, value]) => value) || [];
+  if (!message) return null;
+
+  const chat = message.chat || {};
+  const chatType = chat.type || 'unknown';
+  if (!['group', 'supergroup', 'channel'].includes(chatType)) return null;
+
+  const receivedAt = new Date().toISOString();
+  const occurredAt = message.date ? new Date(message.date * 1000).toISOString() : receivedAt;
+  const chatId = String(chat.id ?? 'unknown');
+  const messageId = String(message.message_id ?? 'unknown');
+  const eventId = stableId('tg_chat_evt', update.update_id ?? 'unknown', updateType, chatId, messageId);
+  const text = typeof message.text === 'string' ? message.text : (typeof message.caption === 'string' ? message.caption : '');
+
   return {
-    input: {
-      run_context: {
-        run_id: stableId('sales_run', eventId),
-        occurred_at: receivedAt,
-        business_id: businessConnectionId,
-        timezone: 'Asia/Dubai',
-        agent_version: 'sales-lead-conversion',
-        policy_version: 'telegram-ingress-v1',
-        permitted_actions: ['DRAFT_MESSAGE', 'READ_FACTS', 'SEARCH_INVENTORY', 'REQUEST_HANDOFF', 'EMIT_EVENT']
-      },
-      inquiry: {
-        inquiry_id: inquiryId,
-        event_id: eventId,
-        channel: 'TELEGRAM',
-        thread_id: threadId,
-        received_at: occurredAt,
-        direction: 'INBOUND',
-        raw_text: text,
-        attachments: [],
-        identity_hints: {
-          telegram_user_id: message.from?.id ? String(message.from.id) : null,
-          username: message.from?.username || null,
-          first_name: message.from?.first_name || null,
-          language_code: message.from?.language_code || null
-        }
-      },
-      lead_snapshot: null,
-      attribution: {
-        attribution_id: stableId('tg_attr', inquiryId),
-        lead_id: null,
-        inquiry_id: inquiryId,
-        inquiry_channel: 'TELEGRAM',
-        inquiry_thread_id: threadId,
-        captured_at: receivedAt,
-        first_touch: touch,
-        last_non_direct_touch: null,
-        touches: [touch],
-        experiment_id: null,
-        content_spec_id: null,
-        content_id: null,
-        platform_content_id: null,
-        campaign_id: null,
-        ad_id: null,
-        advertised_vehicle_id: null,
-        inquired_vehicle_id: null,
-        cta_keyword: null,
-        landing_url: null,
-        referrer_url: null,
-        confidence: 'UNKNOWN',
-        confidence_reason: 'Telegram thread metadata proves the inquiry channel, but no upstream content/ad touch is established.',
-        sale_credit: 'UNKNOWN',
-        raw_capture: {
-          telegram_update_id: update.update_id ?? null,
-          business_connection_id: businessConnectionId,
-          chat_id: chatId,
-          message_id: messageId
-        },
-        normalization_version: 'telegram-business-v1',
-        correction_history: []
-      },
-      verified_facts: [],
-      conversation_history: {
-        messages: [{
-          message_id: messageId,
-          occurred_at: occurredAt,
-          direction: 'INBOUND',
-          actor_type: 'CUSTOMER',
-          text
-        }],
-        traceable_summary: null,
-        summary_source_event_ids: [eventId]
+    event: 'telegram_chat_update_observed',
+    event_id: eventId,
+    update_id: update.update_id ?? null,
+    update_type: updateType,
+    chat: {
+      id: chatId,
+      type: chatType,
+      title: chat.title || null,
+      username: chat.username || null
+    },
+    message: {
+      id: messageId,
+      occurred_at: occurredAt,
+      text,
+      sender: {
+        id: message.from?.id ? String(message.from.id) : null,
+        username: message.from?.username || null,
+        first_name: message.from?.first_name || null,
+        is_bot: typeof message.from?.is_bot === 'boolean' ? message.from.is_bot : null
       }
-    }
+    },
+    routing_status: 'OBSERVED_UNROUTED',
+    openai_call: false,
+    telegram_mutation: false,
+    received_at: receivedAt
   };
 }
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    return json(res, 200, { ok: true, service: 'telegram-business-ingress' });
-  }
-
+  if (req.method === 'GET') return json(res, 200, { ok: true, service: 'telegram-business-ingress' });
   if (req.method !== 'POST') return json(res, 405, { ok: false });
 
   const expected = process.env.TELEGRAM_WEBHOOK_SECRET;
   if (!expected) return json(res, 503, { ok: false, error: 'webhook_not_configured' });
-
   const supplied = req.headers['x-telegram-bot-api-secret-token'];
   const a = Buffer.from(String(supplied || ''));
   const b = Buffer.from(expected);
-  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
-    return json(res, 401, { ok: false });
-  }
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return json(res, 401, { ok: false });
 
   const update = req.body || {};
-  const message = update.business_message || update.edited_business_message || null;
+  const businessMessage = update.business_message || update.edited_business_message || null;
 
-  if (message) {
-    const turn = normalizeTelegramBusinessMessage(update, message);
-    const testAck = await sendControlledTestAck(message, turn);
-    const salesDraftTest = await runControlledSalesDraftTest(message, turn);
-    console.log(JSON.stringify({
-      event: 'telegram_sales_turn_normalized',
-      update_id: update.update_id,
-      business_connection_id: message.business_connection_id || null,
-      chat_id: message.chat?.id || null,
-      message_id: message.message_id || null,
-      inquiry_id: turn.input.inquiry.inquiry_id,
-      event_id: turn.input.inquiry.event_id,
-      channel: turn.input.inquiry.channel,
-      attribution_confidence: turn.input.attribution.confidence,
-      controlled_test_ack: testAck,
-      controlled_sales_draft_test: salesDraftTest,
-      received_at: new Date().toISOString()
-    }));
+  if (businessMessage) {
+    const turn = normalizeTelegramBusinessMessage(update, businessMessage);
+    const testAck = await sendControlledTestAck(businessMessage, turn);
+    const salesDraftTest = await runControlledSalesDraftTest(businessMessage, turn);
+    console.log(JSON.stringify({ event: 'telegram_sales_turn_normalized', update_id: update.update_id,
+      business_connection_id: businessMessage.business_connection_id || null, chat_id: businessMessage.chat?.id || null,
+      message_id: businessMessage.message_id || null, inquiry_id: turn.input.inquiry.inquiry_id, event_id: turn.input.inquiry.event_id,
+      channel: turn.input.inquiry.channel, attribution_confidence: turn.input.attribution.confidence,
+      controlled_test_ack: testAck, controlled_sales_draft_test: salesDraftTest, received_at: new Date().toISOString() }));
+  } else {
+    const observed = observeTelegramChatUpdate(update);
+    if (observed) console.log(JSON.stringify(observed));
   }
 
   return json(res, 200, { ok: true });
