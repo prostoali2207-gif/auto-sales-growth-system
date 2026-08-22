@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "status": "QUALIFIED",
+  "qualified_at": "2026-08-22",
+  "applied_candidate_commit": "85c845de0b46f9e59581ed620cdbd95b874f0719",
+  "agent_blob_sha": "b80e96dad48ce7c2a6d461b18022a7dbcbd21638",
+  "report_schema_blob_sha": "e2ffa108ef62b6d169dc98d76d82d586f027cb8c",
+  "universal_core": {
+    "id": "market-competitive-intelligence",
+    "version": "1.0.0",
+    "artifact_digest": "sha256:4584599b86125c85c77a10f118eba4b1472f59947bd5106a8a19174ab53f6e03",
+    "assembly_digest": "sha256:7dee471c3b707927fd255a2539548882e2b18765c943d0e6c7dbee9a2edbff62"
+  },
+  "qualification": {
+    "executor_repository": "prostoali2207-gif/professional-ai-agents",
+    "workflow_run_id": 32562876212,
+    "artifact_id": 9473291008,
+    "artifact_digest": "sha256:25964d4025f0c50cedaeecc486f8c7ca274a95b0a5660a5a4a3ed4ac2f481da8",
+    "model": "gemini-3.1-flash-lite",
+    "thinking_level": "medium",
+    "uae_delta": {
+      "cases": 7,
+      "trials_per_case": 3,
+      "passes": 21,
+      "total": 21
+    },
+    "practical": {
+      "case_id": "UAE-MI-P01",
+      "passes": 3,
+      "total": 3
+    },
+    "release_gate": "PASS"
+  },
+  "qualified_boundaries": [
+    "UAE pricing cohort separation and comparability blocking",
+    "commercial fact verification boundary",
+    "visual/media observability boundary",
+    "proxy metrics not treated as sales evidence",
+    "outlier transferability restraint",
+    "Market Intelligence to Strategist authority handoff",
+    "test candidate without experiment design ownership",
+    "end-to-end UAE automotive evidence handoff"
+  ],
+  "portability_note": "Qualification is tied to the exact agent and report-schema blobs above plus the qualified universal core assembly. Material changes to professional behavior, authority, schema contract, tool access, collection mechanisms, or model/runtime require affected-behavior requalification."
+}
