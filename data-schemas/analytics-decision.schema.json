@@ -4,7 +4,7 @@
   "title": "Auto Sales Growth Analytics Decision",
   "type": "object",
   "additionalProperties": false,
-  "required": ["analysis_id", "experiment_id", "experiment_version", "evaluated_at", "recommendation", "evidence_grade", "data_quality", "primary_result", "sample_assessment", "funnel_results", "attribution", "confounders", "causal_claim", "decision_rationale", "next_action", "learning_note"],
+  "required": ["analysis_id", "experiment_id", "experiment_version", "evaluated_at", "recommendation", "evidence_grade", "data_quality", "primary_result", "sample_assessment", "funnel_results", "attribution", "confounders", "causal_claim", "operational_assessment", "decision_rationale", "next_action", "learning_note"],
   "properties": {
     "analysis_id": {"type": "string", "minLength": 1},
     "experiment_id": {"type": "string", "minLength": 1},
@@ -118,6 +118,37 @@
       "properties": {
         "level": {"type": "string", "enum": ["CAUSAL", "NEAR_CAUSAL", "ASSOCIATIONAL", "DESCRIPTIVE_ONLY", "NOT_EVALUABLE"]},
         "statement": {"type": "string", "minLength": 1}
+      }
+    },
+    "operational_assessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["conclusion", "evidence_strength", "materiality", "reversibility", "cost_of_waiting_or_continuing", "confounder_decision_relevance", "evidence_that_would_change_action"],
+      "properties": {
+        "conclusion": {"type": "string", "minLength": 1},
+        "evidence_strength": {"type": "string", "enum": ["STRONG", "MODERATE", "WEAK", "UNUSABLE"]},
+        "materiality": {"type": "string", "minLength": 1},
+        "reversibility": {
+          "type": "object", "additionalProperties": false,
+          "required": ["level", "rationale"],
+          "properties": {
+            "level": {"type": "string", "enum": ["HIGH", "MEDIUM", "LOW", "UNKNOWN"]},
+            "rationale": {"type": "string", "minLength": 1}
+          }
+        },
+        "cost_of_waiting_or_continuing": {"type": "string", "minLength": 1},
+        "confounder_decision_relevance": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["confounder", "can_plausibly_change_operational_action", "rationale"],
+            "properties": {
+              "confounder": {"type": "string", "minLength": 1},
+              "can_plausibly_change_operational_action": {"type": "boolean"},
+              "rationale": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "evidence_that_would_change_action": {"type": "array", "items": {"type": "string", "minLength": 1}}
       }
     },
     "decision_rationale": {"type": "array", "minItems": 1, "items": {"type": "string"}},
