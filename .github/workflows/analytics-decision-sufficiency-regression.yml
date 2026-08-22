@@ -1,0 +1,37 @@
+name: Analytics decision sufficiency regression
+
+on:
+  push:
+    branches:
+      - fix/analytics-decision-sufficiency-2026-08
+    paths:
+      - 'agents/analytics-causal-evidence-gates.md'
+      - 'data-schemas/analytics-decision.schema.json'
+      - 'evaluation/analytics-decision-sufficiency/**'
+      - 'package.json'
+      - '.github/workflows/analytics-decision-sufficiency-regression.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'agents/analytics-causal-evidence-gates.md'
+      - 'data-schemas/analytics-decision.schema.json'
+      - 'evaluation/analytics-decision-sufficiency/**'
+      - 'package.json'
+      - '.github/workflows/analytics-decision-sufficiency-regression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run decision-sufficiency contract regression
+        run: npm run test:analytics-decision-sufficiency
