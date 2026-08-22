@@ -1,0 +1,112 @@
+{
+  "artifact_id": "ae-20260812-almusafircars-v2",
+  "artifact_type": "authenticated-account-evidence",
+  "experiment_id": "exp-20260811-elantra-gt-001",
+  "version": "v2",
+  "verified_at": "2026-08-12T08:00:00+04:00",
+  "verified_by": "HUMAN_AUTHENTICATED_INSTAGRAM_SESSION",
+  "account": {
+    "handle": "almusafircars",
+    "followers": 36
+  },
+  "organic_content": [
+    {
+      "content_url": "https://www.instagram.com/p/DbQDNvuiJE2/",
+      "format": "CAROUSEL",
+      "vehicle_id": "vehicle-elantra-gt-2020-001",
+      "dashboard_metrics": {
+        "views": 20,
+        "viewers": 9,
+        "follower_view_share_pct": 44.4,
+        "nonfollower_view_share_pct": 55.6,
+        "from_profile": 10,
+        "from_home": 8,
+        "from_other_sources": 2,
+        "interactions": 0,
+        "profile_actions": 0,
+        "facebook_views": 2
+      }
+    },
+    {
+      "content_url": "https://www.instagram.com/reel/Db20iyFCNL-/",
+      "format": "REEL",
+      "dashboard_metrics": {
+        "views": 317,
+        "viewers": 103,
+        "follower_view_share_pct": 1.8,
+        "nonfollower_view_share_pct": 98.2,
+        "reel_interactions": 0,
+        "profile_actions": 0,
+        "facebook_views": 207,
+        "facebook_reactions": 2,
+        "facebook_comments": 0
+      }
+    },
+    {
+      "content_url": "https://www.instagram.com/reel/Db0S08mITlR/",
+      "format": "REEL",
+      "dashboard_metrics": {
+        "views": 323,
+        "viewers": 112,
+        "follower_view_share_pct": 8.3,
+        "nonfollower_view_share_pct": 91.7,
+        "reel_interactions": 3,
+        "likes": 1,
+        "comments": 1,
+        "saves": 0,
+        "shares": 0,
+        "engaged_accounts": 2,
+        "profile_actions": 0,
+        "facebook_views": 203,
+        "facebook_reactions": 0,
+        "facebook_comments": 0
+      }
+    }
+  ],
+  "historical_promotions": [
+    {
+      "completed_on": "2026-05-18",
+      "views": 10100,
+      "reported_in_app_conversations": 142,
+      "spend_aed": 138.84
+    },
+    {
+      "completed_on": "2026-05-12",
+      "views": 8781,
+      "reported_in_app_conversations": 39,
+      "spend_aed": 149.6
+    },
+    {
+      "completed_on": "2026-05-08",
+      "views": 12600,
+      "reported_in_app_conversations": 51,
+      "spend_aed": 174.68
+    },
+    {
+      "completed_on": "2026-04-26",
+      "views": 6091,
+      "reported_in_app_conversations": 4,
+      "spend_aed": 176.86
+    }
+  ],
+  "evidence_limits": [
+    "Instagram labels total views and separately reports Facebook views; Facebook delivery must not be treated as Instagram reach in the new test.",
+    "Historical in-app conversations are not verified as unique, qualified, WhatsApp, appointment, test-drive or sale outcomes.",
+    "Historical campaign objective, audience, placements, vehicle, creative, attribution window and lead handling are unknown.",
+    "The evidence supports paid-distribution feasibility only; it is not a conversion or cost baseline."
+  ],
+  "audit_events": [
+    {
+      "event": "HUMAN_APPROVAL_WITHDRAWN",
+      "reason": "User did not understand v1 and newly verified account evidence invalidated its sample assumptions."
+    },
+    {
+      "event": "ACCOUNT_EVIDENCE_VERIFIED",
+      "reason": "Authenticated Instagram professional dashboard inspected."
+    },
+    {
+      "event": "RETURNED_TO_STRATEGIST",
+      "reason": "Organic paired lead test was not decision-capable."
+    }
+  ]
+}
