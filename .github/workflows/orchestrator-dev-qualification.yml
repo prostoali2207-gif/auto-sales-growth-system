@@ -1,0 +1,37 @@
+name: Orchestrator Qualification
+
+on:
+  push:
+    branches:
+      - agent/orchestrator-requalification-2026-08-20
+    paths:
+      - 'agents/orchestrator-growth-lead.md'
+      - 'config/orchestrator-policy.json'
+      - 'scripts/orchestrator-policy.mjs'
+      - 'data-schemas/orchestrator-workflow.schema.json'
+      - 'evaluation/orchestrator/**'
+      - '.github/workflows/orchestrator-dev-qualification.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'agents/orchestrator-growth-lead.md'
+      - 'config/orchestrator-policy.json'
+      - 'scripts/orchestrator-policy.mjs'
+      - 'data-schemas/orchestrator-workflow.schema.json'
+      - 'evaluation/orchestrator/**'
+      - '.github/workflows/orchestrator-dev-qualification.yml'
+  workflow_dispatch:
+
+jobs:
+  controller-qualification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run development/regression fixtures
+        run: node evaluation/orchestrator/run-dev-qualification.mjs
+      - name: Run post-freeze adversarial fixtures
+        run: node evaluation/orchestrator/run-post-freeze-adversarial.mjs
