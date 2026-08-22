@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "collect:instagram": "node scripts/collect-instagram-reels.mjs",
+    "fetch:tiktok-media": "node scripts/fetch-sociality-tiktok-media.mjs",
     "test:analytics-duration-bias": "node --test evaluation/analytics-duration-bias/duration-bias-gate.test.mjs"
   },
   "dependencies": {
