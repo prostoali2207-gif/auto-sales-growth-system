@@ -15,7 +15,7 @@ test('guard preserves no-dumb-threshold and fixed-horizon safeguards', () => {
   assert.match(gate, /Do not create a universal rule.*cost differs by X%.*KILL/is);
   assert.match(gate, /fixed-horizon experiment.*interim cost gap alone does not authorize an early KILL/is);
   assert.match(gate, /verified mature downstream economics reverse an upstream cost comparison/is);
-  assert.match(gate, /SCALE remains stricter than a bounded reversible stop/is);
+  assert.match(gate, /`?SCALE`? remains stricter than a bounded reversible stop/is);
 });
 
 test('decision schema requires separate causal and operational records', () => {
