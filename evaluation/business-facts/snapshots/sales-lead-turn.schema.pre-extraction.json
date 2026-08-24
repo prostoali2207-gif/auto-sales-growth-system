@@ -174,7 +174,20 @@
       }
     },
     "verifiedFact": {
-      "$ref": "business-fact.schema.json"
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_id", "entity_type", "entity_id", "field", "value", "source_system", "verified_at", "status"],
+      "properties": {
+        "fact_id": {"type": "string"},
+        "entity_type": {"type": "string", "enum": ["VEHICLE", "OFFER", "PRICE", "FINANCE_POLICY", "WARRANTY_POLICY", "APPOINTMENT_SLOT", "LOCATION", "BUSINESS_POLICY", "OTHER"]},
+        "entity_id": {"type": "string"},
+        "field": {"type": "string"},
+        "value": {},
+        "source_system": {"type": "string"},
+        "verified_at": {"type": "string", "format": "date-time"},
+        "expires_at": {"type": ["string", "null"], "format": "date-time"},
+        "status": {"type": "string", "enum": ["CONFIRMED", "STALE", "CONFLICTING", "REVOKED"]}
+      }
     },
     "handoffPacket": {
       "type": "object",

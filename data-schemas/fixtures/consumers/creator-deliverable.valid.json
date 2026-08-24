@@ -1,0 +1,34 @@
+{
+  "creative_id": "creative-001",
+  "content_spec_id": "spec-001",
+  "experiment_id": "exp-001",
+  "variant_id": "variant-a",
+  "status": "READY_FOR_REVIEW",
+  "platform": "INSTAGRAM",
+  "block_execution": [
+    {"block_id": "hook", "planned_position": 1, "execution": "Close-up on the Camry's grille.", "estimated_start_seconds": 0, "estimated_end_seconds": 3}
+  ],
+  "final_script_or_copy": "Still hunting for a clean 2023 Camry?",
+  "shot_list": [
+    {"order": 1, "shot": "Exterior 3/4 front", "purpose": "hook", "estimated_seconds": 3}
+  ],
+  "onscreen_text": [
+    {"text": "2023 Camry — AED 85,000", "placement": "lower_third"}
+  ],
+  "b_roll": ["interior-dash-pan.mp4"],
+  "cta": "DM us \"CAMRY\" to book a viewing",
+  "caption": "Fresh arrival. Verified price, verified mileage.",
+  "tracking": {
+    "experiment_id": "exp-001",
+    "content_spec_id": "spec-001",
+    "vehicle_ids": ["veh-001"],
+    "cta_token": "CAMRY-EXP001"
+  },
+  "deviations": [],
+  "fact_usage": [
+    {"claim": "AED 85,000", "fact_id": "fact-price-001", "status": "CONFIRMED"}
+  ],
+  "creator_checks": [
+    {"check": "fact_ids_resolve", "result": "PASS", "reason": "all claims map to a CONFIRMED fact_id"}
+  ]
+}

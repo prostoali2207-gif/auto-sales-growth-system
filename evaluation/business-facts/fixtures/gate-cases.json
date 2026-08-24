@@ -1,0 +1,159 @@
+[
+  {
+    "id": "missing-field",
+    "description": "no fact record matches the query key at all",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "PRICE", "entityId": "veh-999", "field": "price"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "PRICE", "entity_id": "veh-001", "field": "price", "value": 1, "source_system": "S", "verified_at": "2026-08-20T09:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": false, "reason_code": "MISSING_FACT"}
+  },
+  {
+    "id": "revoked-after-confirmed",
+    "description": "an older CONFIRMED record must not be used once a newer REVOKED record exists for the same key",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "OFFER", "entityId": "veh-002", "field": "availability"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "OFFER", "entity_id": "veh-002", "field": "availability", "value": "IN_STOCK", "source_system": "S", "verified_at": "2026-08-01T09:00:00Z", "status": "CONFIRMED"},
+      {"fact_id": "f2", "entity_type": "OFFER", "entity_id": "veh-002", "field": "availability", "value": "IN_STOCK", "source_system": "S", "verified_at": "2026-08-10T09:00:00Z", "status": "REVOKED"}
+    ],
+    "expected": {"available": false, "reason_code": "REVOKED_FACT", "fact_id": "f2"}
+  },
+  {
+    "id": "stale-status",
+    "description": "a single STALE record fails closed with STALE_FACT_STATUS",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "VEHICLE", "entityId": "veh-003", "field": "mileage"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "VEHICLE", "entity_id": "veh-003", "field": "mileage", "value": 42000, "source_system": "S", "verified_at": "2026-06-01T09:00:00Z", "status": "STALE"}
+    ],
+    "expected": {"available": false, "reason_code": "STALE_FACT_STATUS", "fact_id": "f1"}
+  },
+  {
+    "id": "conflicting-status",
+    "description": "a single record self-declared CONFLICTING fails closed with CONFLICTING_FACT_STATUS",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "VEHICLE", "entityId": "veh-004", "field": "accident_history"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "VEHICLE", "entity_id": "veh-004", "field": "accident_history", "value": "NONE", "source_system": "S", "verified_at": "2026-08-01T09:00:00Z", "status": "CONFLICTING"}
+    ],
+    "expected": {"available": false, "reason_code": "CONFLICTING_FACT_STATUS", "fact_id": "f1"}
+  },
+  {
+    "id": "dup-conflict-different-values",
+    "description": "two CONFIRMED records for the same key with different values fail closed as a derived conflict, distinct from a self-declared CONFLICTING status",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "PRICE", "entityId": "veh-005", "field": "price"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "PRICE", "entity_id": "veh-005", "field": "price", "value": 85000, "source_system": "DMS", "verified_at": "2026-08-20T09:00:00Z", "status": "CONFIRMED"},
+      {"fact_id": "f2", "entity_type": "PRICE", "entity_id": "veh-005", "field": "price", "value": 82000, "source_system": "SALES_DESK", "verified_at": "2026-08-21T09:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": false, "reason_code": "CONFLICTING_DUPLICATES", "fact_ids": ["f1", "f2"]}
+  },
+  {
+    "id": "dup-agreeing-values-not-a-conflict",
+    "description": "two CONFIRMED records that agree on value are deduped to the most recently verified one, not treated as a conflict",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "PRICE", "entityId": "veh-006", "field": "price"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "PRICE", "entity_id": "veh-006", "field": "price", "value": 85000, "source_system": "DMS", "verified_at": "2026-08-19T09:00:00Z", "expires_at": "2099-01-01T00:00:00Z", "status": "CONFIRMED"},
+      {"fact_id": "f2", "entity_type": "PRICE", "entity_id": "veh-006", "field": "price", "value": 85000, "source_system": "SALES_DESK", "verified_at": "2026-08-20T09:00:00Z", "expires_at": "2099-01-01T00:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": true, "fact_id": "f2"}
+  },
+  {
+    "id": "exp-boundary-exactly-expired",
+    "description": "now equal to expires_at counts as already expired (inclusive boundary, fail closed)",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T20:00:00Z",
+    "query": {"entityType": "APPOINTMENT_SLOT", "entityId": "slot-007", "field": "availability"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "APPOINTMENT_SLOT", "entity_id": "slot-007", "field": "availability", "value": true, "source_system": "BOOKING", "verified_at": "2026-08-24T08:00:00Z", "expires_at": "2026-08-24T20:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": false, "reason_code": "EXPIRED_FACT", "fact_id": "f1"}
+  },
+  {
+    "id": "exp-boundary-one-second-before-expiry",
+    "description": "one second before the expiry instant is still available",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T19:59:59Z",
+    "query": {"entityType": "APPOINTMENT_SLOT", "entityId": "slot-007", "field": "availability"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "APPOINTMENT_SLOT", "entity_id": "slot-007", "field": "availability", "value": true, "source_system": "BOOKING", "verified_at": "2026-08-24T08:00:00Z", "expires_at": "2026-08-24T20:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": true, "fact_id": "f1"}
+  },
+  {
+    "id": "tz-offset-instant-comparison-not-string-comparison",
+    "description": "expires_at written with a +04:00 offset must be resolved to its UTC instant, not string-compared; a naive implementation that string-compares would wrongly report available:true here",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T02:00:00Z",
+    "query": {"entityType": "PRICE", "entityId": "veh-008", "field": "price"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "PRICE", "entity_id": "veh-008", "field": "price", "value": 60000, "source_system": "DMS", "verified_at": "2026-08-20T09:00:00Z", "expires_at": "2026-08-24T05:00:00+04:00", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": false, "reason_code": "EXPIRED_FACT", "fact_id": "f1"}
+  },
+  {
+    "id": "tz-offset-still-fresh-across-offsets",
+    "description": "same offset scenario but now is before the true UTC instant of expiry, so it must resolve available:true",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T00:30:00Z",
+    "query": {"entityType": "PRICE", "entityId": "veh-008", "field": "price"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "PRICE", "entity_id": "veh-008", "field": "price", "value": 60000, "source_system": "DMS", "verified_at": "2026-08-20T09:00:00Z", "expires_at": "2026-08-24T05:00:00+04:00", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": true, "fact_id": "f1"}
+  },
+  {
+    "id": "policy-unset-no-expires_at",
+    "description": "no explicit expiry and no freshness window configured anywhere fails closed with POLICY_UNSET -- this is the shipped v0 state for every field",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "VEHICLE", "entityId": "veh-009", "field": "mileage"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "VEHICLE", "entity_id": "veh-009", "field": "mileage", "value": 30000, "source_system": "DMS", "verified_at": "2026-08-24T09:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": false, "reason_code": "POLICY_UNSET", "fact_id": "f1"}
+  },
+  {
+    "id": "policy-set-per-field-still-fresh",
+    "description": "once Ali sets a real per-field window, a fact younger than the window is available (proves the code path works even though it is unreachable with the shipped null policy)",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {"price": 3600}},
+    "now": "2026-08-24T09:10:00Z",
+    "query": {"entityType": "PRICE", "entityId": "veh-010", "field": "price"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "PRICE", "entity_id": "veh-010", "field": "price", "value": 70000, "source_system": "DMS", "verified_at": "2026-08-24T09:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": true, "fact_id": "f1"}
+  },
+  {
+    "id": "policy-set-per-field-now-stale",
+    "description": "a fact older than its configured per-field window fails closed with EXPIRED_FACT",
+    "policy": {"default_freshness_window_seconds": null, "per_field_freshness_windows_seconds": {"price": 3600}},
+    "now": "2026-08-24T10:01:00Z",
+    "query": {"entityType": "PRICE", "entityId": "veh-010", "field": "price"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "PRICE", "entity_id": "veh-010", "field": "price", "value": 70000, "source_system": "DMS", "verified_at": "2026-08-24T09:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": false, "reason_code": "EXPIRED_FACT", "fact_id": "f1"}
+  },
+  {
+    "id": "policy-default-fallback-used-when-no-per-field-entry",
+    "description": "when a field has no per-field override, the policy default window applies",
+    "policy": {"default_freshness_window_seconds": 7200, "per_field_freshness_windows_seconds": {}},
+    "now": "2026-08-24T10:00:00Z",
+    "query": {"entityType": "VEHICLE", "entityId": "veh-011", "field": "condition_grade"},
+    "facts": [
+      {"fact_id": "f1", "entity_type": "VEHICLE", "entity_id": "veh-011", "field": "condition_grade", "value": "A", "source_system": "DMS", "verified_at": "2026-08-24T09:00:00Z", "status": "CONFIRMED"}
+    ],
+    "expected": {"available": true, "fact_id": "f1"}
+  }
+]

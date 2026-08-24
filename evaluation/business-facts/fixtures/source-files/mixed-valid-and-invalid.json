@@ -1,0 +1,21 @@
+[
+  {
+    "fact_id": "fact-price-veh002-2026-08-20",
+    "entity_type": "PRICE",
+    "entity_id": "veh-002",
+    "field": "price",
+    "value": 60000,
+    "source_system": "HUMAN_MAINTAINED_SOURCE",
+    "verified_at": "2026-08-20T09:00:00Z",
+    "status": "CONFIRMED"
+  },
+  {
+    "fact_id": "fact-price-veh003-missing-verified_at",
+    "entity_type": "PRICE",
+    "entity_id": "veh-003",
+    "field": "price",
+    "value": 60000,
+    "source_system": "HUMAN_MAINTAINED_SOURCE",
+    "status": "CONFIRMED"
+  }
+]

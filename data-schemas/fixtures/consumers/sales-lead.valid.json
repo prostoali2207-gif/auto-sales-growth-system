@@ -1,0 +1,69 @@
+{
+  "lead_id": "lead-001",
+  "created_at": "2026-08-24T09:00:00Z",
+  "updated_at": "2026-08-24T09:05:00Z",
+  "state": "QUALIFYING",
+  "state_reason": null,
+  "temperature": {
+    "level": "WARM",
+    "reason_codes": ["SPECIFIC_VEHICLE_ASKED"],
+    "evidence_event_ids": ["evt-001"],
+    "assessed_at": "2026-08-24T09:00:05Z"
+  },
+  "identities": [
+    {
+      "channel": "WHATSAPP",
+      "external_id": "+9715XXXXXXX",
+      "display_name": null,
+      "verification_status": "VERIFIED"
+    }
+  ],
+  "preferred_language": "en",
+  "preferred_channel": "WHATSAPP",
+  "preferred_contact_time": null,
+  "owner_id": null,
+  "attribution_id": "attr-001",
+  "requested_vehicle_ids": ["veh-001"],
+  "alternative_vehicle_ids_presented": [],
+  "qualification": {
+    "vehicle_need": {"status": "KNOWN", "value": "veh-001", "updated_at": "2026-08-24T09:00:05Z", "source_event_id": "evt-001"},
+    "budget": {"status": "UNKNOWN", "value": null, "updated_at": "2026-08-24T09:00:05Z", "source_event_id": null},
+    "payment_method": {"status": "UNKNOWN", "value": null, "updated_at": "2026-08-24T09:00:05Z", "source_event_id": null},
+    "intended_use": {"status": "UNKNOWN", "value": null, "updated_at": "2026-08-24T09:00:05Z", "source_event_id": null},
+    "timeframe": {"status": "UNKNOWN", "value": null, "updated_at": "2026-08-24T09:00:05Z", "source_event_id": null},
+    "geography": {"status": "UNKNOWN", "value": null, "updated_at": "2026-08-24T09:00:05Z", "source_event_id": null},
+    "trade_in": {"status": "UNKNOWN", "value": null, "updated_at": "2026-08-24T09:00:05Z", "source_event_id": null},
+    "appointment_readiness": {"status": "UNKNOWN", "value": null, "updated_at": "2026-08-24T09:00:05Z", "source_event_id": null},
+    "qualification_completed_at": null
+  },
+  "objections": [
+    {
+      "objection_id": "obj-001",
+      "class": "PRICE_VALUE",
+      "customer_words": "seems expensive",
+      "status": "ANSWERED",
+      "recorded_at": "2026-08-24T09:02:00Z",
+      "resolved_at": "2026-08-24T09:03:00Z",
+      "fact_ids_used": ["fact-price-001"]
+    }
+  ],
+  "appointment": null,
+  "follow_up": {
+    "attempt_count": 0,
+    "max_attempts": 4,
+    "next_action_at": null,
+    "next_action_reason": null,
+    "automation_paused": false
+  },
+  "consent": {
+    "contact_allowed": true,
+    "marketing_opt_in": false,
+    "opt_out": false,
+    "policy_basis": "customer initiated inbound contact",
+    "captured_at": "2026-08-24T09:00:00Z",
+    "expires_at": null
+  },
+  "loss_reason": null,
+  "deduplication_candidates": [],
+  "version": 1
+}
