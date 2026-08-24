@@ -1,0 +1,7 @@
+{
+  "policy_version": "UNSET",
+  "status": "POLICY_UNSET",
+  "notes": "v0 placeholder. No freshness windows are configured yet. Structure is in place so the gate (adapters/business-facts/gate.mjs) has something concrete to read, but every window below is null. Any business fact that relies on this policy (i.e. any CONFIRMED fact with no explicit expires_at of its own) fails closed with reason_code POLICY_UNSET until real values are set here. See adapters/business-facts/policy-escalation-recommendation.md for the written recommendation awaiting Ali's decision.",
+  "default_freshness_window_seconds": null,
+  "per_field_freshness_windows_seconds": {}
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "business-fact.schema.json",
+  "title": "Verified Business Fact",
+  "description": "Extracted from the inline verifiedFact definition previously duplicated inside sales-lead-turn.schema.json. Single shared contract for a read-only, source-attributed, time-bounded business fact record. No semantic change from the original inline definition — see evaluation/business-facts/eval-plan.md and extraction-equivalence.test.mjs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fact_id",
+    "entity_type",
+    "entity_id",
+    "field",
+    "value",
+    "source_system",
+    "verified_at",
+    "status"
+  ],
+  "properties": {
+    "fact_id": {"$ref": "#/$defs/factId"},
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "VEHICLE",
+        "OFFER",
+        "PRICE",
+        "FINANCE_POLICY",
+        "WARRANTY_POLICY",
+        "APPOINTMENT_SLOT",
+        "LOCATION",
+        "BUSINESS_POLICY",
+        "OTHER"
+      ]
+    },
+    "entity_id": {"type": "string"},
+    "field": {"type": "string"},
+    "value": {},
+    "source_system": {"type": "string"},
+    "verified_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "status": {
+      "type": "string",
+      "enum": ["CONFIRMED", "STALE", "CONFLICTING", "REVOKED"]
+    }
+  },
+  "$defs": {
+    "factId": {
+      "type": "string",
+      "description": "Reusable fact-identifier type. Referenced by consumer schemas (creator-deliverable, post-production-deliverable, sales-lead) wherever they carry a fact_id/fact_ids_used pointer instead of the full record, so the identifier type cannot drift independently of this schema."
+    }
+  }
+}

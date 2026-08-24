@@ -1,0 +1,77 @@
+{
+  "render_id": "render-001",
+  "creative_id": "creative-001",
+  "content_spec_id": "spec-001",
+  "experiment_id": "exp-001",
+  "variant_id": "variant-a",
+  "status": "BLOCKED_MISSING_ASSET",
+  "platform": "INSTAGRAM",
+  "source_assets": [
+    {
+      "asset_id": "asset-001",
+      "uri": "s3://raw/showroom-171/asset-001.mp4",
+      "sha256": null,
+      "identity_status": "CONFIRMED",
+      "inspection_status": "MISSING",
+      "notes": "awaiting re-upload from set"
+    }
+  ],
+  "timeline": [],
+  "overlays": [
+    {
+      "text": "2023 Camry — AED 85,000",
+      "start_seconds": 0,
+      "end_seconds": 3,
+      "placement": "lower_third",
+      "fact_id": "fact-price-001"
+    },
+    {
+      "text": "Limited time",
+      "start_seconds": 3,
+      "end_seconds": 5,
+      "placement": "lower_third",
+      "fact_id": null
+    }
+  ],
+  "audio": {
+    "mode": "SPEECH_MUSIC",
+    "essential_meaning_without_audio": true,
+    "integrated_loudness_lufs": null,
+    "maximum_true_peak_dbtp": null,
+    "notes": "pending final mix"
+  },
+  "color": {
+    "input_assumption": "log",
+    "output_target": "rec709",
+    "corrections": [],
+    "creative_grade": null,
+    "truth_preservation_result": "NOT_APPLICABLE"
+  },
+  "export": {
+    "asset_uri": null,
+    "sha256": null,
+    "container": null,
+    "video_codec": null,
+    "audio_codec": null,
+    "width": null,
+    "height": null,
+    "frame_rate": null,
+    "duration_seconds": null,
+    "delivery_spec_source": null,
+    "exported_at": null
+  },
+  "tracking": {
+    "experiment_id": "exp-001",
+    "content_spec_id": "spec-001",
+    "creative_id": "creative-001",
+    "vehicle_ids": ["veh-001"],
+    "cta_token": "CAMRY-EXP001"
+  },
+  "deviations": [],
+  "fact_usage": [
+    {"claim": "AED 85,000", "fact_id": "fact-price-001", "status": "CONFIRMED"}
+  ],
+  "qc_checks": [
+    {"check": "source_asset_available", "class": "DELIVERY", "result": "FAIL", "evidence": "asset-001 inspection_status=MISSING"}
+  ]
+}

@@ -1,0 +1,35 @@
+name: Business-facts adapter regression
+
+on:
+  pull_request:
+    paths:
+      - 'data-schemas/business-fact.schema.json'
+      - 'data-schemas/sales-lead-turn.schema.json'
+      - 'data-schemas/sales-lead.schema.json'
+      - 'data-schemas/creator-deliverable.schema.json'
+      - 'data-schemas/post-production-deliverable.schema.json'
+      - 'data-schemas/fixtures/business-fact/**'
+      - 'data-schemas/fixtures/consumers/**'
+      - 'adapters/business-facts/**'
+      - 'config/business-facts-policy.json'
+      - 'evaluation/business-facts/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/business-facts-adapter-regression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Run business-facts schema, extraction-equivalence, adapter and gate regression
+        run: npm run test:business-facts

@@ -234,7 +234,7 @@
             "type": "string"
           },
           "fact_id": {
-            "$ref": "business-fact.schema.json#/$defs/factId"
+            "type": "string"
           },
           "status": {
             "type": "string",

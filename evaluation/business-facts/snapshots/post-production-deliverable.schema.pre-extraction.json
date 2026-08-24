@@ -73,12 +73,7 @@
           "start_seconds": {"type": "number", "minimum": 0},
           "end_seconds": {"type": "number", "minimum": 0},
           "placement": {"type": "string"},
-          "fact_id": {
-            "oneOf": [
-              {"type": "null"},
-              {"$ref": "business-fact.schema.json#/$defs/factId"}
-            ]
-          }
+          "fact_id": {"type": ["string", "null"]}
         }
       }
     },
@@ -157,7 +152,7 @@
         "required": ["claim", "fact_id", "status"],
         "properties": {
           "claim": {"type": "string"},
-          "fact_id": {"$ref": "business-fact.schema.json#/$defs/factId"},
+          "fact_id": {"type": "string"},
           "status": {"type": "string", "enum": ["CONFIRMED", "STALE", "CONFLICTING", "MISSING"]}
         }
       }
