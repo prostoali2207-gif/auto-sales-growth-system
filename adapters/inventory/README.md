@@ -98,3 +98,52 @@ python3 -m unittest evaluation/vehicle-facts/test_inventory_sheet.py   # 24 shee
 `evaluation/vehicle-facts/synthetic-inventory.json` is **invented test data**,
 not dealer inventory. Its VINs, mileages and prices exist only to exercise the
 rules above and must never be quoted to a customer.
+
+## Feeding the agent
+
+`turn-input-assembler.mjs` builds one Sales / Lead Conversion turn input from a
+customer request plus the inventory. The result validates against
+`sales-lead-turn.schema.json#/$defs/turnInput`.
+
+```js
+const { turn_input, resolution } = assembleTurnInput({
+  shell,            // run_context, inquiry, attribution, conversation_history
+  leadSnapshot,     // existing lead or null
+  inventory,
+  description: { make: 'Hyundai', model: 'Elantra', year: 2020 },
+  sourceSystem: 'am-motors-inventory-sheet'
+});
+answerability(turn_input, resolution, 'price_aed');  // ANSWER | ASK | CONFIRM
+```
+
+`answerability` says what the turn permits for a given field: **ANSWER** with a
+verified fact the reply must cite, **ASK** which vehicle when several matched,
+or **CONFIRM** when nothing is recorded. Facts are attached only when exactly
+one available vehicle resolves — ambiguity and no-match both leave the agent
+with nothing to quote, which is the whole point.
+
+### Where the ambiguity signal lives
+
+`turnInput` allows exactly six groups and forbids extra properties, so there is
+no in-contract slot for "three cars matched, here is how they differ". Two
+carriers are used instead:
+
+- `lead_snapshot.requested_vehicle_ids` holds every matched id. Three ids plus
+  an empty `verified_facts` *is* the signal — matched three, confirmed nothing;
+- the assembler's return value carries `resolution` with the candidates and the
+  attributes that actually differ.
+
+`resolution` is deliberately not merged into `turn_input`. Putting the
+distinguishing attributes inside the turn would be a schema change, to be
+decided deliberately rather than smuggled in.
+
+### Dev gate
+
+```bash
+npm run test:fact-id-dev      # 14 deterministic checks, zero provider calls
+npm run report:fact-id-dev    # what the agent receives, case by case
+```
+
+`evaluation/vehicle-facts/dev/` is **dev only** — not sealed, not held out,
+never a qualification verdict. It checks the turn input, not the agent's
+replies. A scored verdict needs the sealed pack and a paid run.

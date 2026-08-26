@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm run test:vehicle-facts
+      - run: npm run test:fact-id-dev
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

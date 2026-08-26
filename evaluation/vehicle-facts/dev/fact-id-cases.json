@@ -1,0 +1,164 @@
+{
+  "_README": "DEV FIXTURES — NOT SEALED, NOT HELD OUT, NOT QUALIFICATION EVIDENCE. Inventory values are invented for testing and must never be quoted to a customer. These check the turn input the agent receives, not the agent's replies.",
+  "family_scope": ["FACT", "ID"],
+  "inventory": [
+    {
+      "vehicle_id": "AM-002",
+      "make": "Hyundai", "model": "Elantra", "year": 2020,
+      "vin": "TESTVN00000000002", "mileage_km": 61000, "price_aed": 42000,
+      "condition": "Хорошее", "status": "В наличии", "updated_at": "2026-08-24",
+      "trim": "Elantra GT", "color": "Silver", "min_price_aed": 39000,
+      "notes": "внутренняя заметка про торг"
+    },
+    {
+      "vehicle_id": "AM-003",
+      "make": "Hyundai", "model": "Elantra", "year": 2020,
+      "vin": "TESTVN00000000003", "mileage_km": 78500, "price_aed": 38000,
+      "condition": "Среднее", "status": "В наличии", "updated_at": "2026-08-24",
+      "trim": "Elantra", "color": "Red", "min_price_aed": 35000
+    },
+    {
+      "vehicle_id": "AM-006",
+      "make": "Hyundai", "model": "Elantra", "year": 2020,
+      "vin": "TESTVN00000000006", "mileage_km": 45200, "price_aed": 45000,
+      "condition": "Отличное", "status": "В наличии", "updated_at": "2026-08-24",
+      "trim": "Elantra SE", "color": "White", "min_price_aed": 41500
+    },
+    {
+      "vehicle_id": "AM-007",
+      "make": "Hyundai", "model": "Tucson", "year": 2021,
+      "vin": "TESTVN00000000007", "mileage_km": 52000, "price_aed": 69000,
+      "status": "В наличии", "updated_at": "2026-08-24",
+      "condition": "Хорошее", "trim": "SEL", "color": "Gray",
+      "min_price_aed": 65000
+    },
+    {
+      "vehicle_id": "AM-005",
+      "make": "Nissan", "model": "Patrol", "year": 2021,
+      "vin": "TESTVN00000000005", "mileage_km": 30000, "price_aed": 155000,
+      "condition": "Отличное", "status": "В наличии", "updated_at": "2026-08-22",
+      "trim": "SE", "color": "Black",
+      "service_history": "",
+      "min_price_aed": 149000
+    },
+    {
+      "vehicle_id": "AM-004",
+      "make": "Toyota", "model": "Camry", "year": 2019,
+      "vin": "TESTVN00000000004", "mileage_km": 92000, "price_aed": 51000,
+      "condition": "Хорошее", "status": "Продана", "updated_at": "2026-08-20",
+      "trim": "SE", "color": "Black", "min_price_aed": 48000
+    }
+  ],
+  "cases": [
+    {
+      "id": "FACT-01",
+      "family": "FACT",
+      "why": "r10 could not quote a price because no verified fact existed",
+      "customer_text": "Сколько стоит Тусон 2021 серый?",
+      "description": {"make": "Hyundai", "model": "Tucson", "year": 2021, "color": "Gray"},
+      "asks_about": "price_aed",
+      "expect": {
+        "resolution": "RESOLVED",
+        "vehicle_id": "AM-007",
+        "action": "ANSWER",
+        "value": 69000
+      }
+    },
+    {
+      "id": "FACT-02",
+      "family": "FACT",
+      "why": "mileage is a commercial claim and needs the same provenance as price",
+      "customer_text": "Какой пробег у белой Элантры?",
+      "description": {"make": "Hyundai", "model": "Elantra", "year": 2020, "color": "White"},
+      "asks_about": "mileage_km",
+      "expect": {
+        "resolution": "RESOLVED",
+        "vehicle_id": "AM-006",
+        "action": "ANSWER",
+        "value": 45200
+      }
+    },
+    {
+      "id": "FACT-03",
+      "family": "FACT",
+      "why": "condition is the claim most tempting to soften; it must be quoted, not paraphrased",
+      "customer_text": "В каком состоянии красная Элантра?",
+      "description": {"make": "Hyundai", "model": "Elantra", "year": 2020, "color": "Red"},
+      "asks_about": "condition",
+      "expect": {
+        "resolution": "RESOLVED",
+        "vehicle_id": "AM-003",
+        "action": "ANSWER",
+        "value": "Среднее"
+      }
+    },
+    {
+      "id": "FACT-04",
+      "family": "FACT",
+      "why": "the blank-cell case: an empty column must produce no fact, so the agent has to ask rather than invent a service history",
+      "customer_text": "Есть сервисная история по Патролу?",
+      "description": {"make": "Nissan", "model": "Patrol", "year": 2021},
+      "asks_about": "service_history",
+      "expect": {
+        "resolution": "RESOLVED",
+        "vehicle_id": "AM-005",
+        "action": "CONFIRM",
+        "reason": "field_not_recorded"
+      }
+    },
+    {
+      "id": "FACT-05",
+      "family": "FACT",
+      "why": "a sold car must not become an available answer",
+      "customer_text": "Камри 2019 чёрная ещё продаётся?",
+      "description": {"make": "Toyota", "model": "Camry", "year": 2019, "color": "Black"},
+      "asks_about": "price_aed",
+      "expect": {
+        "resolution": "NO_MATCH",
+        "action": "CONFIRM",
+        "reason": "no_vehicle_matched"
+      }
+    },
+    {
+      "id": "ID-01",
+      "family": "ID",
+      "why": "r10 picked one of three Elantras instead of asking which",
+      "customer_text": "Сколько стоит Элантра?",
+      "description": {"make": "Hyundai", "model": "Elantra", "year": 2020},
+      "asks_about": "price_aed",
+      "expect": {
+        "resolution": "AMBIGUOUS",
+        "action": "ASK",
+        "candidate_ids": ["AM-002", "AM-003", "AM-006"],
+        "distinguishing_fields": ["trim", "color", "mileage_km"]
+      }
+    },
+    {
+      "id": "ID-02",
+      "family": "ID",
+      "why": "once the customer names the distinguishing attribute, exactly one car resolves",
+      "customer_text": "Элантра белая — сколько?",
+      "description": {"make": "Hyundai", "model": "Elantra", "year": 2020, "color": "White"},
+      "asks_about": "price_aed",
+      "expect": {
+        "resolution": "RESOLVED",
+        "vehicle_id": "AM-006",
+        "action": "ANSWER",
+        "value": 45000
+      }
+    },
+    {
+      "id": "ID-03",
+      "family": "ID",
+      "why": "a car that is not in the lot must not be answered with the nearest one",
+      "customer_text": "Элантра 2015 есть?",
+      "description": {"make": "Hyundai", "model": "Elantra", "year": 2015},
+      "asks_about": "price_aed",
+      "expect": {
+        "resolution": "NO_MATCH",
+        "action": "CONFIRM",
+        "reason": "no_vehicle_matched"
+      }
+    }
+  ]
+}

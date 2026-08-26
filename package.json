@@ -8,7 +8,9 @@
     "test:analytics-duration-bias": "node --test evaluation/analytics-duration-bias/duration-bias-gate.test.mjs",
     "test:analytics-decision-sufficiency": "node --test evaluation/analytics-decision-sufficiency/decision-sufficiency-contract.test.mjs",
     "test:vehicle-facts": "node --test evaluation/vehicle-facts/vehicle-facts-adapter.test.mjs",
-    "check:inventory": "python3 adapters/inventory/check-inventory.py"
+    "check:inventory": "python3 adapters/inventory/check-inventory.py",
+    "test:fact-id-dev": "node --test evaluation/vehicle-facts/dev/fact-id-gate.test.mjs",
+    "report:fact-id-dev": "node evaluation/vehicle-facts/dev/report-fact-id.mjs"
   },
   "dependencies": {
     "apify-client": "^2.16.0"
