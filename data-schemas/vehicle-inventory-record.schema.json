@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "vehicle-inventory-record.schema.json",
+  "title": "AM Motors Vehicle Inventory Record",
+  "description": "One normalized row of the dealer vehicle inventory sheet. This is the adapter's INPUT contract. It is not a customer-facing artifact: it may carry internal fields (min_price_aed) that must never leave the adapter as a verified fact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "vehicle_id",
+    "make",
+    "model",
+    "year",
+    "vin",
+    "mileage_km",
+    "price_aed",
+    "condition",
+    "status",
+    "updated_at"
+  ],
+  "properties": {
+    "vehicle_id": {
+      "description": "Dealer inventory identifier, column ID (AM-001 ...).",
+      "type": "string",
+      "pattern": "^AM-[0-9]{3}$"
+    },
+    "make": {"description": "Column Марка.", "type": "string", "minLength": 1},
+    "model": {"description": "Column Модель.", "type": "string", "minLength": 1},
+    "year": {"description": "Column Год.", "type": "integer", "minimum": 1900, "maximum": 2100},
+    "vin": {
+      "description": "Column VIN. 17 characters, ISO 3779 excludes I, O and Q.",
+      "type": "string",
+      "pattern": "^[A-HJ-NPR-Z0-9]{17}$"
+    },
+    "mileage_km": {"description": "Column Пробег (км).", "type": "integer", "minimum": 0},
+    "price_aed": {"description": "Column Цена AED. Public asking price.", "type": "number", "minimum": 0},
+    "condition": {"description": "Column Состояние.", "type": "string", "minLength": 1},
+    "status": {
+      "description": "Column Статус. Only AVAILABLE_STATUS in the adapter may be offered as available.",
+      "type": "string",
+      "minLength": 1
+    },
+    "updated_at": {
+      "description": "Column Дата обновления. Date-only (YYYY-MM-DD) or a full date-time. The adapter derives verified_at from this and only this.",
+      "type": "string",
+      "minLength": 1
+    },
+
+    "min_price_aed": {
+      "description": "Column Мин. цена AED. INTERNAL owner negotiation floor. Never emitted as a verified fact, never disclosed to a customer. Present in this schema only so the adapter can recognise and drop it.",
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+
+    "color": {"description": "Column Цвет.", "type": ["string", "null"]},
+    "engine": {"description": "Column Двигатель.", "type": ["string", "null"]},
+    "fuel": {"description": "Column Топливо.", "type": ["string", "null"]},
+    "transmission": {"description": "Column Коробка.", "type": ["string", "null"]},
+    "drivetrain": {"description": "Column Привод.", "type": ["string", "null"]},
+    "trim": {"description": "Column Спецификация.", "type": ["string", "null"]},
+    "accident_history": {"description": "Column Аварии/крашеные детали.", "type": ["string", "null"]},
+    "service_history": {"description": "Column Сервисная история.", "type": ["string", "null"]},
+    "owners_count": {"description": "Column Владельцев.", "type": ["integer", "null"], "minimum": 0},
+    "registration_valid_until": {"description": "Column Мулькия до.", "type": ["string", "null"]},
+    "bank_lien": {"description": "Column Банковский залог.", "type": ["string", "null"]},
+    "media_url": {"description": "Column Ссылка на фото/видео.", "type": ["string", "null"]},
+    "listing_url": {"description": "Column Ссылка на пост.", "type": ["string", "null"]},
+    "notes": {"description": "Column Заметки. Free-text internal notes, never emitted as a fact.", "type": ["string", "null"]}
+  }
+}

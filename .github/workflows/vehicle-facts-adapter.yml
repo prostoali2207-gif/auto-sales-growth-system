@@ -1,0 +1,36 @@
+name: Vehicle facts adapter regression
+
+on:
+  pull_request:
+    paths:
+      - 'adapters/inventory/**'
+      - 'data-schemas/vehicle-inventory-record.schema.json'
+      - 'data-schemas/sales-lead-turn.schema.json'
+      - 'evaluation/vehicle-facts/**'
+      - 'package.json'
+      - '.github/workflows/vehicle-facts-adapter.yml'
+  workflow_dispatch:
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run test:vehicle-facts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check jsonschema
+      - name: Validate the inventory schema itself
+        run: |
+          python3 -c "
+          import json
+          from jsonschema.validators import Draft202012Validator
+          schema = json.load(open('data-schemas/vehicle-inventory-record.schema.json'))
+          Draft202012Validator.check_schema(schema)
+          print('vehicle-inventory-record.schema.json OK')
+          "
+      - run: python3 -m py_compile adapters/inventory/xlsx-to-inventory.py
