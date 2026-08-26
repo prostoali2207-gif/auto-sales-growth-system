@@ -59,7 +59,11 @@ INTEGER_FIELDS = frozenset({"year", "mileage_km", "owners_count"})
 NUMBER_FIELDS = frozenset({"price_aed", "min_price_aed"})
 DATE_FIELDS = frozenset({"updated_at", "registration_valid_until"})
 
-ALLOWED_STATUSES = ("В наличии", "Продана", "Бронь", "В пути", "Снята с продажи")
+# Mirrors the "Статус" dropdown in the sheet, exactly. Anything outside this
+# list is a typo or a value someone invented, and the integrity check says so.
+# Only AVAILABLE_STATUS ("В наличии", in vehicle-facts-adapter.mjs) may be
+# offered to a customer; the other three are valid states, not availability.
+ALLOWED_STATUSES = ("В наличии", "Резерв", "Продана", "На ремонте")
 
 _NON_ALNUM = re.compile(r"[^0-9a-zа-яё]+", re.IGNORECASE)
 

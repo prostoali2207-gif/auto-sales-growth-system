@@ -191,6 +191,17 @@ class IntegrityCheck(unittest.TestCase):
         for allowed in ALLOWED_STATUSES:
             self.assertIn(allowed, problem["message"])
 
+    def test_allowed_statuses_are_exactly_the_sheet_dropdown(self):
+        """Pinned literally: the other status tests iterate the constant, so they
+        would stay green even if a status the sheet has never had crept back in."""
+        self.assertEqual(ALLOWED_STATUSES, ("В наличии", "Резерв", "Продана", "На ремонте"))
+
+    def test_statuses_absent_from_the_sheet_are_rejected(self):
+        for phantom in ("Бронь", "В пути", "Снята с продажи"):
+            problems = check_inventory([record(status=phantom)])
+            self.assertIn("bad_status", [p["kind"] for p in problems],
+                          f"{phantom} is not in the sheet dropdown and must be rejected")
+
     def test_allowed_statuses_pass(self):
         for index, status in enumerate(ALLOWED_STATUSES):
             rows = [record(vehicle_id=f"AM-{index:03d}", vin=f"TESTVN00000000{index:03d}",
