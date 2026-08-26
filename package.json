@@ -7,7 +7,8 @@
     "fetch:tiktok-media": "node scripts/fetch-sociality-tiktok-media.mjs",
     "test:analytics-duration-bias": "node --test evaluation/analytics-duration-bias/duration-bias-gate.test.mjs",
     "test:analytics-decision-sufficiency": "node --test evaluation/analytics-decision-sufficiency/decision-sufficiency-contract.test.mjs",
-    "test:vehicle-facts": "node --test evaluation/vehicle-facts/vehicle-facts-adapter.test.mjs"
+    "test:vehicle-facts": "node --test evaluation/vehicle-facts/vehicle-facts-adapter.test.mjs",
+    "check:inventory": "python3 adapters/inventory/check-inventory.py"
   },
   "dependencies": {
     "apify-client": "^2.16.0"

@@ -24,6 +24,8 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install --disable-pip-version-check jsonschema
+      - name: Sheet column contract and integrity regressions
+        run: python3 -m unittest evaluation/vehicle-facts/test_inventory_sheet.py
       - name: Validate the inventory schema itself
         run: |
           python3 -c "
@@ -33,4 +35,10 @@ jobs:
           Draft202012Validator.check_schema(schema)
           print('vehicle-inventory-record.schema.json OK')
           "
-      - run: python3 -m py_compile adapters/inventory/xlsx-to-inventory.py
+      - name: Compile the inventory tooling
+        run: |
+          python3 -m py_compile adapters/inventory/inventory_columns.py
+          python3 -m py_compile adapters/inventory/inventory_integrity.py
+          python3 -m py_compile adapters/inventory/sheets_source.py
+          python3 -m py_compile adapters/inventory/check-inventory.py
+          python3 -m py_compile adapters/inventory/xlsx-to-inventory.py

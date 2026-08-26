@@ -213,6 +213,40 @@ test('an empty description does not match the whole lot', () => {
   assert.equal(result.resolution, 'NO_MATCH');
 });
 
+/* -- a sold vehicle stays out of everything --------------------------------- */
+
+test('a "Продана" vehicle is never offered and never appears in a search', () => {
+  const sold = byId('AM-004');
+  assert.equal(sold.status, 'Продана');
+
+  // not offerable
+  assert.equal(isOfferable(sold), false);
+  assert.deepEqual(offerableVehicleFacts(sold, { sourceSystem: SOURCE }).verified_facts, []);
+
+  // not reachable by an exact description of itself
+  const exact = resolveVehicle(
+    vehicles,
+    { make: sold.make, model: sold.model, year: sold.year, color: sold.color },
+    { sourceSystem: SOURCE }
+  );
+  assert.equal(exact.resolution, 'NO_MATCH');
+  assert.deepEqual(exact.verified_facts, []);
+
+  // and never listed as a candidate when something else is ambiguous
+  const ambiguous = resolveVehicle(
+    vehicles,
+    { make: 'Hyundai', model: 'Elantra', year: 2020 },
+    { sourceSystem: SOURCE }
+  );
+  assert.ok(!ambiguous.candidates.some((c) => c.vehicle_id === 'AM-004'));
+});
+
+test('fixture VINs are valid, so the integrity check and the adapter agree', () => {
+  for (const vehicle of vehicles) {
+    assert.match(vehicle.vin, /^[A-HJ-NPR-Z0-9]{17}$/, `${vehicle.vehicle_id} has an invalid VIN`);
+  }
+});
+
 /* -- contract conformance ------------------------------------------------- */
 
 test('emitted facts satisfy the agent verifiedFact contract', () => {
