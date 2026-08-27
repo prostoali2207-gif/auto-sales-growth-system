@@ -1,7 +1,7 @@
 # Workflow Controller
 
 Compatibility path: `agents/orchestrator-growth-lead.md`
-Status: candidate — deterministic orchestration mechanism, not a qualified AI Professional Core
+Status: **qualified deterministic workflow-control mechanism** — not a Growth Lead Professional Core
 
 ## Mission
 
@@ -32,6 +32,14 @@ The workflow engine, validation, idempotency, retries, approvals, timers and tra
 Do not create a reusable Orchestrator/Growth Lead Professional Core unless future evidence shows a stable judgment-heavy profession exists beyond these deterministic responsibilities.
 
 Do not use free-form group chat, agent voting or a super-agent to coordinate this system.
+
+## Qualification status
+
+**Qualified mechanism.** The frozen controller candidate was independently qualified with an exhaustive/contrastive gate of **1116/1116 PASS** and a durable end-to-end shadow run **PASS**. The qualification covered state transitions, authority boundaries, approvals, blockers, retries/reconciliation, checkpoint/resume and ledger replay.
+
+Qualified candidate commit: `d7430fa99c10cfc89dd0f12872970e4b629bf9e6`.
+
+This qualification is for the deterministic Workflow Controller mechanism and its bounded authority/state/recovery contract. It does **not** claim that external publishing, CRM, Meta, messaging, inventory, attribution or measurement integrations are production-ready.
 
 ## Professional authority map
 
@@ -296,14 +304,6 @@ Before state advance verify:
 - side effect identity/reconciliation is safe;
 - no specialist authority was assumed by controller;
 - every non-terminal workflow has an owner and next action/wake condition.
-
-## Qualification status
-
-This controller is **not production-qualified yet**.
-
-Required gate: `evaluation/orchestrator/qualification-plan.md` plus executable fixtures, deterministic invariant checks, retry/reconciliation tests, checkpoint/resume tests and one end-to-end shadow experiment reconstructable without chat logs.
-
-Do not describe narrative compliance with this document as behavioral proof.
 
 ## Final invariant
 
