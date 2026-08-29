@@ -1,0 +1,49 @@
+{
+  "_README": "SYNTHETIC TEST FIXTURE — NOT REAL AM MOTORS INVENTORY. Every VIN, mileage, price and date below is invented for testing only and must never be quoted to a customer or treated as dealer data. The three Elantra rows reproduce the real ambiguity case (AM-002 GT/Silver, AM-003 base/Red, AM-006 SE/White) because that structure was specified; their numeric values are still invented.",
+  "vehicles": [
+    {
+      "vehicle_id": "AM-002",
+      "make": "Hyundai", "model": "Elantra", "year": 2020,
+      "vin": "TESTVN00000000002", "mileage_km": 61000, "price_aed": 42000,
+      "condition": "Хорошее", "status": "В наличии", "updated_at": "2026-08-24",
+      "trim": "Elantra GT", "color": "Silver", "min_price_aed": 39000,
+      "notes": "внутренняя заметка"
+    },
+    {
+      "vehicle_id": "AM-003",
+      "make": "Hyundai", "model": "Elantra", "year": 2020,
+      "vin": "TESTVN00000000003", "mileage_km": 78500, "price_aed": 38000,
+      "condition": "Среднее", "status": "В наличии", "updated_at": "2026-08-24",
+      "trim": "Elantra", "color": "Red", "min_price_aed": 35000
+    },
+    {
+      "vehicle_id": "AM-006",
+      "make": "Hyundai", "model": "Elantra", "year": 2020,
+      "vin": "TESTVN00000000006", "mileage_km": 45200, "price_aed": 45000,
+      "condition": "Отличное", "status": "В наличии", "updated_at": "2026-08-24",
+      "trim": "Elantra SE", "color": "White", "min_price_aed": 41500
+    },
+    {
+      "vehicle_id": "AM-004",
+      "make": "Toyota", "model": "Camry", "year": 2019,
+      "vin": "TESTVN00000000004", "mileage_km": 92000, "price_aed": 51000,
+      "condition": "Хорошее", "status": "Продана", "updated_at": "2026-08-20",
+      "trim": "SE", "color": "Black", "min_price_aed": 48000
+    },
+    {
+      "vehicle_id": "AM-005",
+      "make": "Nissan", "model": "Patrol", "year": 2021,
+      "vin": "TESTVN00000000005", "mileage_km": 30000, "price_aed": 155000,
+      "condition": "Отличное", "status": "В наличии", "updated_at": "2026-08-22",
+      "trim": "", "color": "   ", "engine": null, "service_history": "-",
+      "min_price_aed": 149000
+    },
+    {
+      "vehicle_id": "AM-008",
+      "make": "Kia", "model": "Sportage", "year": 2022,
+      "vin": "TESTVN00000000008", "mileage_km": 18000, "price_aed": 78000,
+      "condition": "Отличное", "status": "В наличии", "updated_at": "не указано",
+      "trim": "LX", "color": "Blue", "min_price_aed": 74000
+    }
+  ]
+}
