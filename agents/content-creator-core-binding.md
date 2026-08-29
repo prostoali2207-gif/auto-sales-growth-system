@@ -1,6 +1,6 @@
 # Content Creator — Qualified Core Binding
 
-Status: PENDING UPSTREAM MERGE
+Status: ACTIVE BINDING
 
 This file is the authoritative composition contract for `agents/content-creator.md` once the upstream qualified core is present on `professional-ai-agents/main`.
 
