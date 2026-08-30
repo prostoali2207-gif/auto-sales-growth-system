@@ -4,7 +4,7 @@
   "title": "Auto Sales Growth Analytics Decision",
   "type": "object",
   "additionalProperties": false,
-  "required": ["analysis_id", "experiment_id", "experiment_version", "evaluated_at", "recommendation", "evidence_grade", "data_quality", "primary_result", "sample_assessment", "funnel_results", "attribution", "confounders", "causal_claim", "operational_assessment", "decision_rationale", "next_action", "learning_note"],
+  "required": ["analysis_id", "experiment_id", "experiment_version", "evaluated_at", "recommendation", "evidence_grade", "data_quality", "identification_ledger", "decision_record", "business_scale_gate", "primary_result", "sample_assessment", "funnel_results", "attribution", "confounders", "causal_claim", "operational_assessment", "decision_rationale", "next_action", "learning_note"],
   "properties": {
     "analysis_id": {"type": "string", "minLength": 1},
     "experiment_id": {"type": "string", "minLength": 1},
@@ -24,6 +24,79 @@
         "missing_critical_fields": {"type": "array", "items": {"type": "string"}},
         "notes": {"type": "array", "items": {"type": "string"}}
       }
+    },
+    "identification_ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recorded_before_outcome_counts", "source_references", "assignment_defect", "exposure_or_instrumentation_defect", "comparability_defect", "blocking_confounder_defect", "registered_window_incomplete"],
+      "properties": {
+        "recorded_before_outcome_counts": {"const": true},
+        "source_references": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "assignment_defect": {"$ref": "#/$defs/ledgerCheck"},
+        "exposure_or_instrumentation_defect": {"$ref": "#/$defs/ledgerCheck"},
+        "comparability_defect": {"$ref": "#/$defs/ledgerCheck"},
+        "blocking_confounder_defect": {"$ref": "#/$defs/ledgerCheck"},
+        "registered_window_incomplete": {"$ref": "#/$defs/ledgerCheck"}
+      }
+    },
+    "decision_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["causal", "operational", "scale_readiness"],
+      "properties": {
+        "causal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "claim_scope", "claim_ceiling", "blocking_confounders"],
+          "properties": {
+            "status": {"type": "string", "enum": ["IDENTIFIED", "UNRESOLVED", "NOT_APPLICABLE"]},
+            "claim_scope": {"type": "string", "enum": ["REGISTERED_ESTIMAND", "INTERIM_OUTCOME"]},
+            "claim_ceiling": {"type": "string", "enum": ["NONE", "DESCRIPTIVE_ASSOCIATION", "DIRECTIONAL_ASSOCIATION", "INCREMENTAL_CAUSAL"]},
+            "blocking_confounders": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "operational": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["action", "target", "decisive_metric", "decision_basis", "reversible", "evidence_that_would_change_action"],
+          "properties": {
+            "action": {"type": "string", "enum": ["CONTINUE", "ITERATE", "SCALE", "KILL", "INCONCLUSIVE"]},
+            "target": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+$", "minLength": 1},
+            "decisive_metric": {"type": "string", "enum": ["MATURE_DOWNSTREAM_ECONOMICS", "REGISTERED_PRIMARY_KPI", "ACQUISITION_COST", "GUARDRAIL", "CAPACITY", "NONE_DECIDABLE"]},
+            "decision_basis": {
+              "type": "array", "minItems": 1, "uniqueItems": true,
+              "items": {"type": "string", "enum": ["REGISTERED_PRIMARY_KPI", "MATURE_DOWNSTREAM_ECONOMICS", "ACQUISITION_COST_DIAGNOSTIC", "MATERIALITY", "REVERSIBILITY", "COST_OF_WAITING", "CONFOUNDER_ACTION_RELEVANCE", "GUARDRAIL_BREACH", "CAPACITY_CONSTRAINT", "INSUFFICIENT_EVIDENCE"]}
+            },
+            "reversible": {"type": "boolean"},
+            "evidence_that_would_change_action": {"type": "string", "minLength": 1}
+          }
+        },
+        "scale_readiness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "blocking_reasons"],
+          "properties": {
+            "state": {"type": "string", "enum": ["BLOCKED", "ELIGIBLE"]},
+            "blocking_reasons": {
+              "type": "array", "uniqueItems": true,
+              "items": {"type": "string", "enum": ["UNIDENTIFIED_CAUSAL_EFFECT", "MEASUREMENT_INTEGRITY_UNRESOLVED", "IMMATURE_OUTCOMES", "INSUFFICIENT_SAMPLE", "NO_CREDIBLE_COUNTERFACTUAL", "CAPACITY_OR_SATURATION_UNKNOWN", "GUARDRAIL_UNVERIFIED", "NOT_BLOCKED"]}
+            }
+          }
+        }
+      }
+    },
+    "business_scale_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["marginal_business_value", "delegated_authority", "operational_capacity", "scale_allowed", "evidence_refs"],
+      "properties": {
+        "marginal_business_value": {"type": "string", "enum": ["PASS", "FAIL", "UNKNOWN"]},
+        "delegated_authority": {"type": "string", "enum": ["PASS", "FAIL", "UNKNOWN"]},
+        "operational_capacity": {"type": "string", "enum": ["PASS", "FAIL", "UNKNOWN"]},
+        "scale_allowed": {"type": "boolean"},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      },
+      "description": "Showroom 171 project gate. SCALE is valid only when all three statuses are PASS and scale_allowed is true; missing business facts remain UNKNOWN rather than invented."
     },
     "primary_result": {"$ref": "#/$defs/metricResult"},
     "secondary_results": {"type": "array", "items": {"$ref": "#/$defs/metricResult"}},
@@ -118,7 +191,8 @@
       "properties": {
         "level": {"type": "string", "enum": ["CAUSAL", "NEAR_CAUSAL", "ASSOCIATIONAL", "DESCRIPTIVE_ONLY", "NOT_EVALUABLE"]},
         "statement": {"type": "string", "minLength": 1}
-      }
+      },
+      "description": "Human-readable project summary of decision_record.causal; it must not strengthen or contradict that channel."
     },
     "operational_assessment": {
       "type": "object", "additionalProperties": false,
@@ -165,6 +239,15 @@
   },
   "$defs": {
     "availability": {"type": "string", "enum": ["OBSERVED", "NOT_AVAILABLE", "NOT_COLLECTED", "DELAYED", "INVALID"]},
+    "ledgerCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared_defect", "evidence"],
+      "properties": {
+        "declared_defect": {"type": "boolean"},
+        "evidence": {"type": "string", "minLength": 1}
+      }
+    },
     "metricResult": {
       "type": "object", "additionalProperties": false,
       "required": ["metric_name", "value", "unit", "availability", "baseline", "success_threshold", "failure_threshold", "threshold_result"],

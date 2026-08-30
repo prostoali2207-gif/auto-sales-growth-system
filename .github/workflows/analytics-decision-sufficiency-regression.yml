@@ -1,22 +1,28 @@
-name: Analytics decision sufficiency regression
+name: Analytics decision sufficiency and core compatibility
 
 on:
   push:
-    branches:
-      - fix/analytics-decision-sufficiency-rebase-2026-08-23
     paths:
+      - 'agents/analytics-core-binding.md'
       - 'agents/analytics-causal-evidence-gates.md'
+      - 'data-schemas/strategy-experiment.schema.json'
+      - 'data-schemas/analytics-observation.schema.json'
       - 'data-schemas/analytics-decision.schema.json'
       - 'evaluation/analytics-decision-sufficiency/**'
+      - 'evaluation/analytics-core-compatibility/**'
       - 'package.json'
       - '.github/workflows/analytics-decision-sufficiency-regression.yml'
   pull_request:
     branches:
       - main
     paths:
+      - 'agents/analytics-core-binding.md'
       - 'agents/analytics-causal-evidence-gates.md'
+      - 'data-schemas/strategy-experiment.schema.json'
+      - 'data-schemas/analytics-observation.schema.json'
       - 'data-schemas/analytics-decision.schema.json'
       - 'evaluation/analytics-decision-sufficiency/**'
+      - 'evaluation/analytics-core-compatibility/**'
       - 'package.json'
       - '.github/workflows/analytics-decision-sufficiency-regression.yml'
   workflow_dispatch:
@@ -33,5 +39,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Run decision-sufficiency contract regression
+      - name: Run decision-sufficiency regression
         run: npm run test:analytics-decision-sufficiency
+      - name: Run qualified-core compatibility regression
+        run: npm run test:analytics-core-compatibility
+      - name: Run duration-bias regression
+        run: npm run test:analytics-duration-bias

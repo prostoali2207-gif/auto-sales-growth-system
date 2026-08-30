@@ -6,6 +6,8 @@
   "additionalProperties": false,
   "required": [
     "experiment_id",
+    "experiment_version",
+    "variant_ids",
     "status",
     "priority",
     "decision_question",
@@ -28,7 +30,23 @@
     "downstream_owner"
   ],
   "properties": {
-    "experiment_id": {"type": "string", "minLength": 1},
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Immutable identifier for the registered comparison as a whole; never an arm/variant identifier."
+    },
+    "experiment_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Immutable launched contract version. A behavior-relevant experiment change creates a new version."
+    },
+    "variant_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1},
+      "description": "Declared immutable arm identifiers. Arm-level Analytics actions may target only one of these IDs."
+    },
     "status": {
       "type": "string",
       "enum": ["BACKLOG", "APPROVED", "RUNNING", "CONTINUE", "ITERATE", "SCALE", "KILL", "PARKED", "INCONCLUSIVE"]

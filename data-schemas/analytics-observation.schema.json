@@ -4,10 +4,15 @@
   "title": "Experiment Analytics Observation Bundle",
   "type": "object",
   "additionalProperties": false,
-  "required": ["experiment_id", "experiment_version", "observed_at", "timezone", "source_records", "metrics", "funnel_events"],
+  "required": ["experiment_id", "experiment_version", "variant_id", "observed_at", "timezone", "source_records", "metrics", "funnel_events"],
   "properties": {
     "experiment_id": {"type": "string", "minLength": 1},
     "experiment_version": {"type": "string", "minLength": 1},
+    "variant_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Immutable arm identifier declared by the approved strategy experiment."
+    },
     "content_spec_id": {"type": ["string", "null"]},
     "creative_id": {"type": ["string", "null"]},
     "render_id": {"type": ["string", "null"]},
