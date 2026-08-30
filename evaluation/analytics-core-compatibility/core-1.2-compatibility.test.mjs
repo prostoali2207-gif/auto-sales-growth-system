@@ -28,7 +28,7 @@ const CORE = {
 const enumAt = (obj, ...path) => path.reduce((value, key) => value[key], obj).enum;
 
 test('binding pins the exact released 1.2.0 artifact and preserves runtime boundary', () => {
-  assert.match(binding, new RegExp(`version: \\`${CORE.version.replaceAll('.', '\\.') }\\``));
+  assert.ok(binding.includes('version: `1.2.0`'));
   assert.ok(binding.includes(CORE.artifactDigest));
   assert.ok(binding.includes(CORE.assemblyDigest));
   assert.ok(binding.includes(CORE.outputBlob));
