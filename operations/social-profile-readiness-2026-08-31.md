@@ -76,7 +76,7 @@ Current pinned message 169:
 Connected Metricool channel ID: `UC0kvMwngNDesLOafpYsX6SA`.
 Metricool labels it `Al Musafir Cars Dubai` and reports 0 subscribers / 0 videos / 0 views.
 Independent public fetch of the exact same channel ID returned `Quran&dua`.
-Therefore identity is CONFLICTING. Do not rename/publish until the authenticated YouTube UI confirms which channel is actually connected.
+Therefore identity is CONFLICTING. Do not rename/publish until authenticated YouTube API identity (`channels.list` with `mine=true`) confirms which channel the account authorization controls.
 Once resolved, target role is Shorts discovery/testing plus longer proof/education only when useful; no channel trailer is required merely because the channel is empty.
 
 ## Instagram cleanup manifest
@@ -127,11 +127,25 @@ ARCHIVE / REPLACE:
 - `1135061356346488_122100067154554950` — Nissan 200/SX S 2023 — absent from current sheet.
 - `1135061356346488_122099950184554950` — generic Hyundai Elantra 2020 / AED 20,000 — not traceable to a current row and old price.
 
-## Current execution blocker
+## Current execution route
 
-The connected Metricool surface supports analytics/planning/publishing but does not expose organic profile bio/avatar/Highlights/page-About edits or archive/delete operations for existing posts. Sociality currently has no connected accounts. The current Meta Ads surface is advertising-focused and does not expose the required organic profile mutation operations.
+Do not use Cloud Browser for this task.
 
-Therefore the remaining Instagram/Facebook/TikTok/YouTube profile changes and post archiving require an authenticated browser/UI execution surface (ChatGPT Work Cloud Browser is suitable) or an equivalent organic-management connector. This is a tool-access blocker, not an approval blocker.
+Evidence from the existing system:
+- Telegram proves the intended pattern: a thin first-party transport over the official platform API, deployed on the existing Vercel project, rather than browser automation.
+- Metricool remains the existing publishing/planning/analytics surface for Instagram/Facebook/TikTok/YouTube.
+- The official `Meta Ads` ChatGPT connector was previously authorized through OAuth for business portfolio `almusafircars` and has access to the working Meta assets. Its ChatGPT app permission is `Allow all actions`.
+- In the current chat the `Meta Ads` action namespace is not loaded even though the connector remains installed; this is a chat tool-surface issue, not loss of OAuth authorization.
+- GitHub environment `meta-ads-production` is configured with `META_GRAPH_API_VERSION=v26.0`, but a read-only 2026-08-31 probe confirmed `META_ACCESS_TOKEN` is not stored there.
+- A separate Vercel environment-name probe confirmed no direct Meta/Instagram access-token or app-ID/app-secret variables are currently stored in the Vercel project under the checked canonical names.
+
+Execution precedence:
+1. Reuse the already-authorized `Meta Ads` connector when its action namespace is loaded; do not create a second Meta OAuth integration merely because the current chat omitted the tool surface.
+2. Use the connector to inspect the Page/Instagram relationship and attempt the required organic operations with live reconciliation.
+3. Respect Meta ownership/API restrictions: old Facebook posts created by another app may reject edit/delete; verify one known stale target before bulk mutation and do not blind-retry ambiguous writes.
+4. Instagram publishing/deletion can use the current official API path if exposed by the authorized connector; captions on existing media are not assumed editable.
+5. For TikTok and YouTube, reuse their existing connected publishing surfaces first; add only the minimum official-API adapter needed for capabilities Metricool does not expose.
+6. Browser automation is not an accepted fallback for this project. If a platform offers no API/connector capability for a specific profile-only field, record that exact field as manual-only rather than moving the whole workflow to a browser.
 
 ## Missing creative assets
 
@@ -143,9 +157,9 @@ Needed for visual identity completion if the current platform avatar cannot be s
 ## Completion rule
 
 SOCIAL_PROFILE_READY only after:
-1. stale/sold/conflicting posts are archived or corrected on Instagram/Facebook;
-2. IG/FB profile identity, location, WhatsApp and CTA are coherent;
+1. stale/sold/conflicting posts are archived, deleted, or corrected on Instagram/Facebook according to the platform capability actually verified;
+2. IG/FB profile identity, location, WhatsApp and CTA are coherent to the extent exposed by official APIs/connectors, with any API-impossible fields explicitly identified;
 3. TikTok profile is branded and can route a buyer onward;
-4. YouTube channel identity conflict is resolved before any mutation;
+4. YouTube channel identity conflict is resolved through authenticated account/API identity before any mutation;
 5. Telegram media-only posts 153/154 are visually inspected and retained/archived/re-captioned based on what they actually contain;
 6. a buyer can move from each profile to a verified inquiry path with no contradictory commercial facts.
