@@ -18,6 +18,74 @@ const WELCOME_TEXT = [
   'English • العربية • Русский'
 ].join('\n');
 
+const VERIFIED_REPLACEMENTS = Object.freeze({
+  '149': [
+    '🚗 Hyundai Elantra GT 2020 — AM-002',
+    '💰 AED 21,000',
+    'Mileage: 92,500 km',
+    'Engine: 2.0L petrol | FWD',
+    'Condition: Average',
+    'Known history: front-end damage; salvage title (TX).',
+    'Status: Available | Payment: cash',
+    '',
+    '📍 Ajman Auto Market, Showroom 171',
+    '📲 WhatsApp +971 50 978 6337',
+    'Updated: 31 Aug 2026'
+  ].join('\n'),
+  '164': [
+    '🚗 KIA Optima 2019 — AM-009',
+    '💰 AED 21,000',
+    'Mileage: 173,600 km',
+    'Engine: 2.4L petrol | LX',
+    'Condition: Average',
+    'Public VIN/auction damage record was not found; this does not confirm no accidents.',
+    'Status: Available | Payment: cash',
+    '',
+    '📍 Ajman Auto Market, Showroom 171',
+    '📲 WhatsApp +971 50 978 6337',
+    'Updated: 31 Aug 2026'
+  ].join('\n'),
+  '165': [
+    '🚗 KIA Sportage 2020 — AM-011',
+    '💰 AED 32,000',
+    'Mileage: 191,500 km',
+    'Engine: 2.4L petrol | FWD | LX',
+    'Condition: Average',
+    'Known history: IAAI collision; left front + suspension; salvage certificate (CA).',
+    'Status: Available | Payment: cash',
+    '',
+    '📍 Ajman Auto Market, Showroom 171',
+    '📲 WhatsApp +971 50 978 6337',
+    'Updated: 31 Aug 2026'
+  ].join('\n'),
+  '166': [
+    '🚗 KIA Forte 2019 — AM-012',
+    '💰 AED 18,000',
+    'Mileage: 234,192 km',
+    'Engine: 2.0L petrol | FWD | LXS',
+    'Condition: Average',
+    'Known history: IAAI collision; front + rear; salvage (AL).',
+    'Status: Available | Payment: cash',
+    '',
+    '📍 Ajman Auto Market, Showroom 171',
+    '📲 WhatsApp +971 50 978 6337',
+    'Updated: 31 Aug 2026'
+  ].join('\n'),
+  '167': [
+    '🚗 Hyundai Sonata 2018 — AM-016',
+    '💰 AED 15,000',
+    'Mileage: 248,161 km',
+    'Engine: 2.4L petrol | Automatic | FWD | SE',
+    'Condition: Average',
+    'Known history: Copart front-end damage; salvage title (GA).',
+    'Status: Available | Payment: cash',
+    '',
+    '📍 Ajman Auto Market, Showroom 171',
+    '📲 WhatsApp +971 50 978 6337',
+    'Updated: 31 Aug 2026'
+  ].join('\n')
+});
+
 function json(res, status, body) {
   res.status(status).setHeader('content-type', 'application/json');
   res.setHeader('cache-control', 'no-store');
@@ -48,14 +116,18 @@ function parsePublicPosts(html) {
   return found.map((item, index) => {
     const segment = html.slice(item.start, found[index + 1]?.start ?? html.length);
     const textMatch = segment.match(/<div class="tgme_widget_message_text[^>]*>([\s\S]*?)<\/div>/i);
-    return { id: item.id, text: decodeHtml(textMatch?.[1] || '') };
+    const photoMatch = segment.match(/background-image:url\('([^']+)'\)/i);
+    return { id: item.id, text: decodeHtml(textMatch?.[1] || ''), photo_url: photoMatch?.[1] || null };
   });
 }
 
 function shouldDelete(text) {
   const t = String(text || '').trim();
   if (['telegram test 1', 'telegram test 2', 'telegram test 3', 'SYSTEM TEST — Telegram publishing connection verified.'].includes(t)) return true;
-  return t.includes('Hyundai Elantra GT 2020') && t.includes('147700 km');
+  if (t.includes('Hyundai Elantra GT 2020') && t.includes('147700 km')) return true;
+  if (t.startsWith('Channel name was changed to «Al Musafir Cars | Ajman»')) return true;
+  if (t.startsWith('Al Musafir Cars | Ajman pinned «🚗 Al Musafir Cars — used cars in Ajman')) return true;
+  return false;
 }
 
 async function telegram(token, method, payload = {}) {
@@ -116,6 +188,7 @@ export default async function handler(req, res) {
         title: TARGET_TITLE,
         description: TARGET_DESCRIPTION,
         delete_message_ids: plannedDeletes.map((p) => p.id),
+        replacement_message_ids: Object.keys(VERIFIED_REPLACEMENTS),
         welcome_exists: Boolean(welcomeExisting),
         welcome_text: WELCOME_TEXT
       }
@@ -135,7 +208,17 @@ export default async function handler(req, res) {
 
   if (isCreator || member.can_delete_messages) {
     for (const post of plannedDeletes) {
-      actions.push({ action: 'delete_message', message_id: post.id, text: post.text.slice(0, 120), ...(await telegram(token, 'deleteMessage', { chat_id: CHAT_ID, message_id: Number(post.id) })) });
+      const deleted = await telegram(token, 'deleteMessage', { chat_id: CHAT_ID, message_id: Number(post.id) });
+      actions.push({ action: 'delete_message', message_id: post.id, text: post.text.slice(0, 120), ...deleted });
+      if (!deleted.ok && VERIFIED_REPLACEMENTS[post.id] && (isCreator || member.can_edit_messages)) {
+        const edited = await telegram(token, 'editMessageText', {
+          chat_id: CHAT_ID,
+          message_id: Number(post.id),
+          text: VERIFIED_REPLACEMENTS[post.id],
+          disable_web_page_preview: true
+        });
+        actions.push({ action: 'replace_old_message_with_verified_inventory', message_id: post.id, ...edited, result: edited.result ? { message_id: edited.result.message_id } : null });
+      }
     }
   }
 
@@ -153,7 +236,7 @@ export default async function handler(req, res) {
 
   const after = await inspect(token);
   return json(res, 200, {
-    ok: actions.every((a) => a.ok !== false),
+    ok: actions.every((a) => a.ok !== false || a.action === 'delete_message'),
     mode: 'EXECUTED',
     actions,
     after: {
