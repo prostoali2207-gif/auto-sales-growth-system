@@ -1,0 +1,95 @@
+{
+  "experiment_id": "exp-20260831-sonata-transparency-001",
+  "experiment_version": "0.1",
+  "variant_ids": [
+    "HISTORY_EARLY",
+    "HISTORY_LATE"
+  ],
+  "status": "BACKLOG",
+  "priority": "P0",
+  "decision_question": "For AM-016 Hyundai Sonata 2018, does disclosing the same verified accident/salvage history in the opening seconds improve qualified-lead quality versus disclosing it later in the Reel?",
+  "hypothesis": "Early transparent disclosure of the verified front-end salvage history will reduce low-fit curiosity and improve the share of inquiries that progress toward a useful sales conversation or appointment, even if raw reach or inquiry volume is lower.",
+  "evidence_basis": [
+    {
+      "evidence_class": "B",
+      "reference": "Google Sheet `AM Motors — Справочник машин`, AM-016, verified 2026-08-31",
+      "finding": "AM-016 is currently confirmed in stock; vehicle identity, mileage, asking price, condition and front-end salvage history are recorded."
+    },
+    {
+      "evidence_class": "C",
+      "reference": "research/uae-market/2026-08-10-pilot-patterns.md",
+      "finding": "Repeated UAE dealer propositions use inspection, verification, transparency and history/condition proof as TRUST/LEAD mechanisms."
+    },
+    {
+      "evidence_class": "C",
+      "reference": "research/uae-market/2026-08-31-first-live-cycle-candidate.md",
+      "finding": "A current UAE 2018 Sonata marketplace cohort is observable, but price comparability is insufficient for a precise market-value claim; transparency timing remains a bounded test candidate."
+    },
+    {
+      "evidence_class": "E",
+      "reference": "Strategist test hypothesis 2026-08-31",
+      "finding": "The causal effect of early versus later history disclosure on qualified-lead quality for AM Motors is unknown and requires testing."
+    }
+  ],
+  "confidence_before_test": "LOW",
+  "audience": {
+    "buying_stage": "Actively considering a used sedan and willing to inspect a repaired/imported vehicle if material history is disclosed clearly.",
+    "need_or_job": "Evaluate whether AM-016 is worth an in-person inspection/test drive without hiding the known accident-history risk.",
+    "budget_or_payment_context": "Cash-only dealership policy; finance and instalments are not offered.",
+    "trust_or_risk_concern": "Accident/salvage history, repair quality and whether the seller is transparent about material condition facts.",
+    "geography_or_language": "UAE, primarily Ajman/Dubai/Sharjah; language to be chosen by Content Analyst from current account evidence.",
+    "inventory_fit": "Exact vehicle AM-016 Hyundai Sonata 2018, currently confirmed in stock."
+  },
+  "primary_funnel_role": "LEAD",
+  "secondary_funnel_role": "TRUST",
+  "platform": [
+    "INSTAGRAM"
+  ],
+  "mechanism_to_test": "Timing of the exact same verified accident/salvage-history disclosure: HISTORY_EARLY places it in the opening seconds; HISTORY_LATE places it later before the CTA. Both variants must disclose the same material fact clearly and must not alter the underlying factual claim.",
+  "commercial_path": "Instagram Reel -> attributable DM/conversation -> qualified lead -> human-owned appointment/test drive -> sale outcome if it occurs.",
+  "primary_kpi": "Qualified inquiries attributable to each variant, normalized by delivered impressions/reach where available.",
+  "secondary_kpis": [
+    "Appointment/test-drive proposal rate among qualified inquiries",
+    "Appointment/test-drive set rate among qualified inquiries",
+    "Two-way conversation rate",
+    "Retention and completion as diagnostic content signals"
+  ],
+  "guardrail_metrics": [
+    "No variant may omit or soften the verified front-end salvage-history fact",
+    "No unsupported market-price/value claim",
+    "No material difference in distribution settings, CTA destination or factual offer between arms",
+    "Track low-quality/irrelevant inquiries separately from qualified inquiries"
+  ],
+  "baseline": "No valid vehicle-specific qualified-lead baseline is attached. Analytics must establish the available account/paid baseline or explicitly register a direct arm-vs-arm comparison before launch.",
+  "success_threshold": "PRE-LAUNCH BLOCKER: Analytics must define an executable threshold before approval. Directionally, HISTORY_EARLY must outperform HISTORY_LATE on qualified-inquiry efficiency without a material appointment-rate guardrail failure.",
+  "failure_threshold": "PRE-LAUNCH BLOCKER: Analytics must define an executable failure threshold before approval. A valid test that shows worse qualified-inquiry efficiency with no compensating downstream quality gain should not be scaled.",
+  "minimum_sample": "PRE-LAUNCH BLOCKER: Analytics must set a minimum delivered sample/qualified-inquiry requirement from current traffic and measurement capacity before launch.",
+  "test_window": "PRE-LAUNCH BLOCKER: Analytics must set the observation window and decision date before launch.",
+  "variable_being_tested": "Timing of verified accident/salvage-history disclosure in the Reel.",
+  "controlled_variables": [
+    "Same vehicle AM-016",
+    "Same verified commercial facts",
+    "Same CTA objective and destination",
+    "Same overall format and approximate duration",
+    "Same offer: no finance, no unsupported discount or market-value claim",
+    "If paid: identical audience, budget, placements, optimization, start timing and pacing under a proper split-test setup",
+    "If organic-only: do not claim causal superiority from raw performance unless distribution comparability is defensible"
+  ],
+  "execution_constraints": [
+    "Human must approve the experiment before content production/publishing moves to APPROVED.",
+    "Human must approve any paid spend separately.",
+    "Customer replies remain human-controlled; Sales agent may prepare analysis/drafts only under current operating bounds.",
+    "Content Analyst must preserve the single tested variable and must not introduce a price-first versus history-first confound.",
+    "Analytics instrumentation, variant IDs and attribution must be ready before publication.",
+    "Physical filming is a human task."
+  ],
+  "attribution_method": "Use immutable variant/ad/content IDs; preserve inquiry source and experiment_id through Sales funnel events. If paid, use platform split-test attribution rather than launch-time inference.",
+  "decision_rule": {
+    "continue": "Continue only while the preregistered minimum sample/window is incomplete and no guardrail is violated.",
+    "iterate": "Iterate one material content variable only if lead-quality signal is promising but the downstream KPI misses or execution invalidates the test.",
+    "scale": "Scale only if the preregistered success threshold is met, lead quality is commercially relevant, and no truth/appointment guardrail fails.",
+    "kill": "Kill or park after a valid failure threshold, material truth/measurement invalidation, obsolete inventory, or evidence that the mechanism attracts poor-fit demand without downstream benefit."
+  },
+  "downstream_owner": "ANALYTICS_AGENT",
+  "learning_note": "Registered as BACKLOG only. No publish/spend authorization. Price positioning is intentionally excluded until a separate pricing-evidence gate is sufficient."
+}
