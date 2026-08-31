@@ -135,17 +135,71 @@ Evidence from the existing system:
 - Telegram proves the intended pattern: a thin first-party transport over the official platform API, deployed on the existing Vercel project, rather than browser automation.
 - Metricool remains the existing publishing/planning/analytics surface for Instagram/Facebook/TikTok/YouTube.
 - The official `Meta Ads` ChatGPT connector was previously authorized through OAuth for business portfolio `almusafircars` and has access to the working Meta assets. Its ChatGPT app permission is `Allow all actions`.
-- In the current chat the `Meta Ads` action namespace is not loaded even though the connector remains installed; this is a chat tool-surface issue, not loss of OAuth authorization.
 - GitHub environment `meta-ads-production` is configured with `META_GRAPH_API_VERSION=v26.0`, but a read-only 2026-08-31 probe confirmed `META_ACCESS_TOKEN` is not stored there.
 - A separate Vercel environment-name probe confirmed no direct Meta/Instagram access-token or app-ID/app-secret variables are currently stored in the Vercel project under the checked canonical names.
 
 Execution precedence:
-1. Reuse the already-authorized `Meta Ads` connector when its action namespace is loaded; do not create a second Meta OAuth integration merely because the current chat omitted the tool surface.
-2. Use the connector to inspect the Page/Instagram relationship and attempt the required organic operations with live reconciliation.
-3. Respect Meta ownership/API restrictions: old Facebook posts created by another app may reject edit/delete; verify one known stale target before bulk mutation and do not blind-retry ambiguous writes.
-4. Instagram publishing/deletion can use the current official API path if exposed by the authorized connector; captions on existing media are not assumed editable.
+1. Reuse the already-authorized `Meta Ads` connector when its action namespace is loaded; do not create a second Meta OAuth integration merely because a prior chat omitted the tool surface.
+2. Use the connector to inspect the Page/Instagram relationship and attempt the required organic operations with live reconciliation where such actions are exposed.
+3. Respect Meta ownership/API restrictions: old Facebook posts created by another app may reject edit/delete; verify one known stale target before bulk mutation if a content-management action becomes available and do not blind-retry ambiguous writes.
+4. Instagram publishing/deletion can use the current official API path if exposed by an authorized connector; captions on existing media are not assumed editable.
 5. For TikTok and YouTube, reuse their existing connected publishing surfaces first; add only the minimum official-API adapter needed for capabilities Metricool does not expose.
 6. Browser automation is not an accepted fallback for this project. If a platform offers no API/connector capability for a specific profile-only field, record that exact field as manual-only rather than moving the whole workflow to a browser.
+
+## Live Meta connector verification — 2026-08-31
+
+This section records the live continuation run so future chats do not repeat the same connector audit.
+
+### Confirmed assets and relationships
+
+- `Meta Ads` connector is loaded and callable in this chat.
+- `ads_get_user_pages` returned both accessible Pages:
+  - `1135061356346488` — `Al musafir cars trading `;
+  - `1087092621158156` — `almusafirmotors`.
+- Business ad account `1529250598625310` belongs to business portfolio `809077722268934` / `almusafircars` and is active/queryable.
+- The business/Page edge and ad-account/Page edge both return only priority Page `1135061356346488` for that portfolio/account.
+- A second ad account `1400216298878887` is also visible but is not the business-owned account for this workflow.
+- `ads_get_ig_accounts` returned an empty list for both visible ad accounts. Under the connector contract this means no Instagram account is currently advertisable through those account edges with the connector's required Instagram permission; it is not evidence that `@almusafircars` does not exist or is globally disconnected.
+- Metricool brand `6753190` independently confirms the currently connected brand surfaces:
+  - Facebook Page `1135061356346488`;
+  - Instagram `almusafircars`;
+  - TikTok `almusafircars5`;
+  - YouTube `UC0kvMwngNDesLOafpYsX6SA`.
+- Sociality.io returned no matching connected Facebook or Instagram accounts and is not a fallback write path for these assets.
+
+### Current authoritative inventory recheck
+
+- The Google Sheet `AM Motors — Справочник машин` was found directly at spreadsheet ID `1RXA5OCKCnGQvZxde0_miF_WjLXsBw0hdPDK-3A_kGBQ`.
+- Sheet tab `Машины` was read directly during this continuation run.
+- Current rows AM-001 through AM-017 carry update date `2026-08-31`; the existing KEEP/ARCHIVE manifests above remain aligned with this authoritative source.
+- No new commercial facts were inferred from old social posts.
+
+### What the existing connectors can and cannot write
+
+Exhaustive action discovery on the installed `Meta Ads` connector found advertising/campaign/catalog actions plus read access to Pages and advertisable Instagram media, but no action for:
+- deleting or editing an already-published organic Facebook Page post;
+- changing Facebook Page name/About/location/phone/CTA/profile fields;
+- deleting an already-published Instagram post/reel/media item;
+- changing Instagram display name/bio/category/link/profile fields.
+
+The connector does expose `ads_get_ig_media`, but it requires an Instagram account ID returned by `ads_get_ig_accounts`; none was returned in this session, so that read path cannot be invoked for `@almusafircars` through the current Meta Ads authorization.
+
+Metricool can create/update future scheduled posts but does not expose deletion/editing of already-published posts or profile-field writes in the installed action set. A live Metricool check for `2026-08-31` through `2026-09-30` returned zero scheduled posts, so there is no queued stale content to repair there.
+
+The repo's deployed API transport currently contains Telegram routes only; repository searches found no existing Meta Graph transport or stored transport code under the obvious Graph/token/account relationship identifiers. No new OAuth/App was created.
+
+### Official API capability vs current connected capability
+
+Meta's official platform supports deletion of Facebook Page posts and current Instagram media deletion in supported API flows. Therefore the blocker is not a claim that Meta itself has no API; it is that the currently authorized ChatGPT connector does not expose those organic-content/profile write actions, and the existing repo/Vercel transport does not possess a reusable Meta access token.
+
+Result for this run:
+- Facebook stale published-post cleanup manifest: `MANUAL_ONLY_WITH_CURRENT_CONNECTED_TOOLS` until an existing authorized content-management surface is exposed.
+- Facebook Page buyer-facing profile fields: `MANUAL_ONLY_WITH_CURRENT_CONNECTED_TOOLS`.
+- Instagram stale published-media cleanup manifest: `MANUAL_ONLY_WITH_CURRENT_CONNECTED_TOOLS`.
+- Instagram buyer-facing profile fields: `MANUAL_ONLY_WITH_CURRENT_CONNECTED_TOOLS`.
+- Metricool future scheduled-post cleanup: `CLEAR` — no scheduled posts in the checked window.
+
+No social write was falsely reported as completed. No ads, campaigns, ad sets, creatives, targeting, payment settings, or budgets were changed. No customer message was read/replied to as part of this execution run.
 
 ## Missing creative assets
 
