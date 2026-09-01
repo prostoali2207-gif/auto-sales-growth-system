@@ -70,11 +70,11 @@ test('existing schemas expose the authority readiness confirmation and event fie
 });
 
 test('appointment mapping keeps readiness commitment authority attempt and confirmation distinct', () => {
-  assert.match(binding, /readiness -> `lead_snapshot\.qualification\.appointment_readiness`/i);
-  assert.match(binding, /buyer commitment -> explicit buyer evidence/i);
-  assert.match(binding, /action authority -> `run_context\.permitted_actions`/i);
-  assert.match(binding, /execution request -> output `decision = CREATE_APPOINTMENT`/i);
-  assert.match(binding, /operational confirmation -> authoritative appointment-system result/i);
+  assert.match(binding, /readiness\s*[→-]>?\s*`lead_snapshot\.qualification\.appointment_readiness`/i);
+  assert.match(binding, /buyer commitment\s*[→-]>?\s*explicit buyer evidence/i);
+  assert.match(binding, /action authority\s*[→-]>?\s*`run_context\.permitted_actions`/i);
+  assert.match(binding, /execution request\s*[→-]>?\s*output `decision = CREATE_APPOINTMENT`/i);
+  assert.match(binding, /operational confirmation\s*[→-]>?\s*authoritative appointment-system result/i);
   assert.match(binding, /Requested, queued, pending, accepted-for-processing, timed-out, failed, or ambiguous tool results are \*\*not\*\* `SET`/i);
   assert.match(binding, /non-null `booking_confirmation_id`/i);
   assert.match(binding, /must not simultaneously claim that booking succeeded/i);
