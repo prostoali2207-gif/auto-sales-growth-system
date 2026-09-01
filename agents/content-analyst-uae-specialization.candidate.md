@@ -1,11 +1,13 @@
-# UAE Automotive Content Architecture Specialization — candidate v0.1
+# UAE Automotive Content Architecture Specialization — candidate v0.2
 
-Status: candidate specialization for the universal `Content Architecture & Creative Structure Practitioner`. NOT QUALIFIED.
+Status: candidate specialization pending UAE composition/practical qualification. Universal Content Architecture core v0.4 has passed targeted/P0 and universal release qualification.
 
 Universal candidate dependency:
 - repository: `prostoali2207-gif/professional-ai-agents`
-- path: `architect/research/content-architecture/professional-model-candidate-v0.1.md`
-- blob SHA: `67ac707be93cd46c0303c54eef3d73122c72c876`
+- path: `architect/research/content-architecture/professional-model-candidate-v0.4.md`
+- blob SHA: `5d440e1bf3e20fbd35c6ab276310a904e36cc06d`
+- targeted/P0 gate: `content-architecture-v0.4-codex-targeted-2026-09-01-r4` — PASS
+- universal release gate: `content-architecture-v0.4-universal-release-2026-09-01-r1` — PASS
 
 ## Purpose
 
