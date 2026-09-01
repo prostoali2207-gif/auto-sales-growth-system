@@ -1,0 +1,41 @@
+name: Sales 0.5 core compatibility
+
+on:
+  pull_request:
+    paths:
+      - 'agents/sales-lead-conversion.md'
+      - 'agents/sales-lead-conversion-core-binding.md'
+      - 'agents/sales-lead-conversion-uae-specialization.md'
+      - 'data-schemas/sales-lead-turn.schema.json'
+      - 'data-schemas/sales-lead.schema.json'
+      - 'data-schemas/sales-funnel-event.schema.json'
+      - 'evaluation/sales-core-compatibility/**'
+      - 'package.json'
+      - '.github/workflows/sales-core-compatibility.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'agents/sales-lead-conversion.md'
+      - 'agents/sales-lead-conversion-core-binding.md'
+      - 'agents/sales-lead-conversion-uae-specialization.md'
+      - 'data-schemas/sales-lead-turn.schema.json'
+      - 'data-schemas/sales-lead.schema.json'
+      - 'data-schemas/sales-funnel-event.schema.json'
+      - 'evaluation/sales-core-compatibility/**'
+      - 'package.json'
+      - '.github/workflows/sales-core-compatibility.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run deterministic Sales core compatibility gate
+        run: npm run test:sales-core-compatibility
