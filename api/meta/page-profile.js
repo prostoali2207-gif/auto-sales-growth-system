@@ -37,6 +37,20 @@ async function graphGet(token, fields) {
   return { response, data };
 }
 
+async function resolvePageToken(rootToken) {
+  const result = await graphGet(rootToken, 'id,access_token');
+  return result.response.ok && result.data?.access_token
+    ? { token: result.data.access_token, source: 'derived_page_token' }
+    : { token: rootToken, source: 'provided_token' };
+}
+
+function valuesEquivalent(field, actual, target) {
+  if (field === 'phone') {
+    return String(actual || '').replace(/\D/g, '') === String(target || '').replace(/\D/g, '');
+  }
+  return actual === target;
+}
+
 async function graphWriteField(token, field, value) {
   const body = new URLSearchParams({ [field]: value });
   const response = await fetch(graphUrl(PAGE_ID), {
@@ -71,13 +85,15 @@ export default async function handler(req, res) {
     return json(res, 401, { ok: false, error: 'unauthorized' });
   }
 
-  const token = process.env.META_PAGE_ACCESS_TOKEN;
-  if (!token) return json(res, 503, {
+  const rootToken = process.env.META_PAGE_ACCESS_TOKEN;
+  if (!rootToken) return json(res, 503, {
     ok: false,
     error: 'missing_meta_page_access_token',
     required_permission: 'pages_manage_metadata',
     page_id: PAGE_ID
   });
+  const resolved = await resolvePageToken(rootToken);
+  const token = resolved.token;
 
   const body = req.body || {};
   const action = String(body.action || '').toUpperCase();
@@ -125,7 +141,7 @@ export default async function handler(req, res) {
   const results = [];
   for (const [field, targetValue] of Object.entries(TARGET)) {
     const currentValue = before.data?.[field] ?? null;
-    if (currentValue === targetValue) {
+    if (valuesEquivalent(field, currentValue, targetValue)) {
       results.push({ field, status: 'ALREADY_MATCHES', mutation_performed: false, verified: true });
       continue;
     }
@@ -144,7 +160,7 @@ export default async function handler(req, res) {
     }
 
     const verify = await graphGet(token, `id,${field}`);
-    const verified = verify.response.ok && verify.data?.[field] === targetValue;
+    const verified = verify.response.ok && valuesEquivalent(field, verify.data?.[field] ?? null, targetValue);
     results.push({
       field,
       status: verified ? 'EXECUTED' : 'NOT_RECONCILED',
