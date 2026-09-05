@@ -42,6 +42,42 @@ async function graph(token, method, path, params = {}, body = null) {
   const data = await r.json().catch(() => ({}));
   return { r, data };
 }
+
+async function resolvePageToken(rootToken) {
+  const result = await graph(rootToken, 'GET', PAGE_ID, { fields: 'id,access_token' });
+  return result.r.ok && result.data?.access_token
+    ? { token: result.data.access_token, source: 'derived_page_token' }
+    : { token: rootToken, source: 'provided_token' };
+}
+
+function valuesEquivalent(field, actual, target) {
+  if (field === 'phone') {
+    return String(actual || '').replace(/\D/g, '') === String(target || '').replace(/\D/g, '');
+  }
+  return actual === target;
+}
+
+async function publishedContains(token, postId) {
+  let path = `${PAGE_ID}/published_posts`;
+  let pagesChecked = 0;
+
+  while (path && pagesChecked < 5) {
+    const result = await graph(token, 'GET', path, { fields: 'id', limit: 100 });
+    if (!result.r.ok) return { ok: false, present: null, pages_checked: pagesChecked, graph_error: err(result) };
+    if (Array.isArray(result.data?.data) && result.data.data.some((item) => String(item.id) === postId)) {
+      return { ok: true, present: true, pages_checked: pagesChecked + 1 };
+    }
+
+    const next = result.data?.paging?.next;
+    if (!next) return { ok: true, present: false, pages_checked: pagesChecked + 1 };
+
+    const nextUrl = new URL(next);
+    path = nextUrl.pathname.replace(/^\/v\d+\.\d+\//, '').replace(/^\//, '');
+    pagesChecked += 1;
+  }
+
+  return { ok: true, present: false, pages_checked: pagesChecked };
+}
 function err(x) {
   const e = x?.data?.error;
   return e ? { message: e.message || null, type: e.type || null, code: e.code ?? null, error_subcode: e.error_subcode ?? null } : null;
@@ -57,8 +93,10 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return json(res, 405, { ok: false, error: 'method_not_allowed' });
   const expected = process.env.META_TRANSPORT_SECRET;
   if (!expected || !secureEqual(req.query?.key, expected)) return json(res, 401, { ok: false, error: 'unauthorized' });
-  const token = process.env.META_PAGE_ACCESS_TOKEN;
-  if (!token) return json(res, 503, { ok: false, error: 'missing_meta_page_access_token' });
+  const rootToken = process.env.META_PAGE_ACCESS_TOKEN;
+  if (!rootToken) return json(res, 503, { ok: false, error: 'missing_meta_page_access_token' });
+  const resolved = await resolvePageToken(rootToken);
+  const token = resolved.token;
 
   const action = String(req.query?.action || '').toUpperCase();
   if (action === 'PROBE') {
@@ -70,14 +108,25 @@ export default async function handler(req, res) {
     const postId = String(req.query?.post_id || '');
     if (!ARCHIVE_POST_IDS.has(postId)) return json(res, 400, { ok: false, error: 'post_not_in_archive_manifest' });
     const before = await readPost(token, postId);
-    if (!before.r.ok) return json(res, before.r.status || 502, { ok: false, error: 'prewrite_read_failed', post_id: postId, graph_error: err(before) });
+    if (!before.r.ok) {
+      const membership = await publishedContains(token, postId);
+      if (membership.ok && membership.present === false) {
+        return json(res, 200, { ok: true, mode: 'ALREADY_GONE', mutation_performed: false, reconciled: true, post_id: postId, manifest_decision: 'ARCHIVE', direct_read_graph_error: err(before), published_posts_check: membership });
+      }
+      return json(res, before.r.status || 502, { ok: false, error: 'prewrite_read_failed', post_id: postId, graph_error: err(before), published_posts_check: membership });
+    }
     if (action === 'READ_POST' || String(req.query?.execute) !== 'true') return json(res, 200, { ok: true, mode: 'DRY_RUN', mutation_performed: false, post: before.data, manifest_decision: 'ARCHIVE' });
 
     const deletion = await graph(token, 'DELETE', postId);
     if (!deletion.r.ok || deletion.data?.success !== true) return json(res, deletion.r.status || 502, { ok: false, error: 'delete_failed', post_id: postId, graph_error: err(deletion), response: deletion.data });
     const after = await readPost(token, postId);
-    const gone = !after.r.ok && err(after)?.code === 100;
-    return json(res, gone ? 200 : 409, { ok: gone, mutation_performed: true, reconciled: gone, post_id: postId, verification_graph_error: gone ? null : err(after), verification_data: after.r.ok ? after.data : null });
+    let gone = !after.r.ok && err(after)?.code === 100;
+    let publishedPostsCheck = null;
+    if (!gone && !after.r.ok) {
+      publishedPostsCheck = await publishedContains(token, postId);
+      gone = publishedPostsCheck.ok && publishedPostsCheck.present === false;
+    }
+    return json(res, gone ? 200 : 409, { ok: gone, mutation_performed: true, reconciled: gone, post_id: postId, verification_graph_error: gone ? null : err(after), verification_data: after.r.ok ? after.data : null, published_posts_check: publishedPostsCheck });
   }
 
   if (action === 'SYNC_PROFILE') {
@@ -88,11 +137,11 @@ export default async function handler(req, res) {
 
     const results = [];
     for (const [field, value] of Object.entries(TARGET)) {
-      if ((before.data?.[field] ?? null) === value) { results.push({ field, status: 'ALREADY_MATCHES', verified: true }); continue; }
+      if (valuesEquivalent(field, before.data?.[field] ?? null, value)) { results.push({ field, status: 'ALREADY_MATCHES', verified: true }); continue; }
       const write = await graph(token, 'POST', PAGE_ID, {}, new URLSearchParams({ [field]: value }));
       if (!write.r.ok || write.data?.success !== true) { results.push({ field, status: 'WRITE_FAILED', verified: false, graph_error: err(write) }); continue; }
       const verify = await readPage(token, `id,${field}`);
-      const verified = verify.r.ok && verify.data?.[field] === value;
+      const verified = verify.r.ok && valuesEquivalent(field, verify.data?.[field] ?? null, value);
       results.push({ field, status: verified ? 'EXECUTED' : 'NOT_RECONCILED', verified, value_after: verify.r.ok ? verify.data?.[field] ?? null : null, graph_error: verify.r.ok ? null : err(verify) });
     }
     return json(res, results.every(x => x.verified) ? 200 : 207, { ok: results.every(x => x.verified), mutation_performed: results.some(x => x.status === 'EXECUTED'), results });
