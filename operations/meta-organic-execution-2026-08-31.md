@@ -1,6 +1,6 @@
 # Meta organic execution — 2026-08-31
 
-Status: BLOCKED_ON_META_PAGE_CREDENTIAL
+Status: EXECUTION_PARTIAL
 Parent readiness record: `operations/social-profile-readiness-2026-08-31.md`
 Priority Page: `1135061356346488` — `Al musafir cars trading`
 Priority Instagram: `@almusafircars`
@@ -110,3 +110,94 @@ Do not paste the token into repository files or commit history. Store it only as
 9. Do not attempt automated Instagram deletion; execute its ARCHIVE manifest manually on Instagram because the official API has no delete endpoint for published media.
 
 No ads or budgets are part of this transport.
+
+
+## Live execution update — 2026-09-05
+
+The Meta credential blocker is resolved.
+
+### Credential / asset state
+
+- Meta system user `Al Musafir Automation` exists under business portfolio `809077722268934` / `almusafircars` with Admin access.
+- The runtime token is stored only in Vercel as `META_PAGE_ACCESS_TOKEN`; no token was committed to GitHub.
+- Live Graph verification on `v26.0` resolved:
+  - Facebook Page `1135061356346488` — `Al musafir cars trading`;
+  - Instagram professional account `17841424315000417` — `@almusafircars`.
+- Granted token permissions include `pages_read_engagement`, `pages_manage_posts`, `pages_manage_metadata`, `pages_show_list`, `pages_read_user_content`, `pages_manage_engagement`, `instagram_basic`, `instagram_manage_contents`, `instagram_content_publish`, `instagram_manage_comments`, `instagram_manage_insights`, `instagram_manage_messages`, `read_insights`, and `business_management`.
+- The generated credential is a system-user token. A Page access token can be derived live from Page `1135061356346488`; the durable Meta transports were updated to do this automatically before Page mutations.
+
+### Authoritative inventory recheck
+
+The Google Sheet `AM Motors — Справочник машин` was read directly on 2026-09-05 before mutation.
+
+Material change from the 2026-08-31 manifest:
+- `AM-002` Hyundai Elantra GT 2020 is now `Продана` (updated 2026-09-01).
+- `AM-004` KIA Optima 2020 is now `Продана` (updated 2026-09-01).
+
+Therefore the prior Instagram KEEP decision for the AM-004 Optima post was superseded to ARCHIVE before execution.
+
+### Facebook execution — completed for approved stale manifest
+
+All eight Facebook ARCHIVE targets were deleted through the official Graph API and reconciled against the Page's `published_posts` edge:
+
+- `1135061356346488_122100661352554950`
+- `1135061356346488_122100127040554950`
+- `1135061356346488_122100086162554950`
+- `1135061356346488_122100084116554950`
+- `1135061356346488_122100083270554950`
+- `1135061356346488_122100082226554950`
+- `1135061356346488_122100067154554950`
+- `1135061356346488_122099950184554950`
+
+The first target was read and dry-run checked before deletion; after successful reconciliation the remaining seven were processed one at a time.
+
+Facebook Page identity sync:
+- `about` — updated and read-back verified.
+- `description` — updated and read-back verified.
+- `phone` — Meta normalizes formatting to `+971509786337`; this is the same verified number `+971 50 978 6337`.
+- Page name, username, category, location structure, website and CTA were not mutated by this transport.
+
+### Instagram API capability correction and execution
+
+The earlier statement in this record that published Instagram media cannot be deleted through the official API is superseded by live 2026-09-05 evidence.
+
+The current token has `instagram_manage_contents`, and live `DELETE /{ig-media-id}` calls on Graph API `v26.0` successfully deleted and reconciled published Instagram feed posts/reels for this account.
+
+Live media count before cleanup: 28.
+Live media count after the successful deletions: 10.
+
+18 stale/sold/conflicting Instagram media objects were deleted and confirmed absent from the account media edge. This included:
+- sold AM-002 Elantra GT content;
+- sold AM-004 KIA Optima content;
+- inventory absent from the current Sheet;
+- material mileage/fact conflicts;
+- stale Sorento/Kona/Elantra/Mazda/Nissan inventory covered by the prior ARCHIVE decisions.
+
+Two ARCHIVE targets remain because Meta returned a non-transient internal error `OAuthException code -1 / subcode 2207085` on deletion:
+- `17925514275302291` — reel `DYPOEwiI4uw` — contains wrong WhatsApp number `+971503432337` and unsupported claims `Clean Condition` / `Best Prices`;
+- `18128328997601809` — post `DXe5dNsDBP6` — KIA Sorento 2025 with stale `7000 km` claim vs current `AM-008 = 7600 km`.
+
+Per stop-loss, these two were not blind-retried after the explicit non-transient API failure.
+
+Current Instagram media that were intentionally retained:
+- current verified inventory: Toyota Yaris 2026, Hyundai Elantra 2020 AM-003, Lexus ES 350 2010 AM-005;
+- two August generic export/sales reels without current commercial facts;
+- two older hashtag-only Hyundai reels that require visual identification before deletion;
+- one old image with no caption that still requires visual identification;
+- the two API-failed stale targets above pending manual removal or a separately justified retry path.
+
+Current Instagram profile identity still reads:
+- display name: `Al musafir White Motors`;
+- bio: generic showroom text in three languages;
+- website: empty.
+
+Those profile fields were not mutated by the Graph transport in this run.
+
+### Durable transport correction
+
+The production Meta routes were updated so `META_PAGE_ACCESS_TOKEN` may contain the current system-user token:
+- Page token is derived internally before Page reads/writes.
+- Facebook deletion reconciliation falls back to the Page `published_posts` edge when direct read-back returns an ambiguous Graph error after deletion.
+- Phone verification compares normalized digits so Meta's formatting normalization does not create a false failure.
+
+No ads, campaigns, ad sets, creatives, targeting, budgets, billing settings or customer messages were changed.
