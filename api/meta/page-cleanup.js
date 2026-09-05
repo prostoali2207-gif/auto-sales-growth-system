@@ -49,6 +49,48 @@ async function graphRequest(token, method, path, params = {}) {
   return { response, data };
 }
 
+async function resolvePageToken(rootToken) {
+  const result = await graphRequest(rootToken, 'GET', PAGE_ID, {
+    fields: 'id,access_token'
+  });
+  if (result.response.ok && result.data?.access_token) return {
+    token: result.data.access_token,
+    source: 'derived_page_token'
+  };
+  return { token: rootToken, source: 'provided_token' };
+}
+
+async function publishedContains(token, postId) {
+  let path = `${PAGE_ID}/published_posts`;
+  let pagesChecked = 0;
+
+  while (path && pagesChecked < 5) {
+    const result = await graphRequest(token, 'GET', path, {
+      fields: 'id',
+      limit: 100
+    });
+    if (!result.response.ok) return {
+      ok: false,
+      present: null,
+      pages_checked: pagesChecked,
+      graph_error: graphError(result)
+    };
+
+    if (Array.isArray(result.data?.data) && result.data.data.some((item) => String(item.id) === postId)) {
+      return { ok: true, present: true, pages_checked: pagesChecked + 1 };
+    }
+
+    const next = result.data?.paging?.next;
+    if (!next) return { ok: true, present: false, pages_checked: pagesChecked + 1 };
+
+    const nextUrl = new URL(next);
+    path = nextUrl.pathname.replace(/^\/v\d+\.\d+\//, '').replace(/^\//, '');
+    pagesChecked += 1;
+  }
+
+  return { ok: true, present: false, pages_checked: pagesChecked };
+}
+
 function graphError(result) {
   const err = result?.data?.error;
   return err ? {
@@ -102,13 +144,15 @@ export default async function handler(req, res) {
     return json(res, 401, { ok: false, error: 'unauthorized' });
   }
 
-  const token = process.env.META_PAGE_ACCESS_TOKEN;
-  if (!token) return json(res, 503, {
+  const rootToken = process.env.META_PAGE_ACCESS_TOKEN;
+  if (!rootToken) return json(res, 503, {
     ok: false,
     error: 'missing_meta_page_access_token',
     required_permissions: ['pages_read_engagement', 'pages_manage_posts'],
     page_id: PAGE_ID
   });
+  const resolved = await resolvePageToken(rootToken);
+  const token = resolved.token;
 
   const body = req.body || {};
   const { action, errors } = validateBody(body);
@@ -137,11 +181,25 @@ export default async function handler(req, res) {
   const before = await readPost(token, postId);
 
   if (!before.response.ok) {
+    const membership = await publishedContains(token, postId);
+    if (membership.ok && membership.present === false) {
+      return json(res, 200, {
+        ok: true,
+        mode: 'ALREADY_GONE',
+        mutation_performed: false,
+        reconciled: true,
+        post_id: postId,
+        manifest_decision: 'ARCHIVE',
+        direct_read_graph_error: graphError(before),
+        published_posts_check: membership
+      });
+    }
     return json(res, before.response.status || 502, {
       ok: false,
       error: 'prewrite_read_failed',
       post_id: postId,
-      graph_error: graphError(before)
+      graph_error: graphError(before),
+      published_posts_check: membership
     });
   }
 
@@ -176,7 +234,14 @@ export default async function handler(req, res) {
   }
 
   const after = await readPost(token, postId);
-  const verifiedDeleted = isVerifiedGone(after);
+  let verifiedDeleted = isVerifiedGone(after);
+  let publishedPostsCheck = null;
+
+  if (!verifiedDeleted && !after.response.ok) {
+    publishedPostsCheck = await publishedContains(token, postId);
+    verifiedDeleted = publishedPostsCheck.ok && publishedPostsCheck.present === false;
+  }
+
   if (!verifiedDeleted) {
     return json(res, 409, {
       ok: false,
@@ -187,7 +252,8 @@ export default async function handler(req, res) {
       delete_response: deletion.data,
       verification_http_status: after.response.status,
       verification_graph_error: graphError(after),
-      verification_data: after.response.ok ? after.data : null
+      verification_data: after.response.ok ? after.data : null,
+      published_posts_check: publishedPostsCheck
     });
   }
 
