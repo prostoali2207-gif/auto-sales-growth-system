@@ -217,3 +217,77 @@ SOCIAL_PROFILE_READY only after:
 4. YouTube channel identity conflict is resolved through authenticated account/API identity before any mutation;
 5. Telegram media-only posts 153/154 are visually inspected and retained/archived/re-captioned based on what they actually contain;
 6. a buyer can move from each profile to a verified inquiry path with no contradictory commercial facts.
+
+
+## Live execution override — 2026-09-05
+
+This section supersedes stale operational statements above where they conflict with the verified 2026-09-05 run.
+
+### Current source-of-truth inventory delta
+
+Direct read of `AM Motors — Справочник машин` on 2026-09-05 found:
+- `AM-002` Hyundai Elantra GT 2020 — `Продана`, updated 2026-09-01.
+- `AM-004` KIA Optima 2020 — `Продана`, updated 2026-09-01.
+
+Therefore the earlier Instagram KEEP entry for KIA Optima 2020 (`DbIVy88CKDm`) is no longer valid and is superseded to ARCHIVE. The post was deleted through the official API during this run.
+
+### Facebook — execution result
+
+The full eight-item Facebook ARCHIVE manifest above has been executed and reconciled. All eight stale/conflicting Page posts are now absent from the Page's `published_posts` edge.
+
+Buyer-facing Page fields:
+- About — aligned to used cars in Ajman / Showroom 171 / verified WhatsApp / languages.
+- Description — aligned to the same factual identity and buyer path.
+- Phone — confirmed as the same verified WhatsApp number; Meta stores normalized formatting `+971509786337`.
+- Page name / username / category / structured location / website / CTA were not changed by the API run.
+
+### Instagram — execution result
+
+Previous statement that official Instagram API cannot delete published media is outdated.
+
+Live Graph API `v26.0` with granted `instagram_manage_contents` successfully deleted published media and reconciled their absence.
+
+Before cleanup: 28 media objects.
+After successful cleanup: 10 media objects.
+
+18 stale/sold/conflicting media objects were deleted.
+
+Current verified inventory posts intentionally retained:
+- Toyota Yaris 2026 — `DcbLZjaiIGJ`.
+- Hyundai Elantra 2020 AM-003 — `DbSvR-4iGyd`.
+- Lexus ES 350 2010 AM-005 — `DbIeqczCIMD`.
+
+Two known stale objects remain because Meta returned non-transient internal deletion error `OAuthException -1 / 2207085`:
+- `DYPOEwiI4uw` — wrong WhatsApp number and unsupported commercial claims.
+- `DXe5dNsDBP6` — KIA Sorento 2025, stale 7000 km vs current 7600 km.
+
+Five other retained media objects are not safe to delete from text alone and require visual/content identification first:
+- `Db20iyFCNL-` — generic UAE/export reel.
+- `Db0S08mITlR` — generic UAE/export/sales reel.
+- `DX_vOAzodI6` — hashtag-only Hyundai reel.
+- `DX4FIqGsIfT` — hashtag-only Hyundai reel.
+- `DXbNx8_DGm8` — image with no caption.
+
+Current Instagram profile remains misaligned:
+- display name: `Al musafir White Motors`;
+- bio: generic three-language showroom text;
+- website/link: empty.
+
+These profile fields remain a separate mutation task.
+
+### Current Meta transport state
+
+The Vercel credential is working and resolves both the priority Page and `@almusafircars`.
+Durable Page routes now derive a Page access token internally from the stored system-user token before Page reads/writes.
+
+No ads, budgets, billing settings or customer messages were changed.
+
+### Updated Meta completion blockers
+
+For Facebook/Instagram, the remaining blockers are now limited to:
+1. remove or otherwise resolve the two Instagram media objects that Meta rejected with non-transient delete error;
+2. visually identify the five retained ambiguous Instagram media objects and apply KEEP/ARCHIVE decisions;
+3. align Instagram display name/bio/link;
+4. decide whether Facebook Page name/category/location/CTA require manual/API follow-up.
+
+Other channel blockers from the broader readiness record remain unchanged.
