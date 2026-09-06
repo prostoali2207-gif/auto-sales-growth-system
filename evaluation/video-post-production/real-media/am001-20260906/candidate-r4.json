@@ -39,6 +39,22 @@
     "black_interval_detection": "PASS by visual/contact inspection; no qualifying unintended interval observed",
     "freeze_detection": "PASS by visual/contact inspection; no qualifying unintended interval observed"
   },
-  "status": "PENDING_USER_REVIEW",
-  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE"
+  "status": "TARGETED_REPAIR_ACCEPTED__CASE_STILL_OPEN",
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE",
+  "user_review": {
+    "result": "targeted repair accepted",
+    "feedback": "Door transition is now acceptable after extending the post-open payoff before the cockpit cut.",
+    "reviewer_role": "accountable business/user reviewer; not treated as calibrated professional craft reviewer"
+  },
+  "failure_classification": {
+    "capture_insufficiency_for_this_defect": false,
+    "deterministic_tool_failure": false,
+    "knowledge_gap_proven": false,
+    "perceptual_craft_self_qc_failure": true
+  },
+  "regression": {
+    "reusable_repo": "professional-ai-agents",
+    "path": "architect/evaluation/video_editing_post_production/regressions/am001-door-action-resolution-20260906.md",
+    "assertion": "initiated physical action must perceptually resolve or be intentionally interrupted; candidate must catch this in export self-QC"
+  }
 }
