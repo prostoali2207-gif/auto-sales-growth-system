@@ -296,3 +296,31 @@ Deterministic audio checks:
 Important boundary: meter/decode checks do not establish sound-design craft. The current runtime can construct and inspect deterministic audio properties but does not independently perform the calibrated full-artifact listen required by the Commercial Sound Design candidate. R5 therefore remains **UNQUALIFIED / PENDING PERCEPTUAL REVIEW**.
 
 See `candidate-r5-sounddesign.json`.
+
+
+### R6 coherent soundscape candidate
+
+R5 user feedback: sound felt somewhat better, but the raw background ambience still changed audibly from clip to clip. This exposed an **AMBIENCE_CONTINUITY_FAIL**: the acoustic fingerprint revealed picture edits.
+
+R6 keeps the R4 picture unchanged and replaces all per-clip production ambience with one continuous acoustic environment. Only intentional authentic action audio is reintroduced.
+
+Sound design:
+- per-clip source ambience: removed;
+- continuous bed: one coherent room-tone environment derived from a single quiet source segment and looped seamlessly;
+- subtle non-evidentiary air texture used only for continuity/macro shaping;
+- real AM-001 door-opening recording retained and matched to visual retime;
+- no fake vehicle event sounds;
+- no music;
+- no generic whoosh-per-cut pattern.
+
+Artifact:
+- `AM001_candidate_R6_clean_soundscape.mp4`
+- SHA-256 `ad9efba48d33d25ef0353422966026c1ac53e04c8351c6cce56ed16a7266b0dc`
+- mean audio approximately -29.3 dB;
+- max approximately -8.5 dB;
+- R4/R6 elementary video stream SHA-256 `86fbf22b03a53cdf921210f7ffb454073fa3c59beeb1193879575ba42cfd405e` — picture unchanged.
+
+This user-observed failure is also recorded in the reusable Commercial Sound Design candidate as:
+`architect/evaluation/commercial-sound-design/regressions/am001-ambience-continuity-20260906.md`.
+
+R6 remains **UNQUALIFIED / PENDING PERCEPTUAL REVIEW**.
