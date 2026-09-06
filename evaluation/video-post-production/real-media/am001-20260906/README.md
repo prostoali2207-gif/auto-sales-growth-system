@@ -231,3 +231,28 @@ No new professional core or agent is justified.
 - new professional agent/core: **REJECT**
 
 If R3 still fails on edit-fixable dimensions under independent competent review, the failure remains in perceptual craft/runtime execution. If those dimensions pass and only lighting/camera-path/background/source-audio limitations remain, route the next repair upstream to Automotive Commercial Capture Direction rather than expanding the post-production core.
+
+
+### R3 -> R4 production regression: unresolved door action
+
+The accountable user preferred R3 over the previous candidate but identified a specific defect the system had failed to catch itself: the door-opening beat showed the action and then cut away before the open-door result had a satisfying perceptual payoff.
+
+This defect is important because the frozen source contained enough post-open material. Therefore this specific miss is **not attributable to weak capture**.
+
+Classification for this defect:
+- capture insufficiency: **NO**
+- FFmpeg/render mechanics: **NO**
+- missing business facts: **NO**
+- perceptual craft / export self-QC: **YES**
+
+R4 changed only the action-resolution region:
+- extend the real door-opening shot through a visible post-open state;
+- then cut to cockpit as the interior payoff;
+- preserve the rest of the R3 structure.
+
+The accountable user judged the corrected door moment acceptable.
+
+This incident is now promoted to reusable regression evidence in:
+`professional-ai-agents/architect/evaluation/video_editing_post_production/regressions/am001-door-action-resolution-20260906.md`.
+
+Architecture effect: **CAPABILITY / EVALUATION EXTEND**, not a new agent/core and not yet an automotive specialization.
