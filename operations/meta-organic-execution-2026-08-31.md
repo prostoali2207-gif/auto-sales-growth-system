@@ -201,3 +201,25 @@ The production Meta routes were updated so `META_PAGE_ACCESS_TOKEN` may contain 
 - Phone verification compares normalized digits so Meta's formatting normalization does not create a false failure.
 
 No ads, campaigns, ad sets, creatives, targeting, budgets, billing settings or customer messages were changed.
+
+
+### Instagram profile write probe — 2026-09-06
+
+A live guarded write attempt was performed against Instagram professional account `17841424315000417` for the already-approved target identity:
+- display name: `Al Musafir Cars | Ajman`;
+- biography: used cars in Ajman + Showroom 171 + verified WhatsApp + languages;
+- website: `https://wa.me/971509786337`.
+
+All three fields returned Graph `Unsupported post request` / code `100`, subcode `33`.
+Read-back confirmed no Instagram profile field changed.
+
+Result:
+- Instagram display name / biography / website are `MANUAL_ONLY_WITH_CURRENT_OFFICIAL_GRAPH_SURFACE`.
+- Do not retry these same writes through Graph without new capability evidence.
+
+The five remaining visually ambiguous retained media objects were not deleted because their text metadata alone does not prove a stale commercial conflict. They remain pending visual classification:
+- `Db20iyFCNL-`
+- `Db0S08mITlR`
+- `DX_vOAzodI6`
+- `DX4FIqGsIfT`
+- `DXbNx8_DGm8`
