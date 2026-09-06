@@ -256,3 +256,43 @@ This incident is now promoted to reusable regression evidence in:
 `professional-ai-agents/architect/evaluation/video_editing_post_production/regressions/am001-door-action-resolution-20260906.md`.
 
 Architecture effect: **CAPABILITY / EVALUATION EXTEND**, not a new agent/core and not yet an automotive specialization.
+
+
+### R5 isolated sound-design practical candidate
+
+R5 keeps the accepted R4 picture exactly unchanged and alters only the soundtrack.
+
+Video elementary stream identity:
+- R4 SHA-256: `2f8aa79c77a29f16789e400d04b5b1f810dce83197279d7a725de36624845a17`
+- R5 SHA-256: `2f8aa79c77a29f16789e400d04b5b1f810dce83197279d7a725de36624845a17`
+- result: **identical picture stream**
+
+Controlled variable: **Commercial Sound Design only**.
+
+The design follows reusable candidate EXTEND issue #289 / PR #290:
+
+- sonic thesis: restrained tactile showroom realism;
+- authentic showroom ambience as support;
+- deliberate negative space through detail beats;
+- authentic door-opening production audio as the hero event;
+- bounded low-frequency support derived from the same real door recording;
+- authentic interior ambience;
+- no music;
+- no fake engine/rev;
+- no fake button/control sounds;
+- generic one-whoosh-per-cut decoration removed.
+
+Artifact:
+- `AM001_candidate_R5_sounddesign.mp4`
+- SHA-256 `2c5425b1e8e94c62b5979b412ec1e1e027c47002f34428d40f9dd387c7dcc42b`
+- 1080x1920, 30 fps, 10.23 s, H.264 + AAC 48 kHz stereo.
+
+Deterministic audio checks:
+- decode/audio stream: PASS;
+- max level approximately -9.8 dB;
+- mean approximately -31.7 dB;
+- picture stream unchanged from R4.
+
+Important boundary: meter/decode checks do not establish sound-design craft. The current runtime can construct and inspect deterministic audio properties but does not independently perform the calibrated full-artifact listen required by the Commercial Sound Design candidate. R5 therefore remains **UNQUALIFIED / PENDING PERCEPTUAL REVIEW**.
+
+See `candidate-r5-sounddesign.json`.
