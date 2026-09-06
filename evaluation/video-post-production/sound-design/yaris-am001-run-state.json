@@ -1,0 +1,27 @@
+{
+  "schema_version":"1.0.0",
+  "gate_id":"yaris-am001-commercial-sound-design-20260906",
+  "vehicle_id":"AM-001",
+  "music_constraint":"NO_MUSIC",
+  "status":"BLOCKED_MEDIA_ACCESS",
+  "qualification_effect":"NO_PASS_CLAIM",
+  "expected_baseline_filename":"Toyota_Yaris_2026_AM001_Reel_v1.mp4",
+  "related_media_filename":"20260906_132002.mp4",
+  "baseline_sha256":null,
+  "candidate_render_sha256":null,
+  "real_media_listened":false,
+  "playback_contexts":[],
+  "known_regressions":[
+    "door-opening action cuts away before satisfying physical payoff",
+    "sound must not be used as a bandage for unresolved picture action"
+  ],
+  "required_hard_gates":[
+    "truth_preserving_vehicle_sound",
+    "actual_exported_artifact",
+    "artifact_provenance",
+    "door_regression_repaired",
+    "coherent_macro_arc_without_music",
+    "phone_and_headphone_perceptual_qc"
+  ],
+  "notes":"Do not convert BLOCKED_MEDIA_ACCESS into PASS/FAIL. Execute when the actual media artifact becomes addressable."
+}
