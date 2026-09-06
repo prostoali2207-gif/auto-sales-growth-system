@@ -111,8 +111,12 @@ Do not tell reviewers which version is the candidate until after judgment.
 
 ## Current execution state
 
-The media files are not addressable through the current repository/File Library tool surface in this chat, so the actual render/listen step has not been executed here.
+The authoritative Google Drive folder `AM-001 — Toyota Yaris 2026` is now accessible and all 13 dated 2026-09-06 MP4 source clips have been retrieved/visually audited. See `yaris-am001-source-audit-2026-09-06.md`.
 
-Classification: `BLOCKED_MEDIA_ACCESS`, not professional FAIL and not PASS.
+The door source `20260906_131326.mp4` is confirmed to contain the complete physical opening action plus a real production-audio track. This proves the known door failure can be repaired at the selection/timing layer rather than hidden with an exaggerated sound effect.
 
-The candidate EXTEND must remain NOT QUALIFIED until this exact real-media gate is executed with the accessible artifact.
+The exact final failure render `Toyota_Yaris_2026_AM001_Reel_v1.mp4` is still not present in the authoritative Drive folder/search and has no verified hash in this gate. The final candidate sound mix has also not been perceptually listened to or exported under this gate.
+
+Classification: `SOURCE_MEDIA_AVAILABLE_BASELINE_RENDER_MISSING`.
+
+This is neither professional FAIL nor PASS. Source-level diagnosis and repair design may continue, but the candidate EXTEND must remain NOT QUALIFIED until the produced real-media render receives the required perceptual gate.
