@@ -143,3 +143,91 @@ For a qualification claim:
 4. If R1 fails because of execution/perception, iterate the runtime/tool loop.
 5. Only if a repeatable automotive-specific judgment failure remains, test a bounded automotive craft specialization.
 6. Do not mark real-media craft/execution QUALIFIED until the practical gate passes.
+
+## Baseline recovery and iterative result — 2026-09-06
+
+The user supplied the actual strongest failed baseline:
+
+- `Toyota_Yaris_2026_AM001_Reel_v1.mp4`
+- SHA-256 `2ca4dc06f769e27b2f6665bfd6f526dbbb6808a5dd97f52ee9b069f1c918a28c`
+- 1080x1920, 30 fps, 18.566667 s, H.264 + AAC.
+
+This closes the earlier "baseline unavailable" gap. See `baseline-v1.json`.
+
+### R2 blind business review
+
+A blind pair was shown to the accountable user/business reviewer:
+
+- A = R2
+- B = failed baseline v1
+
+The reviewer preferred **A / R2**, specifically because the moments/selection were better, not merely because of visible editing effects. The reviewer also reported that residual unprofessionalism remained and explicitly did not claim professional video-review expertise.
+
+Interpretation:
+
+- **Fact:** R2 beat the failed baseline in the accountable user's blind preference.
+- **Fact:** this is useful production evidence, not calibrated professional craft qualification.
+- **Decision:** R2 = **REVISE**, not PASS.
+
+See `candidate-r2.json`.
+
+### Capture-vs-post-production split
+
+Inspection of the frozen sources and R2 shows two distinct ceilings.
+
+**Still post-production-fixable:**
+- weak/redundant interior dwell;
+- insufficient macro-to-wide rhythm compression;
+- generic/heavy graphic treatment;
+- weak artistic sound design;
+- selective reframing/cropping to reduce clutter;
+- tighter CTA/final-hero timing.
+
+**Capture-limited after editing:**
+- cluttered showroom backgrounds and other vehicles in frame;
+- flat/industrial overhead lighting and uncontrolled reflections;
+- mostly eye-level handheld paths with limited controlled parallax/reveal;
+- insufficient clean hero angles / foreground separation / depth;
+- blown exterior view through the windshield in interior coverage;
+- limited clean automotive Foley capture beyond the door action;
+- protective interior plastics that reduce premium visual finish.
+
+These capture limitations do not excuse the R2 post-production misses. They constrain the maximum achievable finish after those misses are repaired.
+
+### R3 diagnostic ceiling candidate
+
+R3 intentionally removes or repairs the post-production-fixable defects before attributing the remaining gap to capture:
+
+- runtime reduced to 9.482 s;
+- weak seat section removed;
+- exterior/detail/interior progression compressed;
+- graphic footprint reduced;
+- real door-action audio made more prominent;
+- no music;
+- only short non-evidentiary air-swish transitions added;
+- no generative vehicle alteration.
+
+Artifact:
+- `AM001_candidate_R3_1080x1920.mp4`
+- SHA-256 `9bdbaa516cb7e4ff2eab9adeafb1963b0a623b218a067ca8736c893e7f941f56`
+- 1080x1920, 30 fps, 9.482 s, H.264 + AAC.
+
+Deterministic QC passed for decode, expected dimensions/frame rate/audio stream, and no qualifying unintended black/freeze interval was observed.
+
+R3 remains **UNQUALIFIED / PENDING HUMAN REVIEW**. Its role is diagnostic: determine whether the residual quality gap is still materially post-production-driven or has become primarily capture-limited.
+
+See `candidate-r3.json`.
+
+### Updated architecture decision
+
+No new professional core or agent is justified.
+
+- Video Editing & Post-Production core: **REUSE**
+- UAE automotive specialization: **REUSE**
+- real-media craft evaluation: **EXTEND**
+- perception -> edit -> render -> inspect -> revise loop: **CAPABILITY**
+- FFmpeg/ffprobe or equivalent NLE backend: **DETERMINISTIC TOOL**
+- new automotive craft specialization: **REJECT FOR NOW**
+- new professional agent/core: **REJECT**
+
+If R3 still fails on edit-fixable dimensions under independent competent review, the failure remains in perceptual craft/runtime execution. If those dimensions pass and only lighting/camera-path/background/source-audio limitations remain, route the next repair upstream to Automotive Commercial Capture Direction rather than expanding the post-production core.
