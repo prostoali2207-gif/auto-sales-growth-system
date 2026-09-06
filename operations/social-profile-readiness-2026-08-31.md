@@ -291,3 +291,12 @@ For Facebook/Instagram, the remaining blockers are now limited to:
 4. decide whether Facebook Page name/category/location/CTA require manual/API follow-up.
 
 Other channel blockers from the broader readiness record remain unchanged.
+
+
+### Instagram profile capability result — 2026-09-06
+
+Guarded Graph write attempts for Instagram `@almusafircars` display name, biography and website all failed with `Unsupported post request` (Graph code 100 / subcode 33). Read-back confirmed no mutation.
+
+These three Instagram profile fields are now explicitly `MANUAL_ONLY_WITH_CURRENT_OFFICIAL_GRAPH_SURFACE`.
+
+The five text-ambiguous retained media objects remain intentionally untouched pending visual classification; no unsupported deletion decision was inferred from captions alone.
