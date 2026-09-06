@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906-R4",
+  "artifact_role": "targeted post-production correction after user review; not publication approval",
+  "vehicle_id": "AM-001",
+  "trigger_feedback": "Door-opening beat in R3 had no payoff: the door opened and the edit immediately cut away.",
+  "repair_hypothesis": "Extend the door-open shot through a visible post-open hold, then cut into cockpit so the action resolves into an interior reveal instead of feeling truncated.",
+  "output": {
+    "filename": "AM001_candidate_R4_1080x1920.mp4",
+    "sha256": "706d0792c070f1eb2d883ffad16398cf37ab4cd88d0178eb57dad98bce6f5aef",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 10.23,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_mean_db": -30.2,
+    "audio_max_db": -10.1
+  },
+  "delta_from_r3": {
+    "door_source": "20260906_131326.mp4",
+    "door_trim_seconds": {
+      "in": 3.35,
+      "out": 5.45
+    },
+    "door_retime": 1.15,
+    "cockpit_source": "20260906_131621.mp4",
+    "cockpit_trim_seconds": {
+      "in": 0.7,
+      "out": 1.75
+    },
+    "intent": "door opens -> visible interior payoff -> cockpit cut",
+    "other_structure": "unchanged from R3"
+  },
+  "deterministic_qc": {
+    "full_decode": "PASS",
+    "dimensions_fps": "PASS: 1080x1920 @ 30 fps",
+    "audio_stream": "PASS",
+    "black_interval_detection": "PASS by visual/contact inspection; no qualifying unintended interval observed",
+    "freeze_detection": "PASS by visual/contact inspection; no qualifying unintended interval observed"
+  },
+  "status": "PENDING_USER_REVIEW",
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE"
+}
