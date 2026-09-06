@@ -300,3 +300,23 @@ Guarded Graph write attempts for Instagram `@almusafircars` display name, biogra
 These three Instagram profile fields are now explicitly `MANUAL_ONLY_WITH_CURRENT_OFFICIAL_GRAPH_SURFACE`.
 
 The five text-ambiguous retained media objects remain intentionally untouched pending visual classification; no unsupported deletion decision was inferred from captions alone.
+
+
+## Sales-first correction — 2026-09-06
+
+The social-profile cleanup work is now subordinate to the commercial funnel objective.
+
+Hard operating rule:
+- Do not delete or archive social content merely because the vehicle is sold, old, visually imperfect, or no longer current inventory.
+- Existing content may still serve REACH, TRUST or social-proof value.
+- Remove/repair content only when it creates a material buyer risk: false current availability, wrong commercial facts, wrong contact route, unsupported claims presented as current fact, or other direct funnel harm.
+- Profile cleanup is frozen unless a specific defect blocks or materially harms inquiry -> qualified lead -> appointment/test drive -> sale.
+- Work/Cloud Browser is restricted to profile-only UI fields and must not manage publications.
+
+Current priority shifts to producing and testing sales content against current authoritative inventory, using existing media and measuring:
+reach/views -> retention -> action -> inquiry -> qualified lead -> appointment/test drive -> sale.
+
+Immediate execution priority:
+1. use fresh current media already present for AM-001 Toyota Yaris 2026 to prepare a sales-focused content cycle;
+2. AM-018 Hyundai Santa Fe 2010 currently has only proof stills in its Drive folder and is not yet media-ready for a proper Reel;
+3. do not resume broad profile cleanup before a real sales/content experiment is running.
