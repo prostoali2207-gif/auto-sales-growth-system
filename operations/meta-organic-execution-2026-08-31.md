@@ -270,3 +270,22 @@ Connecting a second Instagram-login token does not by itself add a documented pr
 The Vercel Hobby API deployment quota was reached during live diagnostics (`api-deployments-free-per-day`, reset after the provider window). The currently active production deployment still resolves the normal Meta routes and a temporary authenticated media-read operator used for the visual inspection. The operator is not committed to GitHub; repository `main` remains the durable source of truth.
 
 Next production redeploy should restore exactly the committed runtime once the Vercel deployment quota resets.
+
+
+### Work / Cloud Browser scope correction — 2026-09-06
+
+A prior handoff to Work was too broad because it referenced the full cleanup task. This is corrected.
+
+Hard boundary:
+- Work / Cloud Browser may be used only for Instagram profile fields that the official Graph surface cannot mutate: display name, biography, website/link, and equivalent profile-only UI settings.
+- Work / Cloud Browser MUST NOT delete, archive, hide, remove-from-grid, edit, publish, pin, or otherwise mutate Facebook/Instagram posts, reels, stories, comments, ads, or messages.
+- Organic publication management remains in the API/connector execution path governed by the structured KEEP/ARCHIVE decisions in this repository.
+
+Live Instagram recheck after the Work attempt:
+- previous API-observed media count: 10;
+- current API-observed media count: 9;
+- only one media object is absent: `Db0S08mITlR` / `18624040168007458`;
+- that object had already been classified `ARCHIVE` before the Work attempt.
+- Current KEEP inventory posts (Yaris `DcbLZjaiIGJ`, Elantra AM-003 `DbSvR-4iGyd`, Lexus `DbIeqczCIMD`) and TRUST reel `Db20iyFCNL-` remain present through the live Instagram media edge.
+
+If the visible profile grid appears to contain fewer items than the media edge, treat that as a separate grid-visibility state and do not infer deletion without API verification.
