@@ -223,3 +223,50 @@ The five remaining visually ambiguous retained media objects were not deleted be
 - `DX_vOAzodI6`
 - `DX4FIqGsIfT`
 - `DXbNx8_DGm8`
+
+
+### Visual classification of the five text-ambiguous Instagram media — 2026-09-06
+
+Four reels were downloaded through the authenticated Meta transport and analyzed scene-by-scene before any new deletion decision.
+
+1. `Db20iyFCNL-` / media `18127847383735719`
+   - Visual/audio: Hyundai Elantra 2025 being prepared/exported to Iran; bumper/door paint damage is explicitly disclosed; the narration says this unit is leaving and was the last of three.
+   - Decision: `KEEP / TRUST`.
+   - Reason: historical/export-process content, not a current availability offer; it demonstrates process/transparency and does not claim this unit is still for sale.
+
+2. `Db0S08mITlR` / media `18624040168007458`
+   - Visual/audio: Toyota Yaris repair disclosure + current-sale CTA.
+   - Conflict: narration says roughly `4,000 km` while authoritative AM-001 is `4,500 km`; also uses `brand new` language not present in the source of truth.
+   - Decision: `ARCHIVE`.
+
+3. `DX_vOAzodI6` / media `18104710360964344`
+   - Visual/audio: black Hyundai Tucson sales reel.
+   - Unsupported claims include `engine and gearbox are in perfect condition`, `like new`, `best price in the market`.
+   - Decision: `ARCHIVE`.
+
+4. `DX4FIqGsIfT` / media `18083003408408733`
+   - Visual/audio: Hyundai Elantra 2025 direct-sale reel with `40,000 AED`, `low mileage`, `full option`, `original condition`.
+   - No Hyundai Elantra 2025 is present in the current authoritative inventory sheet.
+   - Decision: `ARCHIVE`.
+
+5. `DXbNx8_DGm8` / media `18127297303598410`
+   - Still image with no caption.
+   - Decision remains `PENDING VISUAL IDENTIFICATION`; no deletion inference was made from missing text alone.
+
+A controlled retry of the two previously failed Instagram deletions remains justified only after a separate execution path is available:
+- `DYPOEwiI4uw` / `17925514275302291`
+- `DXe5dNsDBP6` / `18128328997601809`
+
+### Official profile-edit capability conclusion — 2026-09-06
+
+Current Meta official Instagram API surfaces expose profile metadata for reading and support publishing, comments, messaging, insights and related management, but the current official request collection does not expose an endpoint to update professional-account `name`, `biography` or `website`.
+
+This matches the live Graph result: POST attempts to those three fields returned code 100 / subcode 33 and no mutation.
+
+Connecting a second Instagram-login token does not by itself add a documented profile-edit endpoint. Remaining profile identity changes therefore require an authenticated UI-capable execution path (e.g. Meta/Instagram web UI automation) rather than more Graph permissions.
+
+### Vercel execution note — 2026-09-06
+
+The Vercel Hobby API deployment quota was reached during live diagnostics (`api-deployments-free-per-day`, reset after the provider window). The currently active production deployment still resolves the normal Meta routes and a temporary authenticated media-read operator used for the visual inspection. The operator is not committed to GitHub; repository `main` remains the durable source of truth.
+
+Next production redeploy should restore exactly the committed runtime once the Vercel deployment quota resets.
