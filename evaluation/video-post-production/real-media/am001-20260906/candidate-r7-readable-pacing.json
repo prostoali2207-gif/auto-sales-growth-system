@@ -47,5 +47,18 @@
     "audio_stream": "PASS"
   },
   "status": "PENDING_USER_REVIEW",
-  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE"
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE",
+  "external_review": {
+    "provider": "Higgsfield video analysis",
+    "analysis_id": "9acbc5d7-6e47-441f-9364-ca24653a6422",
+    "role": "independent external model-based scene analysis; not human qualification reviewer",
+    "review_questions": [
+      "Does pacing allow product readability on mobile?",
+      "Are transitions/actions perceptually resolved?",
+      "Are graphics/readability and final CTA commercially coherent?",
+      "Does sound feel continuous and intentional?",
+      "Which remaining defects are post-production-fixable vs capture-limited?"
+    ],
+    "status": "IN_PROGRESS"
+  }
 }
