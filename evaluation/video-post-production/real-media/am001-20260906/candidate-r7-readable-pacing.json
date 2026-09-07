@@ -51,14 +51,59 @@
   "external_review": {
     "provider": "Higgsfield video analysis",
     "analysis_id": "9acbc5d7-6e47-441f-9364-ca24653a6422",
-    "role": "independent external model-based scene analysis; not human qualification reviewer",
-    "review_questions": [
-      "Does pacing allow product readability on mobile?",
-      "Are transitions/actions perceptually resolved?",
-      "Are graphics/readability and final CTA commercially coherent?",
-      "Does sound feel continuous and intentional?",
-      "Which remaining defects are post-production-fixable vs capture-limited?"
+    "role": "external model-based scene analysis; explicitly not a human qualification reviewer",
+    "status": "COMPLETED_WITH_LIMITATION",
+    "scene_segmentation": [
+      {
+        "scene": 1,
+        "time": "0:00-0:01",
+        "label": "front opening"
+      },
+      {
+        "scene": 2,
+        "time": "0:01-0:02",
+        "label": "headlight detail"
+      },
+      {
+        "scene": 3,
+        "time": "0:02-0:03",
+        "label": "side profile"
+      },
+      {
+        "scene": 4,
+        "time": "0:03-0:04",
+        "label": "rear three-quarter"
+      },
+      {
+        "scene": 5,
+        "time": "0:04-0:06",
+        "label": "door action"
+      },
+      {
+        "scene": 6,
+        "time": "0:06-0:08",
+        "label": "cockpit"
+      },
+      {
+        "scene": 7,
+        "time": "0:08-0:09",
+        "label": "cluster"
+      },
+      {
+        "scene": 8,
+        "time": "0:09-0:11",
+        "label": "final hero/CTA"
+      }
     ],
-    "status": "IN_PROGRESS"
+    "useful_evidence": [
+      "external segmentation recognized the intended eight-beat structure",
+      "door and cockpit beats were each perceived as multi-second scenes rather than flashes",
+      "final hero/CTA was perceived as a distinct closing scene"
+    ],
+    "evaluator_failure": [
+      "audio analysis claimed continuous upbeat electronic music although R7 contains no music",
+      "therefore provider audio/perceptual claims are not trusted for qualification"
+    ],
+    "qualification_effect": "NONE; does not satisfy independent competent human practitioner requirement"
   }
 }
