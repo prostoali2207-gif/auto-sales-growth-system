@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906-R1",
+  "artifact_role": "real-media practical candidate; not publication approval",
+  "vehicle_id": "AM-001",
+  "output": {
+    "filename": "AM001_real_media_candidate_2026-09-06.mp4",
+    "sha256": "604753736efdbd1927434c1d606bcb8dc19da9aae12e29522bdbdf644f5461e2",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 16.5,
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "timeline": [
+    {"order":1,"source":"20260906_130521.mp4","in":0.2,"out":1.7,"purpose":"front opening / identity","retime":1.0},
+    {"order":2,"source":"20260906_131221.mp4","in":4.0,"out":5.3,"purpose":"headlamp detail","retime":1.0},
+    {"order":3,"source":"20260906_130628.mp4","in":0.4,"out":1.5,"purpose":"wheel detail","retime":1.0},
+    {"order":4,"source":"20260906_130730.mp4","in":3.0,"out":4.7,"purpose":"side profile","retime":1.0},
+    {"order":5,"source":"20260906_130851.mp4","in":2.5,"out":4.3,"purpose":"rear three-quarter","retime":1.0},
+    {"order":6,"source":"20260906_131326.mp4","in":2.0,"out":5.9,"purpose":"door-open transition into cabin","retime":1.4},
+    {"order":7,"source":"20260906_131621.mp4","in":0.6,"out":2.0,"purpose":"dashboard / cockpit","retime":1.0},
+    {"order":8,"source":"20260906_131648.mp4","in":0.4,"out":1.6,"purpose":"instrument cluster","retime":1.0},
+    {"order":9,"source":"20260906_131934.mp4","in":1.5,"out":3.0,"purpose":"seat / cabin coverage","retime":1.0},
+    {"order":10,"source":"20260906_132002.mp4","in":0.6,"out":2.8,"purpose":"final front three-quarter hero","retime":1.0}
+  ],
+  "picture": {
+    "source_to_delivery": "portrait 4K source -> 1080x1920 Lanczos",
+    "bounded_grade": "contrast 1.01-1.015; saturation 0.94-0.96",
+    "stabilization": "not applied in R1; observed benefit did not justify warping/crop risk",
+    "generative_vehicle_edit": false
+  },
+  "audio": {
+    "mode": "minimal authentic source sound",
+    "implementation": "non-action source audio muted; door-open source audio retained at reduced level with short fades",
+    "generated_music": false
+  },
+  "graphics": [
+    {"text":"TOYOTA YARIS","evidence":"vehicle identity AM-001"},
+    {"text":"2026 · GCC","evidence":"AM Motors — Справочник машин, AM-001"},
+    {"text":"AED 54,000","evidence":"AM Motors — Справочник машин, AM-001"},
+    {"text":"4,500 km · GCC","evidence":"AM Motors — Справочник машин, AM-001"}
+  ],
+  "deterministic_qc": {
+    "full_decode": "PASS",
+    "dimensions_fps": "PASS: 1080x1920 @ 30 fps",
+    "black_interval_detection": "PASS: no qualifying unintended interval detected",
+    "freeze_detection": "PASS: no qualifying unintended interval detected",
+    "audio_mean_db": -41.6,
+    "audio_max_db": -12.5
+  },
+  "publication_status": "NOT_READY_FOR_PUBLICATION",
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE",
+  "open_gates": [
+    "failed production baseline artifact is not available in the current runtime for blind comparison",
+    "calibrated human comparative review not completed",
+    "no approved AM-001 creator-deliverable/experiment lock was located for publication handoff"
+  ]
+}

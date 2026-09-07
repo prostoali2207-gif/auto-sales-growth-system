@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906-R3",
+  "artifact_role": "diagnostic post-production ceiling candidate; not publication approval",
+  "vehicle_id": "AM-001",
+  "output": {
+    "filename": "AM001_candidate_R3_1080x1920.mp4",
+    "sha256": "9bdbaa516cb7e4ff2eab9adeafb1963b0a623b218a067ca8736c893e7f941f56",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 9.482,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_mean_db": -31.4,
+    "audio_max_db": -10.5
+  },
+  "timeline": [
+    {
+      "order": 1,
+      "source": "20260906_130521.mp4",
+      "in": 0.7,
+      "out": 1.75,
+      "purpose": "front identity",
+      "retime": 1
+    },
+    {
+      "order": 2,
+      "source": "20260906_131221.mp4",
+      "in": 4.4,
+      "out": 5.1,
+      "purpose": "headlamp detail",
+      "retime": 1
+    },
+    {
+      "order": 3,
+      "source": "20260906_130628.mp4",
+      "in": 0.65,
+      "out": 1.35,
+      "purpose": "wheel detail",
+      "retime": 1
+    },
+    {
+      "order": 4,
+      "source": "20260906_130730.mp4",
+      "in": 3,
+      "out": 4.1,
+      "purpose": "side profile",
+      "retime": 1
+    },
+    {
+      "order": 5,
+      "source": "20260906_130851.mp4",
+      "in": 2.9,
+      "out": 4,
+      "purpose": "rear three-quarter",
+      "retime": 1
+    },
+    {
+      "order": 6,
+      "source": "20260906_131326.mp4",
+      "in": 3.35,
+      "out": 4.95,
+      "purpose": "door/open cabin transition",
+      "retime": 1.3
+    },
+    {
+      "order": 7,
+      "source": "20260906_131621.mp4",
+      "in": 0.7,
+      "out": 1.6,
+      "purpose": "cockpit",
+      "retime": 1
+    },
+    {
+      "order": 8,
+      "source": "20260906_131648.mp4",
+      "in": 0.55,
+      "out": 1.25,
+      "purpose": "instrument cluster",
+      "retime": 1
+    },
+    {
+      "order": 9,
+      "source": "20260906_132002.mp4",
+      "in": 0.75,
+      "out": 2.75,
+      "purpose": "final hero",
+      "retime": 1
+    }
+  ],
+  "post_production_repairs": [
+    "remove weak/redundant seat section",
+    "compress total runtime and interior dwell",
+    "use stronger macro-to-wide alternation",
+    "reduce graphic footprint",
+    "make silence/source ambience intentional",
+    "retain the real door-action sound more prominently",
+    "add only non-evidentiary short air-swish transitions; no music and no generative vehicle alteration"
+  ],
+  "deterministic_qc": {
+    "full_decode": "PASS",
+    "dimensions_fps": "PASS: 1080x1920 @ 30 fps",
+    "audio_stream": "PASS",
+    "audio_mean_db": -31.4,
+    "audio_max_db": -10.5,
+    "black_interval_detection": "PASS: no qualifying unintended interval observed",
+    "freeze_detection": "PASS: no qualifying unintended interval observed"
+  },
+  "status": "PENDING_HUMAN_REVIEW",
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE"
+}

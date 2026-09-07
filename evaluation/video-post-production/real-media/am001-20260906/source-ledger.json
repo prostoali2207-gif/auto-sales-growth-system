@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906-R1",
+  "vehicle_id": "AM-001",
+  "authoritative_folder_id": "1QlOJi7WVs-NnlUbe38cUm2bsA-BlIVoV",
+  "include_rule": "2026-09-06 Samsung Galaxy A56 captures from 13:05:21 through 13:20:02 only",
+  "assets": [
+    {"filename":"20260906_130521.mp4","drive_id":"1ipvDTrBhYM3oLFSmYOwHDvXBN1xDhyss","duration_seconds":10.031867,"size_bytes":61383081,"sha256":"ea4758dbf83d4f0fbe599aff18d69896537ad6049767b09666ce0399402d7905"},
+    {"filename":"20260906_130619.mp4","drive_id":"1Tr_FmKX_MXJptmSrI3o-3Bs9iSnzaswb","duration_seconds":5.865989,"size_bytes":35933241,"sha256":"33b873fcbf5a96bc4153bb72e2a33be750b0087531ebd515b96daaad2852c330"},
+    {"filename":"20260906_130628.mp4","drive_id":"1UdeBNjslWTRj3dm4AhBCwaThBqDbM2Wy","duration_seconds":3.398978,"size_bytes":20975403,"sha256":"0813746d968b3b02e263a12e8c6075d5da010371d68edb68b51e475c56818473"},
+    {"filename":"20260906_130730.mp4","drive_id":"1brjtXI6fXxWR08ZpBySgELQ8k9P1_5-J","duration_seconds":8.032667,"size_bytes":49481128,"sha256":"7e683457310cf4b7accb2c3b60e520d3cde48dd08849f3854a2727563245b443"},
+    {"filename":"20260906_130851.mp4","drive_id":"1HIvE4NWiWLesOnBHL7OFC6IgPMefE4ei","duration_seconds":14.6979,"size_bytes":89086051,"sha256":"668f61ea1aaa3fa8fb694b062360fdb8d0c58ac3b03c53041a05cac6426efdc1"},
+    {"filename":"20260906_131127.mp4","drive_id":"1jzmbwWRzpkEY1yyIOyGKN50VsVVqua4w","duration_seconds":6.768125,"size_bytes":41114198,"sha256":"682d3daaf0403b86f9b3216015988a14fb983e1a12cb505ddf9eb71f98649c95"},
+    {"filename":"20260906_131221.mp4","drive_id":"1XzE__kVJYM0WKvfdAotkvXpvNz3zEmle","duration_seconds":7.598834,"size_bytes":46042623,"sha256":"afc2c7426b52a9a43afcdc1fe65c678f249704660812bc8868c9042e185742ae"},
+    {"filename":"20260906_131326.mp4","drive_id":"1oGtTxyikOZf3Tx24jh_E4FQFkl5qyV-f","duration_seconds":9.9297,"size_bytes":60078533,"sha256":"5df771222a5f8fbe40dbc70036a0c268ce82df2ab60c515ea38fa647890f5cf7"},
+    {"filename":"20260906_131621.mp4","drive_id":"1OX6ewDPpTdO5gTpWSFQuKdiyckHTTmh0","duration_seconds":8.468011,"size_bytes":51527169,"sha256":"e7e77c506f45473953f98ec34d6278d997b3c057afe93a2d5e1e8e13a7e1d6ea"},
+    {"filename":"20260906_131648.mp4","drive_id":"1iCCgaF87nGWyB3nML2KucKtFhmAwtySx","duration_seconds":9.198656,"size_bytes":55911735,"sha256":"2a44b4aea40b3eb228a47c6c94fd5087a7eb8ca067da8b7757f38c386aa80c93"},
+    {"filename":"20260906_131934.mp4","drive_id":"1OM56iq7gohUXjawE7jP6ViyaoMp-02lj","duration_seconds":8.698278,"size_bytes":52900267,"sha256":"42cf342984e80761ebbafb5a50bc4744d6a45ce35db582cf941b7b8546e2af85"},
+    {"filename":"20260906_132002.mp4","drive_id":"15tB1Tje3Pbu9peBAvSH8OhY0W8B4h44v","duration_seconds":7.665578,"size_bytes":46883944,"sha256":"c21604742c984ebe0ab39e01e386e1cfdf40ad9abb08a43847247643505b246c"}
+  ],
+  "excluded_observed_assets": [
+    {"filename":"20260906_123032.mp4","reason":"older 2026-09-06 capture outside frozen 13:05-13:20 source set"},
+    {"pattern":"IMG_268*.MOV","reason":"older 2026-09-03 source set"},
+    {"pattern":"AM-001-field-gate-*","reason":"older field-gate media"}
+  ]
+}
