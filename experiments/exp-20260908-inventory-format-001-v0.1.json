@@ -1,0 +1,92 @@
+{
+  "experiment_id": "exp-20260908-inventory-format-001",
+  "experiment_version": "0.1",
+  "variant_ids": [
+    "VISUAL_COMPACT",
+    "SPOKEN_WALKAROUND"
+  ],
+  "status": "BACKLOG",
+  "priority": "P0",
+  "decision_question": "For ordinary AM Motors used-car inventory, which execution bundle produces better qualified-inquiry efficiency: a compact visual inventory Reel or a spoken walkaround Reel?",
+  "hypothesis": "The two currently observed UAE inventory-format bundles may produce materially different qualified-demand outcomes for AM Motors; current evidence is insufficient to predict a winner, so a controlled internal test is required.",
+  "evidence_basis": [
+    {
+      "evidence_class": "C",
+      "reference": "research/uae-market/2026-09-08-fresh-used-car-reel-format-check.md",
+      "finding": "Fresh direct inspection of UAE used-car sellers confirms both compact silent/visual inventory Reels and longer spoken walkarounds are in current use; no fresh lead/sales outcome proves a winner."
+    },
+    {
+      "evidence_class": "C",
+      "reference": "research/uae-market/2026-08-11-quantitative-instagram-report.md",
+      "finding": "Prior 200-post UAE competitor work showed hypercar/spectacle outliers are not a valid operating model for ordinary inventory and commercially relevant content must be judged beyond reach."
+    },
+    {
+      "evidence_class": "C",
+      "reference": "research/uae-market/2026-08-11-hook-frame-analysis.md",
+      "finding": "Prior frame analysis found generic beauty-only openings and conventional presenter setups were not reliable reach winners; content job and opening event matter."
+    }
+  ],
+  "confidence_before_test": "LOW",
+  "audience": {
+    "buying_stage": "People evaluating the exact used vehicle shown in the Reel; finer buyer-segment claims are unresolved and must not be invented.",
+    "need_or_job": "Decide whether the shown vehicle is worth a direct inquiry and possible in-person inspection/test drive.",
+    "budget_or_payment_context": "Not used as a creative claim in this experiment unless separately verified and approved.",
+    "trust_or_risk_concern": "Only concerns explicitly supported by verified unit facts/proof may be used.",
+    "geography_or_language": "UAE; execution language to be fixed before production and kept comparable across variants.",
+    "inventory_fit": "Reference vehicle AM-018 Hyundai Santa Fe 2010, Korean Specs; availability must be rechecked before production/publication."
+  },
+  "primary_funnel_role": "LEAD",
+  "secondary_funnel_role": "TRUST",
+  "platform": [
+    "INSTAGRAM"
+  ],
+  "mechanism_to_test": "Format bundle. VISUAL_COMPACT uses a short visual inventory presentation without spoken explanation. SPOKEN_WALKAROUND uses a presenter/voice-led walkaround with visual demonstration. Speech presence, information density and natural bundle-appropriate duration are intentionally part of the tested format package; this experiment does not isolate the causal effect of speech alone.",
+  "commercial_path": "PRE-LAUNCH BLOCKER: confirm one current CTA destination and tracking path. Both variants must use the same destination.",
+  "primary_kpi": "Qualified inquiries attributable to each variant, normalized by delivered impressions/reach where available.",
+  "secondary_kpis": [
+    "Appointment/test-drive proposal rate among qualified inquiries",
+    "Appointment/test-drive set rate among qualified inquiries",
+    "Two-way conversation rate",
+    "Retention/completion as diagnostic content signals only"
+  ],
+  "guardrail_metrics": [
+    "No unsupported price/value/finance/warranty/condition/history claim",
+    "Same vehicle and same verified commercial-fact set across variants",
+    "Same CTA objective/destination once confirmed",
+    "Availability rechecked before each publication",
+    "Do not call a raw-view winner the business winner when qualified-demand metrics disagree"
+  ],
+  "baseline": "No valid AM Motors format-specific qualified-lead baseline is attached. Analytics must register the available account baseline or a direct arm-vs-arm operational comparison before launch.",
+  "success_threshold": "PRE-LAUNCH BLOCKER: Analytics must define an executable success threshold tied to qualified inquiries/appointments before approval.",
+  "failure_threshold": "PRE-LAUNCH BLOCKER: Analytics must define an executable failure/inconclusive rule before approval.",
+  "minimum_sample": "PRE-LAUNCH BLOCKER: Analytics must set the minimum delivered sample and/or qualified-inquiry requirement from current traffic and measurement capacity.",
+  "test_window": "PRE-LAUNCH BLOCKER: Analytics must set the observation window and decision date.",
+  "variable_being_tested": "Inventory presentation format bundle: VISUAL_COMPACT vs SPOKEN_WALKAROUND.",
+  "controlled_variables": [
+    "Same exact vehicle for the paired comparison",
+    "Same verified factual claim set",
+    "Same offer scope; price/value positioning excluded unless separately cleared",
+    "Same CTA objective and destination",
+    "Same language where practical",
+    "Same vehicle preparation and capture window where practical",
+    "Same distribution settings if paid; if organic, record distribution non-comparability and limit causal claims",
+    "Same tracking identifiers and lead qualification logic"
+  ],
+  "execution_constraints": [
+    "Human must approve experiment/publication state before release.",
+    "Analytics instrumentation, thresholds, sample/window and attribution must be ready before publication.",
+    "Content Analyst must treat the format bundle as the tested variable and keep factual proof/CTA invariants stable.",
+    "Content Creator may adapt shot order, pacing and speech execution only as required by each declared bundle; those differences are part of the tested format.",
+    "Physical filming is human-owned.",
+    "Commercial fact values must come from current authoritative business sources, not this experiment file."
+  ],
+  "attribution_method": "Use immutable experiment_id + variant_id + creative/content IDs and preserve inquiry source through Sales funnel events. Paid execution should use a proper split-test path when available. Organic execution has a lower causal claim ceiling and must record timing/distribution differences.",
+  "decision_rule": {
+    "continue": "Continue while the preregistered sample/window is incomplete and no truth/tracking guardrail is violated.",
+    "iterate": "If one bundle shows useful qualified-demand signal but execution quality is defective or tracking is incomplete, repair only the responsible layer and rerun a bounded test.",
+    "scale": "Adopt a format as the preferred operating baseline only if the preregistered qualified-demand threshold is met with commercially relevant appointment behavior and no truth guardrail failure.",
+    "kill": "Park a format after a valid failure threshold or repeated evidence that it produces poorer qualified-demand efficiency with no downstream compensation."
+  },
+  "downstream_owner": "ANALYTICS_AGENT",
+  "learning_note": "This is a format-bundle selection test, not a scientific decomposition of speech, duration or editing. If a bundle wins, later experiments may isolate the responsible component."
+}
