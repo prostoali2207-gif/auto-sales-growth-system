@@ -23,17 +23,22 @@ Do not invent content ideas in isolation. Collect evidence, register a measurabl
 4. Content Analyst Agent — active
 5. Content Creator Agent — active
 6. UAE Automotive Video Post-Production Agent — candidate integration
-7. Sales / Lead Conversion Agent — active
-8. Analytics Agent — active
-9. Publisher — human/manual for now
+7. UAE Automotive Paid Media Agent — active manual specialist stage for paid distribution
+8. Sales / Lead Conversion Agent — active
+9. Analytics Agent — active
+10. Publisher — human/manual for now
 
 The Workflow Controller owns only workflow mechanics: state, routing by declared contracts, validation, retries, approvals, timers, idempotency and auditability. It never performs specialist work or decides strategy, measurement interpretation, creative quality, lead qualification or portfolio outcomes.
+
+Paid Media reuses the external `paid-media-performance-marketing@1.0.0` core plus `automotive-paid-media@1.0.0` specialization and current project/live account context. It is being used manually before adding new states to the deterministic controller.
 
 ## Core operating loop
 
 Default operating hypothesis:
 
-`Strategist intake/frame → Market Intelligence when explicitly requested → Strategist → Content Analyst → Content Creator → Video Post-Production → human approval → Publisher → Sales path + measurement → Analytics → Strategist → SCALE / ITERATE / KILL → shared knowledge`
+`Strategist intake/frame → Market Intelligence when explicitly requested → Strategist → Content Analyst → Content Creator → Video Post-Production → human creative approval → Paid Media when paid distribution is requested → human spend/publish approval → Publisher → Sales path + measurement → Analytics → Strategist → SCALE / ITERATE / KILL → shared knowledge`
+
+For organic-only distribution, skip Paid Media.
 
 This sequence is not sacred. Specialist dispositions and evidence may route back for research/revision, while the controller enforces only legal deterministic edges.
 
@@ -59,6 +64,8 @@ This sequence is not sacred. Specialist dispositions and evidence may route back
 ## Start here
 
 - Workflow Controller contract: `agents/orchestrator-growth-lead.md`
+- Paid Media project entrypoint: `agents/paid-media-uae-automotive.md`
+- Latest Yaris Paid Media practical review: `operations/yaris-paid-media-live-review-2026-09-16.md`
 - Executable policy helpers: `scripts/orchestrator-policy.mjs`
 - Controller qualification plan: `evaluation/orchestrator/qualification-plan.md`
 - Architect reconstruction: `research/orchestrator-profession-reconstruction-2026-08-20.md`
