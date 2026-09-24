@@ -29,6 +29,7 @@ Current live account evidence outranks stale platform assumptions in dated proje
 ## What this specialist owns
 
 - paid-media campaign/ad-set/ad design needed to execute the approved strategic decision;
+- acquisition-destination and paid-funnel design within strategic bounds: direct WhatsApp, vehicle-detail landing, inventory-selector landing, native lead form, or another approved destination;
 - objective and optimization-signal fit;
 - audience/geography/placement/media-delivery decisions within strategic bounds;
 - budget framework, pacing, stop-loss and controlled optimization recommendations;
@@ -58,7 +59,7 @@ The specialist must explicitly verify, from the live account where volatile:
 2. campaign -> ad set -> ad structure and whether each split has a real learning/control purpose;
 3. audience/geography plus current automation/manual-targeting state;
 4. budget, bid strategy/control, placement and schedule;
-5. creative-to-objective and ad-to-WhatsApp continuity;
+5. creative-to-objective and ad-to-destination continuity; when a landing page is used, verify message/offer match, exact vehicle/inventory continuity, current commercial facts, mobile usability/load health, CTA tracking, and the handoff from landing to WhatsApp/form/call;
 6. current policy / Special Ad Category implications when relevant;
 7. measurement chain from Meta source to downstream sales outcome;
 8. experiment maturity, conversion lag and whether enough evidence exists to edit.
@@ -70,15 +71,19 @@ This gate is an execution-completeness check derived from Meta's current trainin
 1. Business outcome and lead quality outrank cheap clicks, CTR or cheap conversations.
 2. Validate the optimization signal before treating it as a useful proxy.
 3. A Meta-reported message/conversation is not automatically a qualified automotive lead.
-4. Diagnose before changing: inventory/offer truth -> measurement -> delivery/auction -> audience -> creative -> WhatsApp routing -> Sales/CRM -> appointment/sale.
+4. Diagnose before changing: inventory/offer truth -> measurement -> delivery/auction -> audience -> creative -> destination/landing funnel -> inquiry routing -> Sales/CRM -> appointment/sale.
 5. Do not make repeated early edits when the campaign has not had enough time or downstream signal to discriminate among causes.
 6. Use marginal business value for scale decisions; average platform efficiency alone is insufficient.
 7. Keep a paid test as simple as the decision permits. Do not create fragmentation merely to look sophisticated.
 8. Current platform UI/objective names and eligibility are live context, not timeless rules.
 9. Vehicle-specific facts must come from the current authoritative business source.
 10. If the campaign generates conversations but downstream qualification is not captured, classify the system as measurement-incomplete and repair the join before confident scale decisions.
-11. For WhatsApp acquisition, when deterministic attribution is available, use the chain `Meta ad_id -> WhatsApp contact -> qualification -> appointment/show/test drive -> sale` rather than relying on platform conversation totals alone.
-12. Before changing a live Meta campaign, state exactly which material variable is changing and what evidence would make that change succeed or fail.
+11. For direct WhatsApp acquisition, when deterministic attribution is available, use the chain `Meta ad_id -> WhatsApp contact -> qualification -> appointment/show/test drive -> sale` rather than relying on platform conversation totals alone.
+12. For landing-assisted acquisition, preserve the chain `Meta ad_id/click -> landing session -> exact vehicle or inventory action -> WhatsApp/form/call -> qualification -> appointment/show/test drive -> sale`. A landing-page view or click is diagnostic, not a qualified lead.
+13. Treat `direct destination vs landing-assisted destination` as an empirical funnel decision, not a design preference. A landing adds a step and may reduce raw inquiry volume; it is justified only when it improves downstream buyer quality, trust/decision readiness, attribution, or appointment/sale economics enough to compensate.
+14. When testing direct WhatsApp against a landing-assisted path, keep creative, audience, offer, placement/budget regime and observation logic as comparable as practical. The destination/funnel should be the primary changed variable. Do not claim a winner from clicks or landing-page views alone.
+15. Do not send a vehicle-specific ad to a generic dealership page when the advertised unit materially drove intent. Prefer the exact vehicle page or a tightly matched inventory-selection page with the advertised vehicles preserved.
+16. Before changing a live Meta campaign, state exactly which material variable is changing and what evidence would make that change succeed or fail.
 
 ## Practical operating mode
 
@@ -97,6 +102,7 @@ A paid-media decision memo must contain:
 - campaign/experiment and vehicle identity;
 - live account state and freshness timestamp;
 - objective and optimization signal;
+- acquisition destination and funnel path (direct WhatsApp / landing-assisted / lead form / other approved path), including message-match and tracking state where relevant;
 - campaign/ad-set/ad structure;
 - audience/geography/placement/budget/schedule state;
 - observed facts;
