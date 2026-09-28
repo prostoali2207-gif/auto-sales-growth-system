@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906-R2",
+  "artifact_role": "real-media iterative craft candidate; not publication approval",
+  "vehicle_id": "AM-001",
+  "output": {
+    "filename": "AM001_candidate_R2_1080x1920.mp4",
+    "sha256": "33bd9196fa588fbe100ec63f216c179ef9974ccc3706542fa0462bdf20ce39fb",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 13.666667,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_mean_db": -33,
+    "audio_max_db": -9.4
+  },
+  "diagnostic_changes": [
+    "shorter pacing than R1",
+    "earlier price/proof placement",
+    "tighter door transition",
+    "denser exterior-to-interior progression",
+    "source audio retained at restrained levels"
+  ],
+  "blind_user_comparison": {
+    "labels": {
+      "A": "R2",
+      "B": "failed baseline v1"
+    },
+    "result": "A preferred",
+    "stated_reason": "better choice of moments / selection, not only montage",
+    "reviewer_role": "accountable business/user reviewer; self-identified non-expert in professional video craft",
+    "qualification_effect": "positive production evidence only; insufficient for professional craft qualification"
+  },
+  "reviewer_followup": "Residual unprofessionalism remains.",
+  "status": "REVISE"
+}
