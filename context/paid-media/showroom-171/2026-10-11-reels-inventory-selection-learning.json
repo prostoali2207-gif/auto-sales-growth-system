@@ -1,0 +1,41 @@
+{
+  "knowledge_id": "KG-20261011-META-REELS-INVENTORY-SELECTION-001",
+  "created_at": "2026-10-11T20:46:00+04:00",
+  "source_experiment_ids": [
+    "EXP-MULTICAR-CAROUSEL-001"
+  ],
+  "scope": {
+    "platforms": [
+      "INSTAGRAM",
+      "FACEBOOK"
+    ],
+    "funnel_roles": [
+      "LEAD",
+      "DIRECT_SALE"
+    ],
+    "audience": "UAE paid social automotive audience; exact cohorts and cross-placement comparability not independently reconciled",
+    "vehicle_context": "Mixed current used-car inventory; WhatsApp buyers often search for different models or a maximum AED budget rather than only the advertised car"
+  },
+  "learning": "User-forwarded Meta retrospective reported Reels 378.11 AED/115 Meta-initiated conversations versus Feed carousel 136.38 AED/8, and qualitative WhatsApp evidence of inventory-finding intent. Investigate a Reels-to-inventory-shortlist-to-appointment funnel, with faster replies and authoritative Sheet-based 2–3 car recommendations. Treat platform messaging volume as diagnostic until joined to received messages, qualified leads, appointments and sales. Do not extrapolate Meta conversation rates to Google Search.",
+  "evidence_grade": "WEAK",
+  "decision": "ITERATE",
+  "reusable_conditions": [
+    "Initial Meta Reels lead-creative planning with a clear WhatsApp inventory-finding CTA and current showroom inventory.",
+    "Sales qualification workflow: desired model/body type, budget, confirmed CASH ONLY suitability, matching available options, concrete showroom time.",
+    "Google Search exploratory strategy only as a qualitative intent hypothesis; validate with independent Search query/account evidence."
+  ],
+  "invalid_conditions": [
+    "Using conversation price as verified cost per qualified lead, appointment or sale.",
+    "Claiming causal Reels superiority to Feed without matching cohorts, times, offers and delivery conditions.",
+    "Treating reported spend or ad transitions as fully reconciled with the live Meta account without a dated API export.",
+    "Offering financing, warranty, discounts, availability or condition from old ads instead of authoritative business sources.",
+    "Applying observed Meta click-to-chat ratios as a Google Search forecast."
+  ],
+  "evidence_refs": [
+    "context/paid-media/showroom-171/2026-10-11-meta-reels-feed-retrospective.md",
+    "operations/multicar-carousel-live-2026-09-21.md",
+    "Owner-forwarded prior campaign conversation summary, 2026-10-11"
+  ],
+  "status": "PROVISIONAL",
+  "supersedes": null
+}
