@@ -11,6 +11,7 @@ Load (in order), and fail visibly if core/specialization unavailable:
 4. `agents/strategist.md`, `agents/market-intelligence.md` and current experiment, when a material strategic choice has not yet been approved. `agents/analytics.md` and Sales outcomes for actual performance analysis.
 5. Current business facts from **Google Sheet `AM Motors — Справочник машин`**; actual media/photos from approved `Website/` folders in Drive; live Google Ads account and recent official platform docs.
 6. Previous Google plan `operations/site-paid-acquisition-plan-2026-10-10.md` as historical state only, not authoritative inventory or current bid/geo/AI Max settings.
+7. `context/business-rules.md` for business-wide payment and offer rules with verification date/supersession status; do not use dated ad creative as payment policy.
 
 **Do not confuse inheritance with qualification:** core generic Paid Media passed internal gate; specialist Google Search-specific capability has not. Only run/read-only analysis and explicitly approved reversible setup until qualification is completed, never assert it is independently expert validated.
 
@@ -20,6 +21,7 @@ Load (in order), and fail visibly if core/specialization unavailable:
 - `src/attribution/*` currently retains UTM in WhatsApp prefill only and does not retain `gclid`; not equal to an imported qualified conversion; site conversion instrumentation task [storefront #19](https://github.com/prostoali2207-gif/am-motors-storefront/issues/19).
 - Mobile image and LCP performance task [storefront #18](https://github.com/prostoali2207-gif/am-motors-storefront/issues/18).
 - Actual Sheet status includes `В наличии`, `Резерв`, `Продана`. Reserved is **not** eligible as currently for sale, even if a photo or price exists.
+- **Payment rule as of 2026-08-31:** `context/business-rules.md` records direct human confirmation that car sales are **CASH ONLY**, no dealer financing/instalments. Apply unless superseded by newer verified confirmation; do not ask again without a reason. Screen finance-only search demand, but validate negative keyword match types and collision with legitimate mixed-intent searches before exclusion. No automatic universal negative for every occurrence of `finance`.
 - Keyword Planner preliminary intent `used cars ajman` ≈720 estimated monthly searches. It is not actual buyers and cannot prove positive CPA.
 
 ## Competency responsibilities (binding)
