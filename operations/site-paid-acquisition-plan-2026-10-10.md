@@ -59,3 +59,24 @@ Research-backed reasoning:
 - Google docs: https://support.google.com/google-ads/answer/11189169 ; https://support.google.com/google-ads/answer/13738234 ; https://support.google.com/google-ads/answer/10029210 .
 
 **Approval boundary:** this memo is a planning artifact only, not permission to spend, modify live advertising or publish unverified facts.
+
+
+## Verified update — 2026-10-11 17:19 GST (supersedes earlier Google account/demand unknowns)
+
+**Google Ads connectivity:** Supermetrics AW authenticated, account `Am motors` ID `2470160660`. Read-only list returned **0 campaigns** and **0 conversion action definitions**. No ads created or changed.
+
+**Authoritative inventory:** Google Sheet `AM Motors — Справочник машин`, tab `Машины`, read 2026-10-11; **12** rows with status `В наличии`, **1** row `Резерв` (AM-020), **12** rows `Продана`. Eligible *candidates*, pending fresh photo/VDP verification, IDs: AM-003, AM-005, AM-007, AM-008, AM-012, AM-014, AM-015, AM-016, AM-017, AM-021, AM-024, AM-025. **Do not advertise AM-020 as available.** Stock may change again; recheck before campaign creation/publish.
+
+**Keyword Planner data** retrieved from connected Google Ads account, seeded with English used-car queries in Ajman and UAE location filter. Approximate monthly searches are planning estimates, not forecast sales or validated precise volumes:
+- `used cars ajman`: 720, competition MEDIUM, top-of-page low/high bid indication ~AED 0.37 / 4.31 (bid estimates, not actual CPC).
+- `second hand cars ajman`: 720 (likely overlapping intent; **do not sum** with prior query).
+- `ajman used car market`: 260, MEDIUM.
+- `used cars for sale ajman`: 110, MEDIUM.
+- `toyota yaris for sale in ajman`: 10, HIGH.
+- Model-year-specific phrases in the current stock largely have no volume reported; `hyundai tucson 2024 uae` returned ~10 monthly. No demand is **not** proven when volume is null.
+
+**Pilot recommendation changed by evidence:** start with *local used-car buying intent* and catalogue destination (after repairing photos/loading); optionally separate tightly matched in-stock model ad groups only where Keyword Planner, VDP and reliable buyer outcomes justify. Exclude intent for finance/installment as a verified business claim only if the current business owner confirms no financing; do not infer from old ads.
+
+**Measurement/technical blockers confirmed:** website `src/attribution/*` currently captures UTMs into WhatsApp prefill but not Google click IDs; actual sent inquiries or appointments are not automatic site conversions; Google Ads account conversion_types empty. Tracking work: storefront [issue #19](https://github.com/prostoali2207-gif/am-motors-storefront/issues/19); mobile photo/LCP: [issue #18](https://github.com/prostoali2207-gif/am-motors-storefront/issues/18).
+
+**Readiness now:** CONNECTED / RESEARCH STARTED / NO CAMPAIGN; **BLOCKED** on measurement setup, validated mobile VDP and **explicit user-authorized budget**. Keep account with 0 campaigns until gates close. This update adds no publication authority.
