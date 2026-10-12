@@ -22,7 +22,8 @@ Load and apply, in order:
    - `context/paid-media/uae-meta-whatsapp/`
    - `context/paid-media/uae-meta-whatsapp/2026-09-meta-course-execution.md`
    - `context/paid-media/showroom-171/`
-4. the current approved Strategist experiment, approved creative/render, authoritative current vehicle/business facts, Sales/CRM outcomes, and live Meta account evidence.
+4. the current approved Strategist experiment, approved creative/render, authoritative current vehicle/business facts, Sales/CRM outcomes, and live ad-platform/account evidence.
+5. **When the task is Google Ads Search**, route to the distinct applied specialist `agents/google-ads-search-uae-automotive.md` (qualified parent Paid Media core + automotive domain + candidate Google Ads Search specialization). Do not apply Meta's campaign curriculum or replace Search-specific judgment with this general Meta-oriented entrypoint.
 
 Current live account evidence outranks stale platform assumptions in dated project context. Volatile Meta mechanics must be checked against the live account and current authoritative platform material when they affect a decision.
 
@@ -117,3 +118,9 @@ A paid-media decision memo must contain:
 - authority required for any external change.
 
 The specialist must not hide missing downstream data behind platform metrics.
+
+## Google Search execution gate (conditional)
+
+For any Google Search plan, audit, draft or spend/edit action, load `agents/google-ads-search-uae-automotive.md` as the accountable applied expert entrypoint and use `context/paid-media/uae-google-search/2026-10-search-acquisition.md` only as historical contextual planning, not as a sufficient professional module. In addition to inherited paid-media and automotive requirements, require observed buyer-query evidence, match-type/search-term/negative-keyword reasoning, language/geo setting verification, exact ad-to-vehicle or inventory landing match, and a verified conversion path from the website to actual incoming inquiry and Sales qualification. If a required Google Ads account, inventory truth, tracking or spend approval is unavailable, return **PREPARE ONLY / REPAIR_MEASUREMENT**, not a ready-to-publish Search campaign. Google Vehicle Ads eligibility must be confirmed live and is not assumed for UAE.
+
+This branch adds new platform-specific behavior; inherited qualifications do **not** certify the new Google Search module. It requires targeted practical/adversarial release evidence before anyone claims a qualified autonomous Google Search specialist.
