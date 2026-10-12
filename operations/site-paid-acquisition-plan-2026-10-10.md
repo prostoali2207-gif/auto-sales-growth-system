@@ -125,3 +125,17 @@ The mobile image fix was approved and published: [storefront PR #21](https://git
 ## Draft geo scope corrected — 2026-10-12
 
 Following the owner's question about Sharjah and Dubai, amended **PAUSED** Search campaign `24340357122` from only Ajman city to **three UAE city geotargets**: Ajman `1000011`, Sharjah `9047580`, Dubai `1000013`; kept English `en`. Verified Google Ads readback: `PRESENCE` only, not `PRESENCE_OR_INTEREST`; Search Partners OFF, Display OFF. **AED 350 LIFETIME**, Oct 13–26, ad group/ad/campaign all PAUSED and unchanged. The existing 4 phrase/exact keywords all intentionally express **Ajman showroom/used car market buying intent**; adding city locations does not expand keywords to `used cars dubai` or advertise a Dubai/Sharjah showroom. This is a small geo reach extension under the same budget, not separate split campaigns, and not proof of incremental lead quality. Reassess location-by-lead fit after actual qualifying buyer outcomes. Go-live requires explicit final human approval.
+
+## Pilot approved and enabled — 2026-10-12 (Asia/Dubai)
+
+**User action:** Owner explicitly said `Запускай`, then approved the Supermetrics `All live changes` Google Ads go-live approval link and confirmed `Подтвердил`. Supermetrics read `resource_type=approval_status`, `approval_ref=apr_2e85fdb228db56f399ef5576f51c7b76` returned `status=applied`.
+
+**Live Google Ads readback after approval:**
+- Account `2470160660`, campaign `24340357122`, campaign status **ENABLED**; group `203911291431` **ENABLED**; responsive search ad `827824429841` **ENABLED**.
+- Platform **primary_status=PENDING**, reason `CAMPAIGN_PENDING` because future start date **2026-10-13**; end **2026-10-26**. This is not proof of any impressions or spend, and do not state it is already serving on 2026-10-12.
+- **350 AED LIFETIME**, nonshared campaign budget, `MANUAL_CPC` ad group CPC 2 AED; Ajman `1000011`, Sharjah `9047580`, Dubai `1000013`, `PRESENCE`, English; Google Search ON, partners OFF, Display OFF.
+- Four Ajman-specific PHRASE/EXACT keywords and one RSA remain as previously verified. Ad `review.status=UNKNOWN`, so approval/delivery not yet established.
+- Account conversion actions previously returned `[]`. Do not report Search click/WhatsApp click as qualified inquiry or sales. Reconcile real received messages, qualification, showroom appointments and sales outside Ads.
+- Keep watch for Google policy/ad review blockers and initial actual impressions/spend after start, and verify no more than 350 AED lifetime across the flight. **Do not create duplicate campaign, modify budget, broaden query/geo, or automatically scale.**
+
+**First delivery checkpoint:** After Oct 13 campaign start inspect `primary_status`, ad `review.status`, impressions, spend, search terms and actual WhatsApp conversations before diagnosing delivery or optimization. If any material mismatch, diagnose and request explicit authority before making paid changes.
