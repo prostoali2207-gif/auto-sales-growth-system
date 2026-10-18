@@ -1,0 +1,111 @@
+{
+  "experiment_id": "exp-20260811-elantra-gt-001",
+  "status": "APPROVED",
+  "priority": "P0",
+  "decision_question": "Under equal concurrent paid Instagram distribution, does showing the verified AED 21,000 price and current availability of the exact Hyundai Elantra GT within the first 1–3 seconds increase unique attributable WhatsApp conversation starts per 1,000 Instagram accounts reached compared with revealing the same facts after 3 seconds?",
+  "hypothesis": "For UAE used-car buyers comparing affordable available vehicles, immediate verified price-and-availability disclosure will produce at least a 50% higher rate of unique attributable WhatsApp conversation starts than delayed disclosure when audience, distribution, vehicle, message, CTA and all other material variables are controlled.",
+  "evidence_basis": [
+    {
+      "evidence_class": "B",
+      "reference": "experiments/exp-20260811-elantra-gt-001/v2/account-evidence.json",
+      "finding": "The two latest organic Reels recorded 317 views from 103 viewers and 323 views from 112 viewers, while the dashboard reported 98.2% and 91.7% non-follower view shares. Both produced zero profile actions and no attributable conversations. A selected carousel recorded 20 views from 9 viewers with zero engagement or profile actions. These results show that organic discovery beyond the 36 followers exists, but the observed audience and action volume is insufficient for a decision-capable paired lead test."
+    },
+    {
+      "evidence_class": "B",
+      "reference": "experiments/exp-20260811-elantra-gt-001/v2/account-evidence.json",
+      "finding": "Four historical promoted campaigns spent between AED 138.84 and AED 176.86 and reported between 6,091 and 12,600 views, demonstrating that bounded paid distribution is operationally feasible. Their 4 to 142 reported in-app conversations are not confirmed as qualified leads or WhatsApp conversations, and campaign objective, audience, content, vehicle and attribution settings are unknown; therefore they cannot serve as a conversion baseline or expected-result forecast."
+    },
+    {
+      "evidence_class": "C",
+      "reference": "mir-20260811-elantra-gt-001; pat-low-friction-contact; src-alba-official; src-linda-official",
+      "finding": "Relevant UAE dealer funnels repeatedly terminate social attention in a direct WhatsApp conversation or test-drive action. This supports WhatsApp as a commercially relevant destination but does not prove conversion lift for this account."
+    },
+    {
+      "evidence_class": "E",
+      "reference": "mir-20260811-elantra-gt-001; pat-price-finance-disclosure; pat-first-three-second-event; src-quant-report",
+      "finding": "External observations associate visible price or finance information and stronger first-three-second events with higher content performance, while buyer-signal data shows frequent price and availability questions. The evidence does not isolate a causal effect on qualified conversations, so immediate price-and-availability disclosure remains a hypothesis requiring a controlled test."
+    }
+  ],
+  "confidence_before_test": "LOW",
+  "audience": {
+    "buying_stage": "Comparing or ready-now used-car buyers",
+    "need_or_job": "Identify an available mass-market used car within a clearly disclosed purchase budget and decide whether to begin a sales conversation",
+    "budget_or_payment_context": "Verified cash purchase price of AED 21,000; no financing claim",
+    "trust_or_risk_concern": "Condition, history, warranty and specification concerns may exist, but no response may be claimed without verified business evidence",
+    "geography_or_language": "The same eligible UAE Instagram audience must be used in both paid variants; language must remain identical",
+    "inventory_fit": "Verified available Hyundai Elantra GT 2020 currently offered at AED 21,000"
+  },
+  "primary_funnel_role": "LEAD",
+  "secondary_funnel_role": "DIRECT_SALE",
+  "platform": [
+    "INSTAGRAM"
+  ],
+  "mechanism_to_test": "Prepare one common base execution and two controlled opening variants for a prospective simultaneous randomized 50/50 Meta Ads Manager A/B test using Instagram placements only and a click-to-WhatsApp destination. The treatment discloses the verified AED 21,000 price and current availability within the first 1–3 seconds; the control shows the exact vehicle immediately but reveals the identical price and availability only after 3 seconds. Preparation does not authorize publication, advertising or spend.",
+  "commercial_path": "If separately approved for launch, paid Instagram exposure leads to a variant-specific WhatsApp conversation about the exact Hyundai Elantra GT, followed by Sales Lead Agent qualification, human appointment or test-drive handling, and exact-vehicle sale attribution.",
+  "primary_kpi": "Unique directly attributed WhatsApp conversation starts per 1,000 Instagram accounts reached",
+  "secondary_kpis": [
+    "Qualified WhatsApp conversations per 1,000 Instagram accounts reached",
+    "Qualified conversations as a share of attributed WhatsApp conversation starts",
+    "Outbound or messaging click rate by variant",
+    "First-3-second viewing rate, average watch time or completion rate by variant when available",
+    "Appointments or test drives attributed to each variant",
+    "Sale of the exact vehicle attributed as direct, assisted or unknown"
+  ],
+  "guardrail_metrics": [
+    "Qualified-conversation share must not be more than 10 percentage points lower for the treatment than for the control",
+    "No factual-claim violation or use of an unverified commercial claim",
+    "Vehicle remains available throughout the full launched test window",
+    "Both variants use equal audience eligibility, Instagram-only placements, optimization objective, attribution window and delivery rules",
+    "WhatsApp links and attribution tokens function correctly before launch and throughout the test",
+    "No concurrent campaign targets the same audience with the same vehicle during the test window",
+    "No publication, advertising or spend occurs before a separate explicit human launch approval"
+  ],
+  "baseline": "The concurrent delayed-disclosure control arm is the only decision baseline. Recent organic posts establish that current organic action volume is insufficient, while historical promoted campaigns provide distribution-feasibility context only and must not be used as a conversation, qualified-lead or cost baseline.",
+  "success_threshold": "After the minimum sample and complete launched test window, the treatment produces a WhatsApp conversation-start rate per 1,000 Instagram accounts reached at least 1.5 times the control rate and at least 5 additional unique attributed conversation starts, while the qualified-conversation share is no more than 10 percentage points lower and no factual, tracking, availability or distribution guardrail fails.",
+  "failure_threshold": "After the minimum sample and complete launched test window, the treatment produces a WhatsApp conversation-start rate per 1,000 Instagram accounts reached no greater than 0.8 times the control rate and at least 3 fewer unique attributed conversation starts, with valid execution, attribution and no fatal confounder.",
+  "minimum_sample": "At least 5,000 Instagram accounts reached per variant, at least 40 unique directly attributed WhatsApp conversation starts across both variants, and at least 10 such starts in each variant. If any requirement is unmet when the fixed window or separately approved spend cap ends, the result is INCONCLUSIVE.",
+  "test_window": "Content analysis, creator preparation and human creative review may begin immediately without spend. If launch is later approved, run both variants concurrently for 7 complete days using randomized 50/50 allocation and judge the result once after the fixed window closes. Do not stop early for apparent performance unless a factual, tracking, availability or operational guardrail fails.",
+  "variable_being_tested": "Timing of verified price and availability disclosure: within the first 1–3 seconds versus after 3 seconds.",
+  "controlled_variables": [
+    "Exact Hyundai Elantra GT 2020",
+    "Verified AED 21,000 price",
+    "Verified current availability",
+    "All other verified vehicle facts and forbidden unverified claims",
+    "Base execution after the opening treatment",
+    "Total duration and pacing after the opening",
+    "Language",
+    "CTA wording, placement, objective and WhatsApp destination",
+    "Functionally equivalent variant-specific attribution treatment",
+    "Audience eligibility and targeting",
+    "Instagram-only placements with Facebook placement excluded",
+    "Campaign objective and delivery optimization",
+    "Attribution window",
+    "Concurrent start and end times",
+    "Equal 50/50 budget allocation and delivery rules if launch is separately approved"
+  ],
+  "execution_constraints": [
+    "This APPROVED status authorizes only zero-spend handoff to Content Analyst, Content Creator preparation and human creative review.",
+    "Do not publish either variant, create or activate an advertising campaign, reserve budget or incur spend under this approval.",
+    "After both variants and the tracking plan are ready, return to HUMAN for a separate explicit decision on launch, total budget cap, per-variant allocation, audience, placements, schedule and advertising settings.",
+    "No advertising budget is approved by this artifact. AED 400 from v2 remains an unapproved planning proposal, not an authorized cap or expected spend.",
+    "If a later launch is approved, use Meta Ads Manager randomized A/B testing rather than publishing the variants seven days apart.",
+    "If a later launch is approved, use Instagram placements only; Facebook views or delivery must not enter the decision denominator.",
+    "Use one common base execution and change only the declared disclosure timing.",
+    "Do not claim condition, accident or ownership history, service history, warranty, financing, discount, exact trim, rarity or specific-instance advantages.",
+    "Prepare functionally equivalent variant-specific WhatsApp links or prefilled attribution tokens tied to experiment ID, experiment version, variant and eventual ad or publication ID, but do not activate or publish them before launch approval.",
+    "Before any approved launch, record ad IDs, timestamps, allocation, spend cap, reach and delivery settings, vehicle ID and attribution tokens.",
+    "Sales Lead Agent must record source token, exact vehicle, qualification result, appointment or test-drive outcome and sale outcome after launch.",
+    "If the vehicle becomes unavailable before launch, return to Orchestrator and do not publish or advertise the prepared material.",
+    "If the vehicle becomes unavailable during a launched test, tracking fails, delivery is materially unequal or settings differ outside the tested variable, stop and classify the test as INCONCLUSIVE.",
+    "If paid launch is later rejected, park this comparative hypothesis. A separately registered organic publication may gather baseline and instrumentation data, but it must not be used to decide which opening wins."
+  ],
+  "attribution_method": "Prepare separate functionally equivalent click-to-WhatsApp links or prefilled source tokens for treatment and control, joined to experiment_id, experiment_version, variant, eventual ad_id and vehicle_id. After an approved launch, Sales Lead Agent records each unique conversation start, qualification outcome, appointment or test drive and exact-vehicle sale. Report attribution as direct deterministic, assisted or unknown; do not infer qualification from Meta's historical in-app conversation totals.",
+  "decision_rule": {
+    "continue": "During zero-spend preparation, continue through Content Analyst, Content Creator and human creative review while the approved strategy and verified facts remain unchanged. After a separately approved launch, continue only until the fixed 7-day window closes or a fatal guardrail requires stopping. If the approved spend cap or window ends before the minimum sample, return INCONCLUSIVE rather than extend or top up without a new human decision.",
+    "iterate": "Return any proposed change to the hypothesis, audience, tested variable, verified offer, primary KPI, attribution method or decision thresholds to Strategist before execution. After launch, if both variants generate adequate reach but insufficient WhatsApp starts, or starts are adequate but qualification is weak, preserve this opening result as inconclusive and create a separate one-variable experiment for the diagnosed downstream conversion bottleneck. If a bounded execution defect invalidates the comparison, correct that defect in a new version without changing other variables.",
+    "scale": "If a separately approved launch meets the success threshold without guardrail failure, approve one confirmation replication on another comparable available mass-market vehicle before adopting the immediate-disclosure mechanism as a playbook standard.",
+    "kill": "If a separately approved launch meets the failure threshold with complete valid execution and attribution, reject immediate price-and-availability disclosure as the preferred opening treatment for this context. If neither success nor failure threshold is met, or the minimum sample is missing, classify the result as INCONCLUSIVE rather than kill the hypothesis. If launch approval is declined, PARK the untested hypothesis rather than classify it as failed."
+  },
+  "downstream_owner": "CONTENT_ANALYST",
+  "learning_note": "v2 incorrectly coupled permission to prepare content with permission to spend and launch. v3 preserves the paid comparative hypothesis while authorizing only reversible zero-spend preparation; publication, advertising settings and budget remain under a later independent human gate."
+}

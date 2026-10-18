@@ -1,0 +1,96 @@
+{
+  "experiment_id": "exp-20260811-elantra-gt-001",
+  "status": "BACKLOG",
+  "priority": "P0",
+  "decision_question": "Does showing the confirmed AED 21,000 price and current availability with the exact Hyundai Elantra GT in the first 1–3 seconds increase attributable qualified WhatsApp conversations per 1,000 Instagram plays compared with a matched vehicle-first opening that reveals the same price and availability only after 3 seconds?",
+  "hypothesis": "For UAE used-car buyers who are comparing affordable available vehicles, immediate verified price-and-availability disclosure will produce a higher rate of attributable qualified WhatsApp conversations than delaying the same information beyond the opening, while all other material variables remain controlled.",
+  "evidence_basis": [
+    {
+      "evidence_class": "C",
+      "reference": "mir-20260811-elantra-gt-001; pat-first-three-second-event; research/uae-market/hook-frame-analysis.md",
+      "finding": "Across 12 purposively sampled examples, an event, reveal, question, tension or visible change in the first 1–3 seconds appeared more often in stronger openings than generic controls; private retention and causal attribution are unavailable."
+    },
+    {
+      "evidence_class": "E",
+      "reference": "mir-20260811-elantra-gt-001; pat-price-finance-disclosure; research/uae-market/2026-08-11-quantitative-instagram-report.md",
+      "finding": "Caption price or finance language was associated with approximately 1.33 times the relevant account-relative median, but the evidence count was one and no lead or sales lift was measured."
+    },
+    {
+      "evidence_class": "C",
+      "reference": "mir-20260811-elantra-gt-001; pat-low-friction-contact; https://albacars.ae/contact-us; https://www.lindacars.com/about",
+      "finding": "Relevant UAE dealer funnels repeatedly terminate in direct WhatsApp conversation or test-drive action. This is adoption evidence, not proof of conversion lift."
+    },
+    {
+      "evidence_class": "C",
+      "reference": "mir-20260811-elantra-gt-001; src-quant-report",
+      "finding": "Within the 200-record buyer-signal set, price or payment was the most frequent recorded signal at 17 occurrences, followed by availability at 11."
+    }
+  ],
+  "confidence_before_test": "MEDIUM",
+  "audience": {
+    "buying_stage": "Comparing or ready-now used-car buyers",
+    "need_or_job": "Identify an available mass-market used car within a clearly disclosed purchase budget and decide whether to start a sales conversation",
+    "budget_or_payment_context": "Confirmed cash purchase price of AED 21,000; no financing claim",
+    "trust_or_risk_concern": "Vehicle condition, history, warranty and specification concerns may exist, but no answer may be claimed without verified business evidence",
+    "geography_or_language": "UAE audience reachable through the existing Instagram account; language must remain identical across variants",
+    "inventory_fit": "Confirmed available Hyundai Elantra GT 2020, currently offered at AED 21,000"
+  },
+  "primary_funnel_role": "DIRECT_SALE",
+  "secondary_funnel_role": "LEAD",
+  "platform": [
+    "INSTAGRAM"
+  ],
+  "mechanism_to_test": "A matched two-variant organic test using one common base execution. The treatment opening presents the exact vehicle together with confirmed AED 21,000 price and current availability within the first 1–3 seconds. The control opening presents the exact vehicle immediately but delays the identical price and availability information until after 3 seconds.",
+  "commercial_path": "Instagram publication to variant-attributed WhatsApp conversation about the exact Hyundai Elantra GT, then Sales Lead Agent qualification, human appointment or test-drive handling, and vehicle-level sale attribution.",
+  "primary_kpi": "Qualified WhatsApp conversations attributed to each variant per 1,000 Instagram plays",
+  "secondary_kpis": [
+    "Attributed WhatsApp conversation starts per 1,000 plays",
+    "First-3-second hold rate by variant when Instagram exposes it",
+    "Average watch time or completion rate by variant",
+    "Appointments or test drives attributed to the experiment",
+    "Sale of the exact vehicle attributed as direct, assisted or unknown"
+  ],
+  "guardrail_metrics": [
+    "Unqualified conversations as a share of all attributed conversations",
+    "WhatsApp conversation-to-qualified-conversation conversion rate",
+    "Factual-claim violations or unverified commercial claims",
+    "Vehicle availability remaining unchanged throughout both publication windows"
+  ],
+  "baseline": "No valid internal rolling baseline or private-metric baseline exists. The matched control variant inside this experiment is the only decision baseline; competitor plays and account-relative medians must not be used as our baseline.",
+  "success_threshold": "After both variants reach the minimum sample, the treatment produces at least 3 attributable qualified WhatsApp conversations and a qualified-conversation rate per 1,000 plays at least 50% higher than control, with no factual-claim or availability guardrail failure.",
+  "failure_threshold": "After both variants reach the minimum sample, treatment produces a qualified-conversation rate no greater than 80% of control and there are at least 5 qualified conversations across both variants, with valid tracking and execution.",
+  "minimum_sample": "At least 1,000 Instagram plays per variant and a complete 7-day observation window per variant. If either variant does not reach 1,000 plays, the causal comparison is INCONCLUSIVE and the observed data may only establish an initial baseline.",
+  "test_window": "Publish the variants seven calendar days apart in the same weekday and time window, using randomized order recorded before production. Observe each for 7 complete days; make the decision after both windows close.",
+  "variable_being_tested": "Timing of verified price and availability disclosure: within the first 1–3 seconds versus after 3 seconds.",
+  "controlled_variables": [
+    "Exact Hyundai Elantra GT 2020",
+    "Confirmed AED 21,000 price",
+    "Confirmed current availability",
+    "All other verified vehicle facts",
+    "Base footage and substantive message",
+    "WhatsApp destination and CTA objective",
+    "CTA placement and wording, except the neutral attribution token",
+    "Account and organic Instagram format",
+    "Language",
+    "Comparable total duration and pacing after the opening",
+    "Weekday and publication time window",
+    "No paid boosting"
+  ],
+  "execution_constraints": [
+    "Create one common base execution and change only the opening treatment required by this experiment.",
+    "Do not claim condition, history, warranty, financing, discount, rarity, ownership history or other unverified facts.",
+    "Use functionally equivalent variant-specific attribution tokens in WhatsApp so conversations can be assigned to treatment or control.",
+    "Record publication identifiers, timestamps, variant order and vehicle ID before measurement.",
+    "Stop and classify the experiment INCONCLUSIVE if the vehicle becomes unavailable before both variants complete.",
+    "Content Analyst and Content Creator may not alter the audience, hypothesis, tested variable, CTA destination, primary KPI or decision rules."
+  ],
+  "attribution_method": "Use functionally equivalent variant-specific WhatsApp source tokens tied to experiment_id and publication_id. Sales Lead Agent records exact vehicle, source token, qualification outcome, appointment and sale; attribution is labelled direct, assisted or unknown.",
+  "decision_rule": {
+    "continue": "Continue only until both 7-day windows and minimum samples are complete. If tracking or sample is incomplete, return INCONCLUSIVE rather than infer a result.",
+    "iterate": "If treatment improves first-3-second viewing but misses the qualified-conversation threshold, retain the opening hypothesis and send the diagnosed downstream bottleneck to Strategist for a separate one-variable follow-up. If both variants produce zero qualified conversations, do not infer opening lift; redesign one downstream conversion variable in a new experiment.",
+    "scale": "If the success threshold is met without guardrail failure, approve one confirmation replication on another comparable available mass-market vehicle before adding the mechanism to the permanent playbook.",
+    "kill": "If the failure threshold is met with valid execution and tracking, reject immediate price-and-availability disclosure as the preferred opening treatment for this context and retain the control result as the initial account baseline."
+  },
+  "downstream_owner": "CONTENT_ANALYST",
+  "learning_note": null
+}

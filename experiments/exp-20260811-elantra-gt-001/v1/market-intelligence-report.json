@@ -1,0 +1,228 @@
+{
+  "report_id": "mir-20260811-elantra-gt-001",
+  "created_at": "2026-08-11T13:42:58Z",
+  "scope": {
+    "market": "UAE used-automotive social selling; evidence collected for applicability to exp-20260811-elantra-gt-001",
+    "platforms": [
+      "INSTAGRAM",
+      "WEB"
+    ],
+    "date_range": {
+      "from": "2026-08-10",
+      "to": "2026-08-11"
+    },
+    "accounts_count": 5,
+    "items_count": 200
+  },
+  "patterns": [
+    {
+      "pattern_id": "pat-price-finance-disclosure",
+      "mechanic": "Caption-detectable price or finance language was associated with approximately 1.33x median performance relative to each sampled account's own baseline; this is an observed association, not proof of causation.",
+      "evidence_count": 1,
+      "examples": [
+        "Five-account aggregate: albacarsdxb, f1rstmotors, lindacarsuae, vipmotorsuae and rmamotorsdubai; 200 Instagram records."
+      ],
+      "commercial_purpose": "DIRECT_SALE",
+      "confidence": "MEDIUM",
+      "limitations": [
+        "The repository report does not state the number of posts tagged with price/finance language.",
+        "Caption-level classification does not isolate price from vehicle, account, creative or timing effects.",
+        "Competitor lead and sale attribution is unavailable."
+      ]
+    },
+    {
+      "pattern_id": "pat-risk-proof",
+      "mechanic": "Concrete used-car risk reduction is shown as content: inspection/process evidence or practical buyer-risk guidance, rather than an unsupported trust claim.",
+      "evidence_count": 2,
+      "examples": [
+        "Alba purchase-to-delivery process Reel: 969,256 plays, approximately 12.8x Alba median.",
+        "Linda used-car legal-advice Reel: 58,428 plays, approximately 26.2x Linda median."
+      ],
+      "commercial_purpose": "TRUST",
+      "confidence": "MEDIUM",
+      "limitations": [
+        "Only two independently owned dealer accounts are represented by these specific examples.",
+        "The two executions differ in format and topic.",
+        "No public lead or sales conversion data is available.",
+        "This vehicle currently has no confirmed inspection, history, warranty or condition proof for use in content."
+      ]
+    },
+    {
+      "pattern_id": "pat-first-three-second-event",
+      "mechanic": "Top sampled hooks created an event, tension, reveal, question, transformation or visible change inside the first 1–3 seconds; generic static or cinematic vehicle presentation appeared in median controls.",
+      "evidence_count": 12,
+      "examples": [
+        "Alba top sample opened with a human dealership situation and early on-screen text; its median control was conventional presenter content.",
+        "F1RST top sample used conceal-to-reveal inside three seconds; its median control used polished macro detail without narrative tension.",
+        "VIP top performance depended on an extremely rare vehicle, while its median control was predictable premium car presentation."
+      ],
+      "commercial_purpose": "REACH",
+      "confidence": "MEDIUM",
+      "limitations": [
+        "The 12-Reel sample was purposively selected from top and median posts, not randomly sampled.",
+        "Rare-car value is a major confounder in F1RST and VIP examples.",
+        "Competitor retention and three-second hold metrics are private."
+      ]
+    },
+    {
+      "pattern_id": "pat-low-friction-contact",
+      "mechanic": "UAE dealer funnels repeatedly terminate social attention in a low-friction direct conversation or test-drive action, especially WhatsApp.",
+      "evidence_count": 2,
+      "examples": [
+        "Alba's official funnel surfaces WhatsApp alongside inventory and transaction services.",
+        "Linda's official funnel includes direct WhatsApp test-drive booking."
+      ],
+      "commercial_purpose": "LEAD",
+      "confidence": "HIGH",
+      "limitations": [
+        "Public funnel presence shows adoption, not comparative conversion lift.",
+        "Response time and lead handling quality can materially affect downstream results."
+      ]
+    }
+  ],
+  "weak_patterns": [
+    {
+      "pattern_id": "weak-generic-cinematic-open",
+      "mechanic": "Slow or predictable cinematic vehicle presentation without an immediate information gap, event or commercial promise.",
+      "evidence_count": 2,
+      "examples": [
+        "F1RST median sample used polished macro details without obvious narrative tension.",
+        "VIP median sample used static premium presentation followed by detail shots."
+      ],
+      "commercial_purpose": "REACH",
+      "confidence": "MEDIUM",
+      "limitations": [
+        "Such footage may still support desire or product quality later in a Reel.",
+        "The evidence does not show that cinematic footage is commercially harmful; only that it was weak as a reach hook in these controls."
+      ]
+    },
+    {
+      "pattern_id": "weak-hypercar-literal-copy",
+      "mechanic": "Literal copying of rarity/spectacle formats from hypercar accounts for ordinary mass-market inventory.",
+      "evidence_count": 2,
+      "examples": [
+        "F1RST Koenigsegg Jesko ASMR reached 50.27M plays, approximately 390x its account median.",
+        "VIP Ferrari Monza SP1 reached 132.99M plays, approximately 1,617x its account median."
+      ],
+      "commercial_purpose": "REACH",
+      "confidence": "HIGH",
+      "limitations": [
+        "The weak classification concerns transferability to ordinary inventory, not the original posts' performance.",
+        "Sensory detail or rapid reveal may still be tested separately from vehicle rarity."
+      ]
+    }
+  ],
+  "buyer_signals": [
+    {
+      "signal": "Price, cost or payment questions",
+      "evidence_refs": [
+        "src-quant-report"
+      ],
+      "frequency": 17
+    },
+    {
+      "signal": "Availability or 'do you have' questions",
+      "evidence_refs": [
+        "src-quant-report"
+      ],
+      "frequency": 11
+    },
+    {
+      "signal": "Location questions",
+      "evidence_refs": [
+        "src-quant-report"
+      ],
+      "frequency": 9
+    },
+    {
+      "signal": "Condition, history, warranty or specification questions (grouped category)",
+      "evidence_refs": [
+        "src-quant-report"
+      ],
+      "frequency": 8
+    },
+    {
+      "signal": "Explicit buying or contact intent",
+      "evidence_refs": [
+        "src-quant-report"
+      ],
+      "frequency": 8
+    }
+  ],
+  "test_candidates": [
+    {
+      "hypothesis": "For a currently available mass-market used car, showing verified price and availability immediately, keeping the exact vehicle visible, and ending with one WhatsApp action will generate more attributable qualified conversations than the account's existing direct-sale baseline.",
+      "mechanism": "Resolve the two most frequent observed buyer information needs early (price and availability), make the commercial object unambiguous, and minimize contact friction with one direct endpoint.",
+      "change": "Test only the opening treatment: put the verified AED 21,000 price and current availability in the first frame/seconds while showing the selected Hyundai Elantra GT; do not add unverified condition, history, warranty, finance, rarity or value claims.",
+      "controls": [
+        "Same vehicle: selected Hyundai Elantra GT 2020",
+        "Same verified price: AED 21,000",
+        "Same verified availability",
+        "Same destination: WhatsApp",
+        "Same language, account and publication format",
+        "Same factual claim set",
+        "Comparable duration, posting window and CTA wording where operationally possible"
+      ],
+      "suggested_kpi": "Qualified WhatsApp conversations attributed to the experiment per 1,000 plays; secondary diagnostics: first-three-second hold where available, profile actions and WhatsApp clicks.",
+      "minimum_attempts": 3,
+      "evidence_refs": [
+        "src-quant-report",
+        "src-alba-official",
+        "src-linda-official"
+      ]
+    }
+  ],
+  "unknowns": [
+    "The selected Instagram account's rolling median plays and comparable direct-sale baseline have not been supplied.",
+    "Private Instagram metrics such as three-second hold, watch time, completion, profile actions and WhatsApp clicks are not present in the repository evidence.",
+    "Competitor qualified-lead, appointment and sale attribution is unavailable.",
+    "The observational dataset cannot isolate a causal price-opening effect from vehicle, account, timing, editing or audience effects.",
+    "No inspection, condition, accident/history, service, warranty, finance, discount or rarity claim has been verified for the selected vehicle; none may be used without business confirmation.",
+    "The exact number of price/finance-tagged posts in the 200-record aggregate is not stated in the report.",
+    "The quantitative report summarizes 200 records collected on 2026-08-11 but does not state the publication-date span of those records."
+  ],
+  "sources": [
+    {
+      "source_id": "src-quant-report",
+      "url": "https://github.com/prostoali2207-gif/auto-sales-growth-system/blob/main/research/uae-market/2026-08-11-quantitative-instagram-report.md",
+      "observed_at": "2026-08-11T09:08:24Z",
+      "source_type": "REPOSITORY_RESEARCH_APIFY_AGGREGATE"
+    },
+    {
+      "source_id": "src-creative-review",
+      "url": "https://github.com/prostoali2207-gif/auto-sales-growth-system/blob/main/research/uae-market/2026-08-11-creative-manual-review-batch-1.md",
+      "observed_at": "2026-08-11T09:24:30Z",
+      "source_type": "REPOSITORY_MANUAL_CREATIVE_REVIEW"
+    },
+    {
+      "source_id": "src-hook-report",
+      "url": "https://github.com/prostoali2207-gif/auto-sales-growth-system/blob/main/research/uae-market/2026-08-11-hook-frame-analysis.md",
+      "observed_at": "2026-08-11T11:21:34Z",
+      "source_type": "REPOSITORY_FRAME_ANALYSIS"
+    },
+    {
+      "source_id": "src-alba-process-reel",
+      "url": "https://www.instagram.com/p/DOqtvGNCYNv/",
+      "observed_at": "2026-08-11T09:24:30Z",
+      "source_type": "INSTAGRAM_REEL"
+    },
+    {
+      "source_id": "src-linda-legal-reel",
+      "url": "https://www.instagram.com/p/C7bNO4zh3se/",
+      "observed_at": "2026-08-11T09:24:30Z",
+      "source_type": "INSTAGRAM_REEL"
+    },
+    {
+      "source_id": "src-alba-official",
+      "url": "https://albacars.ae/contact-us",
+      "observed_at": "2026-08-10T18:10:34Z",
+      "source_type": "OFFICIAL_DEALER_WEBSITE"
+    },
+    {
+      "source_id": "src-linda-official",
+      "url": "https://www.lindacars.com/about",
+      "observed_at": "2026-08-10T18:10:34Z",
+      "source_type": "OFFICIAL_DEALER_WEBSITE"
+    }
+  ]
+}

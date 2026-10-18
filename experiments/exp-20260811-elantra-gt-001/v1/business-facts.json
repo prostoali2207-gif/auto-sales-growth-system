@@ -1,0 +1,37 @@
+{
+  "artifact_id": "bf-20260811-elantra-gt-001-v1",
+  "artifact_type": "business-facts",
+  "version": "v1",
+  "verified_at": "2026-08-11T00:00:00+04:00",
+  "verified_by": "HUMAN",
+  "source_url": "https://www.instagram.com/p/DbQDNvuiJE2/",
+  "vehicle_id": "vehicle-elantra-gt-2020-001",
+  "facts": {
+    "make": "Hyundai",
+    "model": "Elantra GT",
+    "year": 2020,
+    "price": {
+      "amount": 21000,
+      "currency": "AED",
+      "negotiable": true
+    },
+    "mileage_km": 147700,
+    "specification_origin": "American spec",
+    "engine": "2.0L",
+    "location": "Ajman Auto Market, showroom 171",
+    "inventory_status": "FOR_SALE",
+    "shoot_available": true,
+    "cta_path": "WhatsApp via business Instagram"
+  },
+  "forbidden_unverified_claims": [
+    "condition",
+    "accident or ownership history",
+    "service history",
+    "warranty",
+    "financing",
+    "discount",
+    "exact trim",
+    "rarity",
+    "specific-instance advantages"
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "content_spec_id": "cs-exp-20260811-elantra-gt-001-v3-001",
+  "experiment_id": "exp-20260811-elantra-gt-001",
+  "status": "READY_FOR_CREATOR",
+  "source_strategy_reference": "experiments/exp-20260811-elantra-gt-001/v3/strategy-experiment.json",
+  "experiment_lock": {
+    "tested_variable": "Timing of verified AED 21,000 price and current availability disclosure: treatment within 0–3 seconds; control only after 3 seconds.",
+    "locked_variables": [
+      "Exact vehicle: Hyundai Elantra GT 2020, vehicle_id vehicle-elantra-gt-2020-001",
+      "Verified offer facts used: AED 21,000 cash purchase price and current availability",
+      "One common base execution from 3.1 seconds onward",
+      "Same footage source, crop, duration, edit rhythm, text style, language, audio treatment and CTA across variants except for the declared opening disclosure timing",
+      "Same CTA wording, placement, objective and click-to-WhatsApp destination",
+      "Same factual claim set and proof elements",
+      "Same Instagram vertical short-form format",
+      "Functionally equivalent variant-specific attribution treatment",
+      "No publication, advertising, campaign creation, budget reservation or spend under this preparation approval"
+    ],
+    "bounded_variables": [
+      {
+        "variable": "Opening disclosure time",
+        "allowed_range": "Treatment: first visible and comprehensible within 0.0–3.0 seconds; control: absent through 3.0 seconds and first visible and comprehensible at or after 3.1 seconds."
+      },
+      {
+        "variable": "Total duration",
+        "allowed_range": "12–15 seconds for both variants, with no more than 0.2-second difference."
+      },
+      {
+        "variable": "Opening vehicle shot",
+        "allowed_range": "The same exact source shot, in-point, framing and motion must be used in both variants for the full 0.0–3.0-second opening."
+      },
+      {
+        "variable": "On-screen price and availability treatment",
+        "allowed_range": "Identical wording, typography, size, color, screen position and display duration when shown; only first-appearance timing may differ."
+      },
+      {
+        "variable": "Language",
+        "allowed_range": "Creator may select one language appropriate to the account, but it must be identical in spoken, captioned and on-screen elements across both variants."
+      }
+    ],
+    "free_variables": [
+      "Final wording for vehicle identity and verified supporting facts after 3.1 seconds",
+      "Final CTA wording within the fixed WhatsApp objective",
+      "Choice of presenter, voice-over or text-led execution, provided the same execution is used in both variants",
+      "Choice of lawful non-musical ambient audio or silence, provided it is identical across variants",
+      "Selection of exact vehicle angles after the opening, provided they show the selected car and are identical across variants"
+    ],
+    "forbidden_deviations": [
+      "Any claim about condition, accident or ownership history, service history, warranty, financing, discount, exact trim, rarity or specific-instance advantages",
+      "Changing the vehicle, price, availability statement, offer, CTA, destination, language or base edit between variants",
+      "Using different opening footage, motion, presenter action, audio, crop, text styling or duration between variants",
+      "Showing or stating price or availability in the control before 3.1 seconds, including captions, speech, graphics, stickers or metadata visible in-frame",
+      "Adding a second CTA, profile-visit request, follow request, phone-call request or other competing action",
+      "Decorative logo, greeting or dealership introduction before the vehicle and experiment mechanism",
+      "Implying urgency, scarcity, savings, quality or trust without verified evidence",
+      "Publishing or activating any asset before separate human launch approval"
+    ]
+  },
+  "content_objective": {
+    "platform": [
+      "INSTAGRAM"
+    ],
+    "primary_funnel_role": "LEAD",
+    "audience_signal": "UAE used-car shopper comparing available mass-market vehicles around a verified AED 21,000 cash purchase price.",
+    "promise_or_problem": "Let a ready buyer rapidly identify the exact available Hyundai Elantra GT 2020 and its verified price, then decide whether to begin a WhatsApp conversation.",
+    "desired_viewer_action": "Start the variant-attributed WhatsApp conversation about vehicle-elantra-gt-2020-001."
+  },
+  "hook_specification": {
+    "hook_type": "OTHER",
+    "first_frame_job": "Show the exact Hyundai Elantra GT immediately in the same mobile-readable vehicle shot in both variants; treatment additionally shows verified AED 21,000 price and current availability, while control contains no price or availability cue.",
+    "first_1s_event": "A clear, immediate view of the exact vehicle begins without logo, greeting or scene-setting; only the treatment adds the identical price-and-availability overlay during this opening window.",
+    "first_3s_information": "Treatment: exact vehicle plus verified AED 21,000 price and current availability. Control: exact vehicle identity only, with price and availability completely withheld until after 3.0 seconds.",
+    "viewer_question_or_tension": "Treatment lets the viewer immediately decide whether this available AED 21,000 vehicle fits; control creates the narrower question of what the shown vehicle costs and whether it is available.",
+    "payoff_requirement": "At 3.1 seconds or later, both variants must enter the identical common base and present the same verified price, availability, vehicle identity and WhatsApp path without adding unsupported claims."
+  },
+  "structural_timeline": [
+    {
+      "block_id": "B01_CONTROLLED_OPEN",
+      "job": "Expose the tested disclosure-timing treatment while holding the vehicle shot and all other opening variables constant.",
+      "information_required": [
+        "Both variants: exact Hyundai Elantra GT 2020 is the immediate subject",
+        "Treatment only: AED 21,000 and currently available are visible and comprehensible within 0.0–3.0 seconds",
+        "Control only: no price or availability information appears in any channel through 3.0 seconds"
+      ],
+      "visual_requirement": [
+        "Use the same source shot, in-point, framing, motion, crop and duration in both variants",
+        "Keep the exact vehicle large and recognizable in vertical framing",
+        "Treatment overlay must use the same final wording and style later used by the control"
+      ],
+      "proof_requirement": [
+        "Footage must be of vehicle-elantra-gt-2020-001",
+        "Price and availability must match bf-20260811-elantra-gt-001-v1 and be rechecked before any launch"
+      ],
+      "target_time_range": "0.0–3.0 seconds",
+      "transition_job": "Cut identically into the common offer-identification block at 3.1 seconds or later.",
+      "locked": [
+        "Only first-appearance timing of price and availability may differ",
+        "No other visual, audio, wording, pacing or duration difference",
+        "No logo, greeting, dealer introduction or competing information"
+      ]
+    },
+    {
+      "block_id": "B02_COMMON_OFFER_ID",
+      "job": "Make the common commercial object unambiguous and deliver the delayed disclosure to the control.",
+      "information_required": [
+        "Hyundai Elantra GT 2020",
+        "Verified price: AED 21,000",
+        "Verified current availability"
+      ],
+      "visual_requirement": [
+        "Same exact footage, text, voice, timing and layout in both variants",
+        "Keep the vehicle visible while price and availability are readable"
+      ],
+      "proof_requirement": [
+        "Use only current business facts from bf-20260811-elantra-gt-001-v1",
+        "Do not translate availability into scarcity or urgency"
+      ],
+      "target_time_range": "3.1–6.0 seconds",
+      "transition_job": "Move from offer identification to a compact shared factual filter without changing tone or edit rhythm.",
+      "locked": [
+        "Exact same block in both variants",
+        "Price and availability wording identical across variants",
+        "No financing, discount or condition claim"
+      ]
+    },
+    {
+      "block_id": "B03_COMMON_FACT_FILTER",
+      "job": "Give the viewer only verified decision-relevant facts needed before the WhatsApp ask.",
+      "information_required": [
+        "Select a minimal subset from the verified facts: 147,700 km, American spec, 2.0L engine, Ajman Auto Market showroom 171",
+        "Use the identical selected subset and order in both variants"
+      ],
+      "visual_requirement": [
+        "Show identical exterior and/or interior views of the exact vehicle in both variants",
+        "Use readable text or voice without implying that appearance proves condition"
+      ],
+      "proof_requirement": [
+        "Every stated fact must remain present in bf-20260811-elantra-gt-001-v1 at final human fact review",
+        "If mileage is used, an odometer view may support it only if it clearly belongs to the selected vehicle; otherwise rely on verified business data and do not fabricate dashboard proof"
+      ],
+      "target_time_range": "6.0–10.0 seconds",
+      "transition_job": "End on the relevance of contacting the business about this exact car, then trigger the single WhatsApp action.",
+      "locked": [
+        "Same facts, order, footage, wording and timing in both variants",
+        "No additional feature, benefit, quality, history or value claim"
+      ]
+    },
+    {
+      "block_id": "B04_COMMON_CTA",
+      "job": "Convert qualified interest into a deterministic, variant-attributed WhatsApp conversation about the exact vehicle.",
+      "information_required": [
+        "One action only: begin a WhatsApp conversation about vehicle-elantra-gt-2020-001",
+        "The CTA must identify the car sufficiently for Sales attribution"
+      ],
+      "visual_requirement": [
+        "Use the same CTA wording, visual treatment, first appearance and duration in both variants",
+        "Keep the exact vehicle visible or unmistakably referenced"
+      ],
+      "proof_requirement": [
+        "Before launch approval, verify both WhatsApp paths resolve correctly and differ only in their attribution token"
+      ],
+      "target_time_range": "10.0–15.0 seconds",
+      "transition_job": "Close cleanly after the single WhatsApp action; do not add follow, profile, call or other asks.",
+      "locked": [
+        "Same CTA objective, wording, placement and destination across variants",
+        "Functionally equivalent variant-specific tracking token is the only permitted CTA-path difference",
+        "No publication or activation during preparation"
+      ]
+    }
+  ],
+  "pacing": {
+    "target_duration_range": "12–15 seconds, materially identical between variants and differing by no more than 0.2 seconds.",
+    "rationale": "The structure needs only the controlled 3-second opening, one common offer block, a compact verified fact filter and one WhatsApp action; extending beyond this adds uncontrolled material without serving the approved lead mechanism.",
+    "fast_zones": [
+      "0.0–3.0 seconds: immediate vehicle recognition and controlled disclosure difference",
+      "6.0–10.0 seconds: concise verified fact progression with no decorative pause"
+    ],
+    "slow_zones": [
+      "3.1–6.0 seconds: allow AED 21,000 and current availability to be read or understood",
+      "Final CTA: allow enough time for the WhatsApp action and vehicle reference to be understood"
+    ],
+    "removable_material_rules": [
+      "Remove greetings, dealership introductions, logos before relevance and decorative beauty shots that do not identify the vehicle or carry a verified fact",
+      "If the edit exceeds 15 seconds, remove optional facts from B03 rather than shortening the controlled opening, offer comprehension or CTA",
+      "Never remove or shift a locked block differently in one variant",
+      "Do not use faster cuts to compensate for extra claims; remove the claims"
+    ]
+  },
+  "proof_architecture": [
+    {
+      "claim_supported": "The promoted object is the selected Hyundai Elantra GT 2020.",
+      "proof_type": "Actual selected-vehicle footage plus verified business record",
+      "must_be_visible_or_stated": "The exact vehicle is visibly present from the first frame and its make, model and year are stated in the common base.",
+      "placement": "B01 and B02",
+      "source_or_verification": "bf-20260811-elantra-gt-001-v1; vehicle_id vehicle-elantra-gt-2020-001; final human visual match before launch",
+      "failure_condition": "Footage is another vehicle, the selected car cannot be reliably identified, or make/model/year no longer match the verified record."
+    },
+    {
+      "claim_supported": "The verified cash purchase price is AED 21,000.",
+      "proof_type": "Current verified business fact",
+      "must_be_visible_or_stated": "AED 21,000 appears in the treatment within 0.0–3.0 seconds and in both variants identically in B02.",
+      "placement": "Treatment B01; both variants B02",
+      "source_or_verification": "bf-20260811-elantra-gt-001-v1, human-verified price; mandatory human recheck before launch",
+      "failure_condition": "Price changes, cannot be reverified, is presented as finance/payment, or differs between variants."
+    },
+    {
+      "claim_supported": "The vehicle is currently available for sale.",
+      "proof_type": "Current inventory confirmation",
+      "must_be_visible_or_stated": "Current availability appears in the treatment within 0.0–3.0 seconds and in both variants identically in B02 without scarcity language.",
+      "placement": "Treatment B01; both variants B02",
+      "source_or_verification": "bf-20260811-elantra-gt-001-v1, inventory_status FOR_SALE; mandatory human recheck before launch",
+      "failure_condition": "Vehicle is sold, reserved, unavailable, or availability cannot be confirmed immediately before launch."
+    },
+    {
+      "claim_supported": "Any optional factual filter used in B03 is accurate for the selected vehicle.",
+      "proof_type": "Verified business facts, with direct visual proof only where available and unambiguous",
+      "must_be_visible_or_stated": "Only a minimal chosen subset of 147,700 km, American spec, 2.0L engine and Ajman Auto Market showroom 171 may be used.",
+      "placement": "B03",
+      "source_or_verification": "bf-20260811-elantra-gt-001-v1; final human fact review",
+      "failure_condition": "A fact is stale, unsupported, visually attributed to the wrong vehicle, or expanded into a condition, quality, history, warranty, finance, discount, trim, rarity or advantage claim."
+    }
+  ],
+  "offer_and_cta": {
+    "offer_constraints": [
+      "Exact Hyundai Elantra GT 2020 only",
+      "Verified cash purchase price AED 21,000",
+      "Verified current availability",
+      "No financing, discount, warranty, condition, history, exact-trim, rarity or advantage claim",
+      "Offer facts must be reverified by a human before any launch"
+    ],
+    "offer_placement": "Treatment first appears during B01 within 0.0–3.0 seconds; control first appears in B02 at or after 3.1 seconds; B02 onward is identical across variants.",
+    "cta_objective": "Start a unique directly attributable WhatsApp conversation about the exact selected vehicle.",
+    "cta_destination": "Click-to-WhatsApp destination used by the business Instagram account, with functionally equivalent variant-specific attribution treatment prepared but not activated.",
+    "cta_first_appearance": "B04, planned at 10.0 seconds in both variants.",
+    "cta_final_appearance": "Hold through the end of B04 in both variants.",
+    "cta_context_trigger": "The viewer has seen the exact car, verified AED 21,000 price, current availability and the same compact factual filter before the single WhatsApp ask.",
+    "tracking_requirements": [
+      "Prepare separate treatment and control WhatsApp links or prefilled source tokens with identical user-facing function",
+      "Join experiment_id exp-20260811-elantra-gt-001, experiment_version v3, variant TREATMENT_IMMEDIATE or CONTROL_DELAYED, eventual ad_id and vehicle_id vehicle-elantra-gt-2020-001",
+      "Do not activate, publish or advertise either link before explicit human launch approval",
+      "Verify link resolution and token capture for both variants before any approved launch",
+      "Sales must preserve the source token through qualification, appointment or test drive and exact-vehicle sale outcome"
+    ],
+    "competing_actions_forbidden": true
+  },
+  "visual_requirements": {
+    "format": [
+      "Vertical 9:16 Instagram short-form master",
+      "Create one common master plus two opening-overlay variants",
+      "Export both variants with matching codec, resolution, frame rate, duration and audio mix"
+    ],
+    "framing": [
+      "Exact vehicle large and recognizable from frame one",
+      "Opening uses the identical source frame sequence in both variants",
+      "Keep critical text and vehicle identity away from Instagram interface-obscured edges"
+    ],
+    "readability": [
+      "AED 21,000 and current availability must be legible at normal phone size",
+      "When the disclosure appears, wording, size, position, contrast and display duration must be identical across variants",
+      "Do not rely on audio alone for the tested price-and-availability disclosure",
+      "Use the same captioning convention and language across variants"
+    ],
+    "product_visibility": [
+      "The exact Hyundai Elantra GT remains the primary visual subject throughout",
+      "Use only footage confirmed to show vehicle-elantra-gt-2020-001",
+      "Do not let presenter, graphics or dealership branding obscure the vehicle during offer disclosure"
+    ],
+    "proof_visibility": [
+      "Vehicle identity is supported by continuous actual-vehicle footage",
+      "Price and availability are displayed as verified business facts, not styled as unverified urgency or savings",
+      "Optional odometer footage may be used only if clearly matched to the selected vehicle"
+    ],
+    "prohibited_choices": [
+      "Different footage, crop, motion, text styling, voice, music, sound effect or edit rhythm in the two openings",
+      "Condition-implying close-ups or language presented as proof of quality",
+      "Stock footage, another vehicle, generic showroom montage or hypercar-style rarity framing",
+      "Tiny text, cluttered overlays or price hidden by Instagram UI",
+      "Countdowns, sold-soon cues, fake scarcity, finance figures, crossed-out prices or unsupported comparisons",
+      "Any visual CTA other than the single WhatsApp action"
+    ]
+  },
+  "creator_handoff": {
+    "deliverables": [
+      "One shared block-mapped production script for B02–B04 without changing the approved strategy",
+      "Two B01 opening executions mapped as TREATMENT_IMMEDIATE and CONTROL_DELAYED",
+      "A shoot-ready shot list identifying which exact footage is common and reused across both variants",
+      "On-screen text and spoken-text plan in one chosen language, with claim-source annotations",
+      "Two matched edit maps showing planned timestamps and confirming the only difference is disclosure timing",
+      "Two draft click-to-WhatsApp CTA treatments with placeholder variant tokens, not activated",
+      "A claim verification table against bf-20260811-elantra-gt-001-v1",
+      "A pre-publication human review checklist covering vehicle, price, availability, claims, variant equivalence and tracking"
+    ],
+    "must_preserve": [
+      "All experiment locks, block order, timing bounds and forbidden deviations",
+      "One identical base execution after 3.0 seconds",
+      "Treatment disclosure within 0.0–3.0 seconds and complete control withholding through 3.0 seconds",
+      "Same final language, CTA, proof, facts, duration, visual style and audio treatment across variants",
+      "No publication, campaign action or spend"
+    ],
+    "may_choose": [
+      "Final concise wording within the verified claim set",
+      "One language for both variants",
+      "Presenter, voice-over or text-led form for both variants",
+      "Exact common vehicle angles after B01",
+      "A lawful non-musical ambient audio treatment or silence used identically in both variants"
+    ],
+    "must_escalate": [
+      "Any inability to create two materially identical variants apart from disclosure timing",
+      "Any changed or conflicting price, availability, vehicle identity or verified business fact",
+      "Any request to add financing, discount, warranty, condition, history, exact trim, rarity or unsupported advantage",
+      "Any need to change audience, platform, offer, CTA destination, tested variable, KPI, sample, attribution or decision rule",
+      "Any request to publish, advertise, reserve budget or spend before separate human approval",
+      "Any inability to prepare deterministic, functionally equivalent variant attribution"
+    ]
+  },
+  "analytics_handoff": {
+    "tested_creative_variable": "First comprehensible appearance time of verified AED 21,000 price and current availability: 0.0–3.0 seconds in TREATMENT_IMMEDIATE versus at or after 3.1 seconds in CONTROL_DELAYED.",
+    "locked_variables": [
+      "Exact vehicle and verified offer",
+      "Opening source footage and all opening execution features except disclosure timing",
+      "Common B02–B04 base execution",
+      "Total duration and pacing",
+      "Language, claim set, proof, CTA and WhatsApp destination",
+      "Functionally equivalent tracking",
+      "Audience, Instagram-only placement, optimization, attribution window, concurrent schedule and 50/50 delivery if later approved"
+    ],
+    "planned_duration": "12–15 seconds per variant; difference no greater than 0.2 seconds.",
+    "actual_duration_field": "publish_record.actual_duration_seconds by variant",
+    "hook_type": "TREATMENT_IMMEDIATE: SPECIFIC_VALUE; CONTROL_DELAYED: vehicle-first COLD_OPEN; the declared tested difference is price-and-availability disclosure timing.",
+    "first_3s_event": "Both variants show the same exact-vehicle footage; only treatment displays verified AED 21,000 and current availability, while control contains no price or availability cue.",
+    "block_timeline": [
+      "B01_CONTROLLED_OPEN: 0.0–3.0 seconds",
+      "B02_COMMON_OFFER_ID: 3.1–6.0 seconds",
+      "B03_COMMON_FACT_FILTER: 6.0–10.0 seconds",
+      "B04_COMMON_CTA: 10.0–15.0 seconds"
+    ],
+    "offer_first_appearance": "Treatment: record actual first comprehensible price and availability timestamp within 0.0–3.0 seconds; control: record actual first comprehensible timestamp at or after 3.1 seconds.",
+    "cta_first_appearance": "Planned 10.0 seconds in both variants; record actual timestamp.",
+    "proof_timestamps": [
+      "Exact selected vehicle visible from 0.0 seconds in both variants",
+      "Verified price and availability: treatment within 0.0–3.0 seconds; both variants identically in B02",
+      "Record actual timestamps for each optional B03 fact and any odometer view"
+    ],
+    "primary_kpi": "Unique directly attributed WhatsApp conversation starts per 1,000 Instagram accounts reached",
+    "secondary_kpis": [
+      "Qualified WhatsApp conversations per 1,000 Instagram accounts reached",
+      "Qualified conversations as a share of attributed WhatsApp conversation starts",
+      "Outbound or messaging click rate by variant",
+      "First-3-second viewing rate, average watch time or completion rate by variant when available",
+      "Appointments or test drives attributed to each variant",
+      "Sale of the exact vehicle attributed as direct, assisted or unknown"
+    ],
+    "guardrail_metrics": [
+      "Qualified-conversation share must not be more than 10 percentage points lower for treatment than control",
+      "No factual-claim violation or unverified commercial claim",
+      "Vehicle remains available throughout the full launched test window",
+      "Equal audience eligibility, Instagram-only placement, optimization objective, attribution window and delivery rules",
+      "WhatsApp links and attribution tokens function before and throughout any approved launch",
+      "No concurrent same-vehicle campaign targets the same audience",
+      "No publication, advertising or spend before separate explicit human launch approval"
+    ],
+    "platform_diagnostics": [
+      "Instagram accounts reached by variant as the denominator",
+      "Unique outbound or messaging clicks by variant",
+      "First-3-second viewing rate when Meta exposes a comparable metric",
+      "Average watch time and completion rate by variant when available",
+      "Reach, impressions, frequency, spend and delivery distribution by variant",
+      "Metric name, definition and availability/version at collection time",
+      "Drop or retention difference around the 3.0–3.1-second disclosure boundary when available"
+    ],
+    "attribution_requirements": [
+      "Capture experiment_id exp-20260811-elantra-gt-001 and experiment_version v3",
+      "Capture variant TREATMENT_IMMEDIATE or CONTROL_DELAYED, eventual ad_id and vehicle_id vehicle-elantra-gt-2020-001",
+      "Deduplicate unique WhatsApp conversation starts across repeated clicks or messages",
+      "Classify attribution as direct deterministic, assisted or unknown",
+      "Sales records qualification result, appointment or test-drive outcome and exact-vehicle sale outcome",
+      "Do not infer WhatsApp starts or qualification from Meta historical in-app conversation totals"
+    ],
+    "execution_deviation_fields": [
+      "actual_opening_source_asset_id by variant",
+      "actual_price_first_visible_seconds by variant",
+      "actual_availability_first_visible_seconds by variant",
+      "actual_price_and_availability_wording by variant",
+      "actual_block_timestamps by variant",
+      "actual_duration_seconds by variant",
+      "actual_language, CTA wording and CTA first appearance by variant",
+      "actual_claim set and proof assets by variant",
+      "audio, crop, frame rate, resolution and edit-rhythm differences",
+      "link or token failures",
+      "audience, placement, schedule, optimization, attribution-window or delivery deviations",
+      "vehicle availability changes and concurrent-campaign interference"
+    ],
+    "content_post_id": null
+  },
+  "blocker_reason": null,
+  "strategist_revision_request": null
+}
