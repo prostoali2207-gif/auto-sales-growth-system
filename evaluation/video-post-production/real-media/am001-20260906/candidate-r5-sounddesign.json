@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906-R5-SOUND",
+  "artifact_role": "isolated commercial-sound-design practical candidate; picture identical to accepted R4",
+  "vehicle_id": "AM-001",
+  "reusable_candidate": {
+    "repo": "prostoali2207-gif/professional-ai-agents",
+    "issue": 289,
+    "pull_request": 290,
+    "branch": "agent/commercial-sound-design-extend-v01",
+    "status": "CANDIDATE_EXTEND_NOT_QUALIFIED"
+  },
+  "controlled_variable": "sound design only",
+  "controlled_picture": {
+    "source_artifact": "AM001_candidate_R4_1080x1920.mp4",
+    "r4_video_stream_sha256": "2f8aa79c77a29f16789e400d04b5b1f810dce83197279d7a725de36624845a17",
+    "r5_video_stream_sha256": "2f8aa79c77a29f16789e400d04b5b1f810dce83197279d7a725de36624845a17",
+    "identity": "PASS: video elementary stream unchanged"
+  },
+  "sonic_thesis": "restrained tactile showroom realism; use authentic ambience and the real door action as the hero event, preserve negative space, avoid music and false vehicle-performance sounds",
+  "event_hierarchy": [
+    {
+      "role": "support",
+      "event": "quiet authentic showroom ambience",
+      "range": "opening/exterior"
+    },
+    {
+      "role": "negative_space",
+      "event": "reduced ambience through exterior detail sequence",
+      "purpose": "contrast and attention"
+    },
+    {
+      "role": "hero",
+      "event": "authentic door-opening production audio, retimed with picture",
+      "purpose": "physical transition into cabin"
+    },
+    {
+      "role": "support_layer",
+      "event": "low-frequency body derived from the same authentic door recording",
+      "purpose": "restore phone-recorded body without inventing another mechanism"
+    },
+    {
+      "role": "support",
+      "event": "authentic interior production ambience",
+      "range": "cockpit/cluster"
+    },
+    {
+      "role": "negative_space",
+      "event": "final hero ambience tapers down",
+      "purpose": "leave visual/CTA clean"
+    }
+  ],
+  "forbidden_or_removed": [
+    "music",
+    "fake engine/rev",
+    "fake button/control sounds not pictured/recorded",
+    "one-whoosh-per-cut transition decoration"
+  ],
+  "output": {
+    "filename": "AM001_candidate_R5_sounddesign.mp4",
+    "sha256": "2c5425b1e8e94c62b5979b412ec1e1e027c47002f34428d40f9dd387c7dcc42b",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 10.23,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_sample_rate": 48000,
+    "audio_channels": 2,
+    "audio_mean_db": -31.7,
+    "audio_max_db": -9.8
+  },
+  "deterministic_qc": {
+    "video_stream_identity_to_r4": "PASS",
+    "decode": "PASS",
+    "duration": "PASS",
+    "audio_stream": "PASS",
+    "clipping": "PASS by peak metric; max -9.8 dB"
+  },
+  "perceptual_qc": {
+    "status": "OPEN",
+    "reason": "Current runtime can construct and meter audio but does not provide an independent calibrated listen of the exported artifact. Accountable user listen and independent practitioner review remain required."
+  },
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE"
+}

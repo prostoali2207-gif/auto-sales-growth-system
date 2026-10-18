@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906",
+  "role": "strongest failed production baseline supplied by user",
+  "artifact": {
+    "filename": "Toyota_Yaris_2026_AM001_Reel_v1.mp4",
+    "sha256": "2ca4dc06f769e27b2f6665bfd6f526dbbb6808a5dd97f52ee9b069f1c918a28c",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 18.566667,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_mean_db": -20.8,
+    "audio_max_db": -1
+  },
+  "status": "FAILED_BASELINE",
+  "evidence": "User supplied the actual v1 artifact after the initial case was opened."
+}

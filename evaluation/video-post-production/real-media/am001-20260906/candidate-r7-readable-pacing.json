@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260907-R7",
+  "artifact_role": "readability/pacing repair candidate; not publication approval",
+  "vehicle_id": "AM-001",
+  "trigger_feedback": "R6 transitions/cuts felt too fast; viewer would not have enough time to inspect the car.",
+  "diagnosis": "SHOT_READABILITY_PACING_FAIL",
+  "repair_hypothesis": "Reduce shot count and allocate more dwell to material hero/proof shots instead of globally slowing the existing edit.",
+  "output": {
+    "filename": "AM001_candidate_R7_readable_pacing.mp4",
+    "sha256": "4a32e8c7c7c70c3adc0e580cebaba131318983d908db7e2bae349af9356a4ce9",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 12.33,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_mean_db": -32.8,
+    "audio_max_db": -13.6
+  },
+  "edit_structure": {
+    "shot_count": 8,
+    "removed_from_r6": "wheel detail",
+    "rationale": "fewer stronger shots with more reading time",
+    "approximate_dwell_seconds": {
+      "front_hero": 1.45,
+      "headlight_detail": 0.85,
+      "side_profile": 1.5,
+      "rear_three_quarter": 1.4,
+      "door_reveal": 2.14,
+      "cockpit": 1.4,
+      "cluster": 1,
+      "final_hero": 2.6
+    }
+  },
+  "soundscape": {
+    "strategy": "single continuous ambience bed plus authentic door event",
+    "per_clip_raw_ambience": false,
+    "music": false,
+    "fake_vehicle_events": false
+  },
+  "deterministic_qc": {
+    "full_decode": "PASS",
+    "dimensions_fps": "PASS: 1080x1920 @ 30 fps",
+    "black_interval_detection": "PASS: no qualifying unintended interval detected",
+    "freeze_detection": "PASS: no qualifying unintended interval detected",
+    "audio_stream": "PASS"
+  },
+  "status": "PENDING_USER_REVIEW",
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE",
+  "external_review": {
+    "provider": "Higgsfield video analysis",
+    "analysis_id": "9acbc5d7-6e47-441f-9364-ca24653a6422",
+    "role": "external model-based scene analysis; explicitly not a human qualification reviewer",
+    "status": "COMPLETED_WITH_LIMITATION",
+    "scene_segmentation": [
+      {
+        "scene": 1,
+        "time": "0:00-0:01",
+        "label": "front opening"
+      },
+      {
+        "scene": 2,
+        "time": "0:01-0:02",
+        "label": "headlight detail"
+      },
+      {
+        "scene": 3,
+        "time": "0:02-0:03",
+        "label": "side profile"
+      },
+      {
+        "scene": 4,
+        "time": "0:03-0:04",
+        "label": "rear three-quarter"
+      },
+      {
+        "scene": 5,
+        "time": "0:04-0:06",
+        "label": "door action"
+      },
+      {
+        "scene": 6,
+        "time": "0:06-0:08",
+        "label": "cockpit"
+      },
+      {
+        "scene": 7,
+        "time": "0:08-0:09",
+        "label": "cluster"
+      },
+      {
+        "scene": 8,
+        "time": "0:09-0:11",
+        "label": "final hero/CTA"
+      }
+    ],
+    "useful_evidence": [
+      "external segmentation recognized the intended eight-beat structure",
+      "door and cockpit beats were each perceived as multi-second scenes rather than flashes",
+      "final hero/CTA was perceived as a distinct closing scene"
+    ],
+    "evaluator_failure": [
+      "audio analysis claimed continuous upbeat electronic music although R7 contains no music",
+      "therefore provider audio/perceptual claims are not trusted for qualification"
+    ],
+    "qualification_effect": "NONE; does not satisfy independent competent human practitioner requirement"
+  }
+}

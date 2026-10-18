@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "AM001-REALMEDIA-20260906-R6",
+  "artifact_role": "commercial sound-design practical candidate; picture unchanged from R4",
+  "vehicle_id": "AM-001",
+  "trigger_feedback": "R5 sounded somewhat better, but the original production ambience changed audibly from clip to clip because each source take carried a different background.",
+  "diagnosis": "AMBIENCE_CONTINUITY_FAIL",
+  "repair_hypothesis": "Remove all per-clip production ambience from the edit, establish one continuous acoustic environment across the whole reel, and reintroduce only intentional authentic hero events such as the real door action.",
+  "output": {
+    "filename": "AM001_candidate_R6_clean_soundscape.mp4",
+    "sha256": "ad9efba48d33d25ef0353422966026c1ac53e04c8351c6cce56ed16a7266b0dc",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "duration_seconds": 10.23,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_mean_db": -29.3,
+    "audio_max_db": -8.5
+  },
+  "picture_integrity": {
+    "source": "R4",
+    "elementary_video_stream_sha256": "86fbf22b03a53cdf921210f7ffb454073fa3c59beeb1193879575ba42cfd405e",
+    "unchanged": true
+  },
+  "sound_design": {
+    "per_clip_source_ambience": "removed",
+    "continuous_bed": "single coherent room-tone environment derived from one quiet source segment, spectrally bounded and seamlessly looped",
+    "non_evidentiary_texture": "very low-level deterministic filtered air texture for continuity and two macro swells",
+    "authentic_event": "real AM-001 door-opening recording retained and matched to R4 visual retime",
+    "fake_vehicle_events": false,
+    "music": false,
+    "generic_whoosh_per_cut": false
+  },
+  "deterministic_qc": {
+    "full_decode": "PASS",
+    "video_stream_identity_vs_r4": "PASS",
+    "audio_stream": "PASS",
+    "mean_volume_db": -29.3,
+    "max_volume_db": -8.5
+  },
+  "status": "PENDING_USER_AND_INDEPENDENT_PERCEPTUAL_REVIEW",
+  "qualification_status": "UNQUALIFIED_REAL_MEDIA_CANDIDATE"
+}
