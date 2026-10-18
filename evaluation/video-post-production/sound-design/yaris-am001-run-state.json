@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "gate_id": "yaris-am001-commercial-sound-design-20260906",
+  "vehicle_id": "AM-001",
+  "music_constraint": "NO_MUSIC",
+  "status": "SOURCE_MEDIA_AVAILABLE_BASELINE_RENDER_MISSING",
+  "qualification_effect": "NO_PASS_CLAIM",
+  "authoritative_media_folder_id": "1QlOJi7WVs-NnlUbe38cUm2bsA-BlIVoV",
+  "expected_baseline_filename": "Toyota_Yaris_2026_AM001_Reel_v1.mp4",
+  "baseline_found_in_drive": false,
+  "baseline_sha256": null,
+  "source_audit": "evaluation/video-post-production/sound-design/yaris-am001-source-audit-2026-09-06.md",
+  "source_clip_count_inspected": 13,
+  "door_source": {
+    "filename": "20260906_131326.mp4",
+    "drive_file_id": "1oGtTxyikOZf3Tx24jh_E4FQFkl5qyV-f",
+    "sha256": "5df771222a5f8fbe40dbc70036a0c268ce82df2ab60c515ea38fa647890f5cf7",
+    "full_visual_action_available": true,
+    "production_audio_track_available": true,
+    "perceptual_audio_qc_complete": false
+  },
+  "candidate_render_sha256": null,
+  "real_media_listened": false,
+  "playback_contexts": [],
+  "known_regressions": [
+    "door-opening action was cut before satisfying physical payoff despite complete source coverage",
+    "sound must not be used as a bandage for unresolved picture action"
+  ],
+  "required_hard_gates": [
+    "truth_preserving_vehicle_sound",
+    "actual_exported_artifact",
+    "artifact_provenance",
+    "door_regression_repaired",
+    "coherent_macro_arc_without_music",
+    "phone_and_headphone_perceptual_qc"
+  ],
+  "blocker": "Final failure/baseline render is not addressable in authoritative Drive; candidate sound mix has not yet been perceptually reviewed or rendered.",
+  "notes": "Source-level application is active. Do not convert source availability or deterministic audio measurements into commercial-grade PASS."
+}
