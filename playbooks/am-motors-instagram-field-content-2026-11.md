@@ -48,3 +48,12 @@ Reply to relevant comments early. At 24h/48h/7d record non-follower reach, reten
 
 ## Boundaries
 Social Content Creative skill in professional-ai-agents is a candidate/support artifact; do not claim a qualified agent was run unless actually invoked. Market intelligence, strategy, creative, audio editing, and analytics are separate roles. Preserve this file as a field playbook; amend based on measured outcomes rather than unsupported taste.
+
+## Adaptive multi-format system (2026-11-23)
+- Twelve Reels remain a learning portfolio, not a fixed calendar or a Reels-only mandate. Test carousels, Stories, and standalone photos when they offer a distinct buyer benefit; do not repeat a Reel as a photo carousel without new information.
+- Select next topic by destination-country demand, real Ajman inventory, export landed-cost economics, buyer questions, verifiable evidence and production feasibility; comment count alone is insufficient.
+- Assign each publication a purpose: discovery, buyer education, trust/proof, or qualified inquiry. Choose format to fit purpose. No fixed posting frequency or 60/30/10 mix is established by AM Motors evidence.
+- Each content test needs a declared audience, hypothesis, main metric, observation window, and decision rule. Change one meaningful variable where feasible; do not attribute changes to a hook or duration after changing several variables together.
+- Maintain the publication journal at `analytics/am-motors-instagram-publication-journal.md`. Log 24h/48h/7d snapshots, reach, non-followers, countries, retention, saves/shares, profile visits, qualified inquiries, quotes, orders and margin where available. Missing commercial data is UNKNOWN, not zero.
+- For short videos, distinguish average watch time / video duration from Instagram skip rate: numerically similar percentages are not the same metric. Avoid subjective ratings without an explicit rubric.
+- Prado #1 evidence (21–23 Nov 2026) shows discovery among Russian and Kazakh viewers, not proven buyer acquisition. Treat early-frame recognition, payoff alignment, practical share value and profile conversion as hypotheses for further tests, not established causes.
